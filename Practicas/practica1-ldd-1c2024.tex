@@ -1,0 +1,351 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage{amssymb, enumitem}
+
+\parindent 0cm
+\usepackage{amssymb,amsmath,amsthm,latexsym,epsfig,euscript,multicol}
+\usepackage[utf8x]{inputenc}
+\usepackage{listings,xcolor,bm}
+
+
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+\lstset{
+  backgroundcolor=\color{white},   % choose the background color; you must add
+  basicstyle=\small,        % the size of the fonts that are used for the code
+  breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+  breaklines=true,                 % sets automatic line breaking
+  captionpos=b,                    % sets the caption-position to bottom
+  commentstyle=\color{mygreen},    % comment style
+  deletekeywords={...},            % if you want to delete keywords from the given language
+  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+  firstnumber=1,                % start line enumeration with line 1000
+  frame=single,	                   % adds a frame around the code
+  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+  keywordstyle=\color{blue},       % keyword style
+  language=Python,                 % the language of the code
+  morekeywords={*,...},            % if you want to add more keywords to the set
+  numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+  numbersep=5pt,                   % how far the line-numbers are from the code
+  numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
+  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+  showstringspaces=false,          % underline spaces within strings only
+  showtabs=false,                  % show tabs within strings adding particular underscores
+  stepnumber=5,                    % the step between two line-numbers. If it's 1, each line will be numbered
+  stringstyle=\color{mymauve},     % string literal style
+  tabsize=4,	                   % sets default tabsize to 2 spaces
+  title=\lstname                   % show the filename of files included with \lstinputlisting; also try caption instead of title
+}
+% Caracteres especiales
+\def\A{\mathbb{A}}
+\def\C{\mathbb{C}}
+\def \N{\mathbb{N}}
+\def \P{\mathbb{P}}
+\def \Q{\mathbb{Q}}
+\def \R{\mathbb{R}}
+\def \Z{\mathbb{Z}}
+\def \sen{\textrm{sen}}
+
+\def\Np{$\N$}
+\def\Zp{$\Z$}
+\def\Qp{$\Q$}
+\def\Rp{$\R$}
+\def\Cp{$\C$}
+
+\def\bb{\bm{b}}
+\def\bu{\bm{u}}
+\def\bv{\bm{v}}
+\def\bx{\bm{x}}
+\def\bA{\bm{A}}
+\def\bB{\bm{B}}
+\def\bD{\bm{D}}
+\def\bE{\bm{E}}
+\def\bM{\bm{M}}
+\def\bT{\bm{T}}
+
+
+\def\K{\textrm{K}}
+\def\V{\textrm{V}}
+\def\S{\textrm{S}}
+
+\def\degres{$^\circ$}
+
+\newcount\todno
+\def\no{\global\advance\todno by 1 \the\todno}
+
+\topmargin-2cm \vsize 29.5cm \hsize 21cm
+\setlength{\textwidth}{16.75cm}\setlength{\textheight}{23.5cm}
+\setlength{\oddsidemargin}{0.0cm}
+\setlength{\evensidemargin}{0.0cm}
+
+
+\theoremstyle{definition}
+\newtheorem{ejer}{Ejercicio}
+\newcommand{\bej}{\begin{ejer}}
+\newcommand{\fej}{\end{ejer}}
+
+\begin{document}
+
+\centerline{{\small Universidad de Buenos Aires - Facultad de Ciencias Exactas y Naturales - Ciencias de Datos}}
+
+\vskip 0.2cm
+
+\hrule
+
+\vskip 0.2cm
+
+ \centerline{{\bf\Large{\sc Laboratorio de Datos}}}
+
+ \vskip 0.2cm
+
+ \centerline{\ttfamily Primer Cuatrimestre 2024}
+
+\vskip 0.2cm
+
+ \hrule
+
+ \bigskip
+ \centerline{\bf Práctica N$^\circ$ 1: Nociones básicas de Python.}
+ \bigskip
+
+\begin{enumerate}
+\item
+Realizar las siguientes operaciones básicas en la consola
+\begin{enumerate}
+\item 2+2
+\item a = 2
+\item b = 5
+\item a**3
+\item 16 %% 5 (probar con otros números para entender qué significa)
+\item 2*a**2+0.5*b+(a+b)/2
+\item asignar el resultado anterior a la variable c, imprimir el contenido de c en la consola (corriendo c o print(c)). ¿Ven un [1] delante del valor de c? Esto indica que es un vector.
+\end{enumerate}
+
+\item Interpretar las siguientes operaciones lógicas y predecir el resultado antes de probar en la consola.
+\begin{lstlisting}
+a = TRUE
+b = FALSE
+a == b
+a || b
+a == !b
+\end{lstlisting}
+
+\item Antes de probar en la consola, piense que van a dar estas operaciones:
+\begin{lstlisting}
+a = 3
+b = 4
+print(a > b)
+print(a <= b)
+print(a != b)
+print(a == b)
+print(not(a > b))
+x = 2
+print(((x > a) or (10*x>b)) and not(b/a>x))
+\end{lstlisting}
+
+\item \textbf{Listas.}
+Las listas permiten guardar valores de distintos tipos en forma ordenada y acceder a los distintos elementos por su índice, comenzando desde 0.
+\begin{lstlisting}
+s = [1, 2, 3.0, "hola", 7 + 3]
+print(s)
+print(s[0])
+print(s[1])
+print(s[-1])
+\end{lstlisting}
+
+
+\item \textbf{Vectores.}
+Para trabajar con vectores en Python (y en general para todo tipo de operaciones matemáticas) vamos a usar el paquete \lstinline{numpy}. Para eso importamos primero la biblioteca \lstinline{numpy} y definimos vectores con el comando \lstinline{np.array}. Ejecutar el siguiente c\'odigo y observar los resultados.
+
+\begin{lstlisting}
+import numpy as np
+v = np.array([1,2,3])
+w = np.array([1.2, 7, np.pi])
+print(v)
+print(w)
+print(v + w)
+\end{lstlisting}
+
+\item \textbf{La magia de Numpy} La biblioteca Numpy reproduce muchas funcionalidades de Matlab. La mayor\'ia de las operaciones con vectores de Numpy se hacen coordenada a coordenada. Esto permite en muchos casos evitar usar ciclos o ciclos anidados y realizarlos con un solo comando.
+
+Ejecturar los siguientes comandos e interpretar los resultados.
+
+\begin{lstlisting}
+v = np.array([1,2,np.e,7])
+w = np.array([1.2, np.pi, 4, 5])
+print("v = ", v)
+print("w = ", w)
+print("v + w = ", v + w)
+print ("v**2 = ", v**2)
+print ("v%2 = ", v%2)
+print ("np.sum(v) = ", np.sum(v))
+print ("np.sqrt(w) = ", np.sqrt(w))
+print ("v > 3?", v > 3)
+print ("w < 3.5?", w < 3.5)
+\end{lstlisting}
+
+\item Las operaciones l\'ogicas \lstinline{or} y \lstinline{and} no se pueden aplicar a vectores. Debemos usar los s\'imbolos \lstinline{|} (or) y \lstinline{&} (and).
+\begin{lstlisting}
+print((v > 3) | (w < 3.5))
+print((v > 3) & (w < 3.5))
+\end{lstlisting}
+
+\item ¿C\'omo se puede aplicar \lstinline{not} a un vector de variables booleanas (TRUE o FALSE)? Pueden probar algunas ideas o buscar la respuesta en Internet.
+
+\item Algunos comandos pueden dar resultados inesperados. Intenten adivinar cuál va a ser el resultado de cada comando.
+\begin{lstlisting}
+v = np.array([1,2,np.e,7])
+w = np.array([1.2, np.pi, 4, 5])
+z = np.array([0,1])
+print(v * w)
+print(v+2)
+print(v+z)
+\end{lstlisting}
+
+\item Explorar estas distintas formas de extraer información de un vector.
+\begin{lstlisting}
+v = np.array([1,2,np.e,7,5])
+print(v[0])
+print(v[1])
+print(v[-1])
+print(v[[0,3]])
+print(v[0:3])
+print(v[0:1])
+\end{lstlisting}
+
+\item También podemos seleccionar los elementos que cumplan alguna propiedad.
+\begin{lstlisting}
+v = np.array([1,2,np.e,7,5])
+w = np.array([1,0,2,5,0])
+print(v[v>2])
+print(v[w != 0])
+\end{lstlisting}
+
+\item \textbf{Matrices} Las matrices se definen en numpy como arrays de filas. Las operaciones usuales se realizan coordenada a coordenada al igual que con vectores.
+\begin{lstlisting}
+A = np.array([[3, 2, 2], [-1, 0, 1], [-2, 2, 4]])
+B = np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
+C = np.array([[0, 1, -1], [5, -2, 1]])
+print(A + B)
+print(A * B)
+print(C**2)
+\end{lstlisting}
+
+\item El producto usual de matrices se realiza con el comando \lstinline{@}
+\begin{lstlisting}
+print(A @ B)
+print(B @ C)
+print(C @ A)
+\end{lstlisting}
+
+\end{enumerate}
+\textbf{\large Funciones}
+
+Las funciones son bloques de código organizado que se usan para realizar tares específicas. Reciben un input (un número o una variable, por ejemplo) y devuelven un output. Los inputs van entre par\'entesis y separados por una coma, si hay m\'as de uno. Muchas funciones están disponibles en la biblioteca est\'andar de Python, otras estás agrupadas en distintas bibliotecas, como \lstinline{numpy} que agrupa una gran cantidad de funciones matemáticas. El objetivo de estos ejercicios es familiarizarse con varias funciones básicas de Python.
+
+\begin{enumerate}[resume]
+\item Ejecutar estas operaciones en la consola para entender qué hacen las funciones de numpy:
+\begin{lstlisting}
+a = np.sqrt(2)
+print(a)
+print(np.round(a))
+print(np.round(a,2))
+np.info(np.round)
+np.info(np.ceil)
+\end{lstlisting}
+
+\item Muchas funciones de \lstinline{numpy} se pueden aplicar también en arrays:
+\begin{lstlisting}
+v = np.array([a, a**2, a**3, a**(.5)])
+print("v = ", v)
+print("np.floor(v) = ", np.floor(v))
+\end{lstlisting}
+
+\item Explorar las funciones \lstinline{np.max()}, \lstinline{np.min()}, \lstinline{np.sum()}, \lstinline{np.mean()} y \lstinline{np.sort()} aplicadas al vector $v$ del ejercicio anterior. ¿Qué hace cada una?
+
+\item Utilizando solo las operaciones y funciones vistas en los ejercicios anteriores, escribir códigos de una sola linea para las siguientes funciones matemáticas.
+\begin{enumerate}
+\item $\|v\|_2 = \sqrt{v_1^2 + v_2^2 + \dots + v_n^2} = \sqrt{\sum_{i=1}^n v_i^2}$
+\item $\|v - w\|_2$
+\item $\langle v, w\rangle = \sum_{i=1}^n v_i \cdot w_i$
+\end{enumerate}
+
+\item En Python podemos definir nuestras propias funciones utilizando \lstinline{def}. ¿Qué hace la siguiente función? ¿Qué resultados esperan al aplicar la función a los vectores $v_1$ y $v_2$?
+\begin{lstlisting}
+def todosPositivos(v):
+  r = np.all(v>0)
+  return(r)
+  
+v1 = np.array([3, 4])
+v2 = np.array([3, 5, -1, 1])
+print(todosPositivos(v1))
+print(todosPositivos(v2))
+\end{lstlisting}
+  
+\item Definir una función que calcule la norma-2 de un vector y verificarla en los vectores $v_1$ y $v_2$ del ejercicio anterior.
+
+\item Usar las funciones \lstinline{np.argmin()} y \lstinline{np.argmax()} con el mismo vector de alturas. Interpretar qué hace cada una.
+
+\item Reproducir estos usos de la función random.choice() e interpretar qué hace esta función.
+\begin{lstlisting}
+x = np.array(["cara", "ceca"])
+s = random.choices(x, k = 10)
+print(s)
+y = np.array([1,2,3,4,5,6])
+t = random.choices(x, y = 10)
+print(t)
+u = random.sample(x, y = 4)
+\end{lstlisting}
+
+Realicen otras pruebas para descubrir la diferencia entre \lstinline{random.choices()} y \lstinline{np.sample()}
+
+\item {\textbf{El teorema central del límite.}} Este teorema asegura que si tiramos $n$ veces una moneda, el promedio de veces que sale cara tiende a $1/2$ cuando $n$ tiende a infinitio.
+Utilizando un código de una línea, simular 10 lanzamientos de una moneda y calcular el promedio de veces que sale cara. Repetir para $n = 1000$ y $n = 100.000$.
+
+Sugerencia: hay varias formas distintas de hacerlo, una posibilidad es usar el comando \lstinline{count} que puede aplicarse a listas.
+
+\end{enumerate}
+
+\textbf{\large Archivos de datos}
+
+\begin{enumerate}[resume]
+\item La biblioteca \lstinline{Pandas} nos permite trabajar fácilmente con archivos de datos.
+
+\begin{enumerate}
+\item Leer el archivo \lstinline{casos_coronavirus.csv}.
+\item Graficar la curva de casos por día.
+\item Graficar la curva de casos acumulados.
+\item Definir $y$ como el logaritmo de la cantidad de casos acumulados y graficar $y$ en función de la cantidad de días transcurridos.
+\item Estimar tomando dos valores la pendiente de la recta para los datos a partir del dia 30.
+\end{enumerate}
+
+Utilicen o modifiquen el siguiente código.
+
+\begin{lstlisting}
+import pandas as pd
+datos = pd.read_csv("casos_coronavirus.csv")   # dataFrame
+print(datos)
+
+# Convertimos los datos a np.array
+datosNP = datos.to_numpy()
+print(datosNP)
+
+x = np.linspace(1,96,96)
+print(x)
+
+plt.plot(x, datosNP[:,2])
+
+# Tomamos logaritmos para linealizar
+y = np.log(np.float64(datosNP[:,2]))
+print(y)
+
+plt.plot(x,y)
+\end{lstlisting}
+
+\end{enumerate}
+
+
+
+\end{document}
