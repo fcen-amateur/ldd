@@ -2,3 +2,4 @@
 *.aux
 *.synctex
 *.log
+venv
