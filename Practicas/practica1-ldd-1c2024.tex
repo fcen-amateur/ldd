@@ -12,7 +12,7 @@
 \definecolor{mymauve}{rgb}{0.58,0,0.82}
 \lstset{
   backgroundcolor=\color{white},   % choose the background color; you must add
-  basicstyle=\small,        % the size of the fonts that are used for the code
+  basicstyle=\small\ttfamily,      % the size of the fonts that are used for the code
   breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
   breaklines=true,                 % sets automatic line breaking
   captionpos=b,                    % sets the caption-position to bottom
@@ -107,12 +107,12 @@
  \hrule
 
  \bigskip
- \centerline{\bf Práctica N$^\circ$ 1: Nociones básicas de Python.}
+ \centerline{\bf Práctica N$^\circ$ 1: Nociones básicas de Python y la biblioteca \lstinline{numpy}.}
  \bigskip
 
 \begin{enumerate}
 \item
-Realizar las siguientes operaciones básicas en la consola
+Realizar las siguientes operaciones básicas en Python.
 \begin{enumerate}
 \item 2+2
 \item a = 2
@@ -120,10 +120,9 @@ Realizar las siguientes operaciones básicas en la consola
 \item a**3
 \item 16 %% 5 (probar con otros números para entender qué significa)
 \item 2*a**2+0.5*b+(a+b)/2
-\item asignar el resultado anterior a la variable c, imprimir el contenido de c en la consola (corriendo c o print(c)). ¿Ven un [1] delante del valor de c? Esto indica que es un vector.
 \end{enumerate}
 
-\item Interpretar las siguientes operaciones lógicas y predecir el resultado antes de probar en la consola.
+\item Interpretar las siguientes operaciones lógicas entre variables booleanas y predecir el resultado antes de probar en la consola.
 \begin{lstlisting}
 a = TRUE
 b = FALSE
@@ -157,7 +156,7 @@ print(s[-1])
 
 
 \item \textbf{Vectores.}
-Para trabajar con vectores en Python (y en general para todo tipo de operaciones matemáticas) vamos a usar el paquete \lstinline{numpy}. Para eso importamos primero la biblioteca \lstinline{numpy} y definimos vectores con el comando \lstinline{np.array}. Ejecutar el siguiente c\'odigo y observar los resultados.
+Para trabajar  en Python con vectores (y en general para todo tipo de operaciones matemáticas) vamos a usar el paquete \lstinline{numpy}. Para eso importamos primero la biblioteca \lstinline{numpy} y definimos vectores con el comando \lstinline{np.array}. Ejecutar el siguiente c\'odigo y observar los resultados.
 
 \begin{lstlisting}
 import numpy as np
@@ -168,7 +167,7 @@ print(w)
 print(v + w)
 \end{lstlisting}
 
-\item \textbf{La magia de Numpy} La biblioteca Numpy reproduce muchas funcionalidades de Matlab. La mayor\'ia de las operaciones con vectores de Numpy se hacen coordenada a coordenada. Esto permite en muchos casos evitar usar ciclos o ciclos anidados y realizarlos con un solo comando.
+\item \textbf{La magia de Numpy.} La biblioteca Numpy reproduce muchas funcionalidades de Matlab. La mayor\'ia de las operaciones con vectores de Numpy se hacen coordenada a coordenada. Esto permite en muchos casos evitar usar ciclos o ciclos anidados y realizarlos con un solo comando.
 
 Ejecturar los siguientes comandos e interpretar los resultados.
 
@@ -224,6 +223,8 @@ print(v[w != 0])
 \end{lstlisting}
 
 \item \textbf{Matrices} Las matrices se definen en numpy como arrays de filas. Las operaciones usuales se realizan coordenada a coordenada al igual que con vectores.
+Verificar los resultados de los siguientes comandos.
+
 \begin{lstlisting}
 A = np.array([[3, 2, 2], [-1, 0, 1], [-2, 2, 4]])
 B = np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
@@ -233,7 +234,7 @@ print(A * B)
 print(C**2)
 \end{lstlisting}
 
-\item El producto usual de matrices se realiza con el comando \lstinline{@}
+\item El producto usual de matrices se realiza con el comando \lstinline{@}. Verificar los resultados de los siguientes comandos.
 \begin{lstlisting}
 print(A @ B)
 print(B @ C)
@@ -265,11 +266,20 @@ print("np.floor(v) = ", np.floor(v))
 
 \item Explorar las funciones \lstinline{np.max()}, \lstinline{np.min()}, \lstinline{np.sum()}, \lstinline{np.mean()} y \lstinline{np.sort()} aplicadas al vector $v$ del ejercicio anterior. ¿Qué hace cada una?
 
+\item Definir los siguientes vectores como arrays de \lstinline{numpy}:
+\begin{align*}
+\text{alturas\_cm} &= (180, 178, 154, 202), \\
+\text{frutas} &= (\text{"banana"}, \text{"pera"}, \text{"durazno"}).
+\end{align*}
+
+¿Cuáles funciones del ejercicio anterior se pueden aplicar a cada uno de estos vectores? Verifiquen su respuesta.
+
+
 \item Utilizando solo las operaciones y funciones vistas en los ejercicios anteriores, escribir códigos de una sola linea para las siguientes funciones matemáticas.
 \begin{enumerate}
 \item $\|v\|_2 = \sqrt{v_1^2 + v_2^2 + \dots + v_n^2} = \sqrt{\sum_{i=1}^n v_i^2}$
 \item $\|v - w\|_2$
-\item $\langle v, w\rangle = \sum_{i=1}^n v_i \cdot w_i$
+\item $\langle v, w\rangle = v_1 \cdot w_1 + v_2 \cdot w_2 + \dots + v_n \cdot w_n = \sum_{i=1}^n v_i \cdot w_i$
 \end{enumerate}
 
 \item En Python podemos definir nuestras propias funciones utilizando \lstinline{def}. ¿Qué hace la siguiente función? ¿Qué resultados esperan al aplicar la función a los vectores $v_1$ y $v_2$?
@@ -277,34 +287,46 @@ print("np.floor(v) = ", np.floor(v))
 def todosPositivos(v):
   r = np.all(v>0)
   return(r)
-  
+
 v1 = np.array([3, 4])
 v2 = np.array([3, 5, -1, 1])
 print(todosPositivos(v1))
 print(todosPositivos(v2))
 \end{lstlisting}
-  
+
 \item Definir una función que calcule la norma-2 de un vector y verificarla en los vectores $v_1$ y $v_2$ del ejercicio anterior.
 
-\item Usar las funciones \lstinline{np.argmin()} y \lstinline{np.argmax()} con el mismo vector de alturas. Interpretar qué hace cada una.
+\item Usar las funciones \lstinline{np.argmin()} y \lstinline{np.argmax()} con el vector de alturas definido anteriormente. Interpretar qué hace cada una. Realizar otro experimento para comprobarlo.
 
-\item Reproducir estos usos de la función random.choice() e interpretar qué hace esta función.
+\item Reproducir estos usos de la función \lstinline{np.random.choice()}e interpreta qué hace.
 \begin{lstlisting}
 x = np.array(["cara", "ceca"])
-s = random.choices(x, k = 10)
+s = np.random.choice(x, size = 10)
 print(s)
 y = np.array([1,2,3,4,5,6])
-t = random.choices(x, y = 10)
+t = np.random.choice(y, size = 10)
 print(t)
-u = random.sample(x, y = 4)
+u = np.random.choice(y, size = 4, replace = False)
+print(u)
 \end{lstlisting}
 
-Realicen otras pruebas para descubrir la diferencia entre \lstinline{random.choices()} y \lstinline{np.sample()}
+¿Para qué sirve el parámetro \lstinline{replace = False}? Realicen otras pruebas para verificarlo.
 
-\item {\textbf{El teorema central del límite.}} Este teorema asegura que si tiramos $n$ veces una moneda, el promedio de veces que sale cara tiende a $1/2$ cuando $n$ tiende a infinitio.
-Utilizando un código de una línea, simular 10 lanzamientos de una moneda y calcular el promedio de veces que sale cara. Repetir para $n = 1000$ y $n = 100.000$.
+\item {\textbf{Ley de los grandes números.}} Esta ley asegura que si tiramos $n$ veces una moneda, el promedio de veces que sale cara tiende a $1/2$ cuando $n$ tiende a infinito.
+Simular 10 lanzamientos de una moneda y calcular el promedio de veces que sale cara. Repetir para $n = 1000$ y $n = 100.000$.
 
 Sugerencia: hay varias formas distintas de hacerlo, una posibilidad es usar el comando \lstinline{count} que puede aplicarse a listas.
+
+\item Se tira $n$ veces una moneda. Intentar predecir, si existen, los siguientes límites cuando $n$ tiene a infinito y verificar la intuición mediante simulaciones.
+
+\begin{enumerate}
+\item La cantidad de caras dividido por la cantidad de cecas.
+\item La cantidad de caras menos la cantidad de cecas.
+\item La cantidad de caras menos la cantidad de cecas, divido por la cantidad total de tiradas.
+\item Considerando las veces que salieron tres caras seguidas, el promedio de veces que en la siguiente tirada sale nuevamente cara.
+\end{enumerate}
+
+
 
 \end{enumerate}
 
@@ -318,13 +340,15 @@ Sugerencia: hay varias formas distintas de hacerlo, una posibilidad es usar el c
 \item Graficar la curva de casos por día.
 \item Graficar la curva de casos acumulados.
 \item Definir $y$ como el logaritmo de la cantidad de casos acumulados y graficar $y$ en función de la cantidad de días transcurridos.
-\item Estimar tomando dos valores la pendiente de la recta para los datos a partir del dia 30.
+\item Estimar, tomando dos valores, la pendiente de la recta para los datos a partir del dia 30.
+\item Graficar la recta estimada junto con los datos. ¿Consideran que es una buena estimación?
 \end{enumerate}
 
 Utilicen o modifiquen el siguiente código.
 
 \begin{lstlisting}
 import pandas as pd
+import matplotlib.pyplot as plt
 datos = pd.read_csv("casos_coronavirus.csv")   # dataFrame
 print(datos)
 
@@ -332,7 +356,7 @@ print(datos)
 datosNP = datos.to_numpy()
 print(datosNP)
 
-x = np.linspace(1,96,96)
+x = np.linspace(1,96,96)   # Vector de numeros enteros de 1 a 96
 print(x)
 
 plt.plot(x, datosNP[:,2])
@@ -343,6 +367,8 @@ print(y)
 
 plt.plot(x,y)
 \end{lstlisting}
+
+Vamos a ver más sobre la biblioteca \lstinline{pandas} y data frames en la próxima clase. En este ejemplo, convertimos los datos a arrays de numpy para utilizar las herramientas de los ejercicios anteriores.
 
 \end{enumerate}
 
