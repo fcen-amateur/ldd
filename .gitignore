@@ -1,5 +1,11 @@
+# Python
+venv
+*.py[co]
 
+# LaTeX
 *.aux
 *.synctex
 *.log
-venv
+
+# Cositas de macOS
+.DS_Store
