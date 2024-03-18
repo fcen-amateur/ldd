@@ -120,7 +120,7 @@
  \hrule
 
  \bigskip
- \centerline{\bf Práctica N$^\circ$ 1: Nociones básicas de Python.}
+ \centerline{\bf Práctica N$^\circ$ 1: Nociones básicas de Python y la biblioteca \lstinline{numpy}.}
  \bigskip
 
 Como le dijo el Sr. Miyagi a Daniel, "\emph{\href{https://www.youtube.com/watch?v=tM-wKYKw0tI}{encerar... pulir}}". No se puede hacer ciencia de punta sin antes volver intuitivos los conceptos fundacionales de un lenguaje. Así que \emph{copien los comandos de esta guía a mano en una consola}, y traten de estimar qué van a devolver, antes de ejecutarlos.
@@ -129,7 +129,7 @@ Si ya instalaron el entorno de trabajo que sugiere el \lstinline|README.md|, pue
 
 \begin{enumerate}
 \item
-Realizar las siguientes operaciones básicas en la consola
+Realizar las siguientes operaciones básicas en Python.
 \begin{enumerate}
 \item \begin{lstlisting}
 2 + 2
@@ -142,7 +142,7 @@ a**3
 \item Asignar el resultado anterior a la variable c, imprimir el contenido de c en la consola (corriendo c o print(c)). ¿Ven un [1] delante del valor de c? Esto indica que es un vector.
 \end{enumerate}
 
-\item Interpretar las siguientes operaciones lógicas y predecir el resultado antes de probar en la consola.
+\item Interpretar las siguientes operaciones lógicas entre variables booleanas y predecir el resultado antes de probar en la consola.
 \begin{lstlisting}
 a = True
 b = False
@@ -235,6 +235,8 @@ v[w != 0]
 \end{lstlisting}
 
 \item \textbf{Matrices} Las matrices se definen en numpy como arrays de filas. Las operaciones usuales se realizan coordenada a coordenada al igual que con vectores.
+Verificar los resultados de los siguientes comandos.
+
 \begin{lstlisting}
 A = np.array([[3, 2, 2], [-1, 0, 1], [-2, 2, 4]])
 B = np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
@@ -244,7 +246,7 @@ A * B
 C**2  # bonus: pruebe con np.
 \end{lstlisting}
 
-\item El producto usual de matrices se realiza con el comando \lstinline{@}. \lstinline|A.T| es la transpuesta de A.
+\item El producto usual de matrices se realiza con el comando \lstinline{@}. \lstinline|A.T| es la transpuesta de A. Verificar los resultados de los siguientes comandos.
 \begin{lstlisting}
 A @ B
 B @ C
@@ -276,11 +278,20 @@ np.floor(v)
 
 \item Explorar las funciones \lstinline{np.max()}, \lstinline{np.min()}, \lstinline{np.sum()}, \lstinline{np.mean()} y \lstinline{np.sort()} aplicadas al vector $v$ del ejercicio anterior. ¿Qué hace cada una?
 
+\item Definir los siguientes vectores como arrays de \lstinline{numpy}:
+\begin{align*}
+\text{alturas\_cm} &= (180, 178, 154, 202), \\
+\text{frutas} &= (\text{"banana"}, \text{"pera"}, \text{"durazno"}).
+\end{align*}
+
+¿Cuáles funciones del ejercicio anterior se pueden aplicar a cada uno de estos vectores? Verifiquen su respuesta.
+
+
 \item Utilizando solo las operaciones y funciones vistas en los ejercicios anteriores, escribir códigos de una sola linea para las siguientes funciones matemáticas.
 \begin{enumerate}
 \item $\|v\|_2 = \sqrt{v_1^2 + v_2^2 + \dots + v_n^2} = \sqrt{\sum_{i=1}^n v_i^2}$
 \item $\|v - w\|_2$
-\item $\langle v, w\rangle = \sum_{i=1}^n v_i \cdot w_i$
+\item $\langle v, w\rangle = v_1 \cdot w_1 + v_2 \cdot w_2 + \dots + v_n \cdot w_n = \sum_{i=1}^n v_i \cdot w_i$
 \end{enumerate}
 
 \item En Python podemos definir nuestras propias funciones utilizando \lstinline{def}. ¿Qué hace la siguiente función? ¿Qué resultados esperan al aplicar la función a los vectores $v_1$ y $v_2$?
@@ -294,30 +305,40 @@ v1 = np.array([3, 5, -1, 1])
 for i, v in enumerate([v0, v1]):
     assert todosPositivos(v), f"No todos los elementos son positivos en v{i}"
 \end{lstlisting}
-  
+
 \item Definir una función que calcule la norma-2 de un vector y verificarla en los vectores $v_1$ y $v_2$ del ejercicio anterior.
 
-\item Usar las funciones \lstinline{np.argmin()} y \lstinline{np.argmax()} con el mismo vector de alturas. Interpretar qué hace cada una.
+\item Usar las funciones \lstinline{np.argmin()} y \lstinline{np.argmax()} con el vector de alturas definido anteriormente. Interpretar qué hace cada una. Realizar otro experimento para comprobarlo.
 
-\item Reproducir estos usos de la función random.choice() e interpretar qué hace esta función.
+\item Reproducir estos usos de la función \lstinline{np.random.choice()}e interpreta qué hace.
 \begin{lstlisting}
-import random
-
-
-x = ["cara", "ceca"]
-random.choices(x, k=10)
-y = range(1, 7)
-random.choices(y, k=10)
-random.sample(y, k=4)
-random.sample(x, 4)  # Entienden el error? Usen `help(random.sample)` para indagar.
+x = np.array(["cara", "ceca"])
+s = np.random.choice(x, size=10)
+print(s)
+y = np.array([1,2,3,4,5,6])
+t = np.random.choice(y, size=10)
+print(t)
+u = np.random.choice(y, size=4, replace=False)
+print(u)
 \end{lstlisting}
 
-Realicen otras pruebas para descubrir la diferencia entre \lstinline{random.choices} y \lstinline{random.sample}
+¿Para qué sirve el parámetro \lstinline{replace=False}? Realicen otras pruebas para verificarlo. Comparen con `random.choices` y `random.sample` de la biblioteca estándar de Python.
 
-\item {\textbf{El teorema central del límite.}} Este teorema asegura que si tiramos $n$ veces una moneda, el promedio de veces que sale cara tiende a $1/2$ cuando $n$ tiende a infinitio.
-Utilizando un código de una línea, simular 10 lanzamientos de una moneda y calcular el promedio de veces que sale cara. Repetir para $n = 1000$ y $n = 100.000$.
+\item {\textbf{Ley de los grandes números.}} Esta ley asegura que si tiramos $n$ veces una moneda, el promedio de veces que sale cara tiende a $1/2$ cuando $n$ tiende a infinito.
+Simular 10 lanzamientos de una moneda y calcular el promedio de veces que sale cara. Repetir para $n = 1000$ y $n = 100.000$.
 
 \item Bonus: Plantee al menos tres formas distintas de hacerlo; al menos una de ellas usando sólo tipos de datos nativos (lista, tupla, diccionario, et cetera).
+
+\item Se tira $n$ veces una moneda. Intentar predecir, si existen, los siguientes límites cuando $n$ tiene a infinito y verificar la intuición mediante simulaciones.
+
+\begin{enumerate}
+\item La cantidad de caras dividido por la cantidad de cecas.
+\item La cantidad de caras menos la cantidad de cecas.
+\item La cantidad de caras menos la cantidad de cecas, divido por la cantidad total de tiradas.
+\item Considerando las veces que salieron tres caras seguidas, el promedio de veces que en la siguiente tirada sale nuevamente cara.
+\end{enumerate}
+
+
 
 \end{enumerate}
 
@@ -331,7 +352,8 @@ Utilizando un código de una línea, simular 10 lanzamientos de una moneda y cal
 \item Graficar la curva de casos por día.
 \item Graficar la curva de casos acumulados.
 \item Definir $log_cum_casos$ como el logaritmo de la cantidad de casos acumulados y graficar en función de la cantidad de días transcurridos.
-\item Estimar tomando dos valores la pendiente de la recta para los datos a partir del dia 30.
+\item Estimar, tomando dos valores, la pendiente de la recta para los datos a partir del dia 30.
+\item Graficar la recta estimada junto con los datos. ¿Consideran que es una buena estimación?
 \end{enumerate}
 
 Utilicen o modifiquen el siguiente código.
@@ -339,6 +361,7 @@ Utilicen o modifiquen el siguiente código.
 \begin{lstlisting}
 import pandas as pd
 import matplotlib.pyplot as plt
+
 
 df = pd.read_csv("Datos/casos_coronavirus.csv") 
 df.info()
@@ -361,6 +384,8 @@ plt.show()
 plt.plot(cum_casos), plt.yscale("log")
 plt.show()
 \end{lstlisting}
+
+Vamos a ver más sobre la biblioteca \lstinline{pandas} y data frames en la próxima clase. En este ejemplo, convertimos los datos a arrays de numpy para utilizar las herramientas de los ejercicios anteriores.
 
 \end{enumerate}
 
