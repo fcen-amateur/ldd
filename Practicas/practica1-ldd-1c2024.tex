@@ -125,34 +125,30 @@ Realizar las siguientes operaciones básicas en la consola
 
 \item Interpretar las siguientes operaciones lógicas y predecir el resultado antes de probar en la consola.
 \begin{lstlisting}
-a = TRUE
-b = FALSE
+a = True
+b = False
 a == b
-a || b
-a == !b
+a | b
+a == (not b)
 \end{lstlisting}
 
-\item Antes de probar en la consola, piense que van a dar estas operaciones:
+\item Antes de probar en la consola, piense que van a dar estas operaciones.
 \begin{lstlisting}
-a = 3
-b = 4
-print(a > b)
-print(a <= b)
-print(a != b)
-print(a == b)
-print(not(a > b))
-x = 2
-print(((x > a) or (10*x>b)) and not(b/a>x))
+a, b, c = 3, 4, 2
+a > b
+a <= b
+a != b
+a == b
+not(a > b)
+((c > a) or (10 * c > b)) and not(b / a > c)
 \end{lstlisting}
+Bonus: Abra la documentación de Python y lea sobre [tuplas](https://docs.python.org/es/3/library/stdtypes.html#tuples).
 
 \item \textbf{Listas.}
 Las listas permiten guardar valores de distintos tipos en forma ordenada y acceder a los distintos elementos por su índice, comenzando desde 0.
 \begin{lstlisting}
 s = [1, 2, 3.0, "hola", 7 + 3]
-print(s)
-print(s[0])
-print(s[1])
-print(s[-1])
+s, s[0], s[1], s[-1]
 \end{lstlisting}
 
 
@@ -163,27 +159,22 @@ Para trabajar con vectores en Python (y en general para todo tipo de operaciones
 import numpy as np
 v = np.array([1,2,3])
 w = np.array([1.2, 7, np.pi])
-print(v)
-print(w)
-print(v + w)
+v, w, v + w
 \end{lstlisting}
 
 \item \textbf{La magia de Numpy} La biblioteca Numpy reproduce muchas funcionalidades de Matlab. La mayor\'ia de las operaciones con vectores de Numpy se hacen coordenada a coordenada. Esto permite en muchos casos evitar usar ciclos o ciclos anidados y realizarlos con un solo comando.
 
-Ejecturar los siguientes comandos e interpretar los resultados.
-
+Ejecturar los siguientes comandos e interpretar los resultados. Bonus: descrifrar qué magia hace la _f-string_ que recibe como argumento `print`.
 \begin{lstlisting}
+import numpy as np
+np.set_printoptions(precision=2, suppress=True)
+
 v = np.array([1,2,np.e,7])
 w = np.array([1.2, np.pi, 4, 5])
-print("v = ", v)
-print("w = ", w)
-print("v + w = ", v + w)
-print ("v**2 = ", v**2)
-print ("v%2 = ", v%2)
-print ("np.sum(v) = ", np.sum(v))
-print ("np.sqrt(w) = ", np.sqrt(w))
-print ("v > 3?", v > 3)
-print ("w < 3.5?", w < 3.5)
+for expr in [
+    'v', 'w', 'v + w', 'v ** 2', 'v % 2', 'np.sum(v)', 'np.sqrt(w)', 'v > 3', 'w < 3.5'
+]:
+    print(f"{expr:11s} == {eval(expr)}")
 \end{lstlisting}
 
 \item Las operaciones l\'ogicas \lstinline{or} y \lstinline{and} no se pueden aplicar a vectores. Debemos usar los s\'imbolos \lstinline{|} (or) y \lstinline{&} (and).
