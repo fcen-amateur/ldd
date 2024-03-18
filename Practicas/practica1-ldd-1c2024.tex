@@ -360,17 +360,20 @@ Utilicen o modifiquen el siguiente código.
 import pandas as pd
 import matplotlib.pyplot as plt
 
+df = pd.read_csv("casos_coronavirus.csv") # dataFrame
+df.head()
 
-df = pd.read_csv("Datos/casos_coronavirus.csv")
 df.info()
-df["fecha"] = pd.to_datetime(df.fecha, format="%d-%m-%Y")
-casos = df.set_index("fecha").confirmados_Nuevos
 
-plt.plot(casos)
-plt.show()
-# Bonus: pueden rotar las etiquetas del eje X para que no se superpongan?
+# Convertimos los datos a np.array
+datosNP = df.to_numpy()
+print(datosNP)
 
-cum_casos = casos.cumsum()
+casos_diarios = datosNP[:,1]  # Nos quedamos con la segunda columna
+plt.plot(casos_diarios)
+
+# Calculamos la cantidad de casos acumulados con la funcion cumsum
+cum_casos = casos_diarios.cumsum()
 plt.plot(cum_casos)
 plt.show()
 
