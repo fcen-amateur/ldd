@@ -1,18 +1,25 @@
 \documentclass[a4paper,11pt]{article}
-\usepackage{amssymb, enumitem}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{hyperref}
 
-\parindent 0cm
 \usepackage{amssymb,amsmath,amsthm,latexsym,epsfig,euscript,multicol}
 \usepackage[utf8x]{inputenc}
-\usepackage{listings,xcolor,bm}
+\usepackage{xcolor, bm}
+\usepackage{listings}
 
-
-\definecolor{mygreen}{rgb}{0,0.6,0}
-\definecolor{mygray}{rgb}{0.5,0.5,0.5}
-\definecolor{mymauve}{rgb}{0.58,0,0.82}
-\lstset{
+\lstdefinelanguage{Python}
+{
+  morekeywords={from, import, def, return},
+  comment=[l]{\#},
+  morestring=[b]",
+  alsodigit={-},
+  alsoletter={&},
+}
+\lstdefinestyle{py}{
+  language=Python,                 % the language of the code
   backgroundcolor=\color{white},   % choose the background color; you must add
-  basicstyle=\small,        % the size of the fonts that are used for the code
+  basicstyle=\ttfamily\scriptsize,        % the size of the fonts that are used for the code
   breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
   breaklines=true,                 % sets automatic line breaking
   captionpos=b,                    % sets the caption-position to bottom
@@ -24,7 +31,6 @@
   frame=single,	                   % adds a frame around the code
   keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
   keywordstyle=\color{blue},       % keyword style
-  language=Python,                 % the language of the code
   morekeywords={*,...},            % if you want to add more keywords to the set
   numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
   numbersep=5pt,                   % how far the line-numbers are from the code
@@ -38,6 +44,13 @@
   tabsize=4,	                   % sets default tabsize to 2 spaces
   title=\lstname                   % show the filename of files included with \lstinputlisting; also try caption instead of title
 }
+\lstset{style=py}
+
+
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+
 % Caracteres especiales
 \def\A{\mathbb{A}}
 \def\C{\mathbb{C}}
@@ -110,17 +123,23 @@
  \centerline{\bf Práctica N$^\circ$ 1: Nociones básicas de Python.}
  \bigskip
 
+Como le dijo el Sr. Miyagi a Daniel, "\emph{\href{https://www.youtube.com/watch?v=tM-wKYKw0tI}{encerar... pulir}}". No se puede hacer ciencia de punta sin antes volver intuitivos los conceptos fundacionales de un lenguaje. Así que \emph{copien los comandos de esta guía a mano en una consola}, y traten de estimar qué van a devolver, antes de ejecutarlos.
+
+Si ya instalaron el entorno de trabajo que sugiere el \lstinline|README.md|, pueden lanzar una consola adecuada ejecutando \lstinline|source venv/bin/activate && python|.
+
 \begin{enumerate}
 \item
 Realizar las siguientes operaciones básicas en la consola
 \begin{enumerate}
-\item 2+2
-\item a = 2
-\item b = 5
-\item a**3
-\item 16 %% 5 (probar con otros números para entender qué significa)
-\item 2*a**2+0.5*b+(a+b)/2
-\item asignar el resultado anterior a la variable c, imprimir el contenido de c en la consola (corriendo c o print(c)). ¿Ven un [1] delante del valor de c? Esto indica que es un vector.
+\item \begin{lstlisting}
+2 + 2
+a = 2
+b = 5
+a**3
+16 %% 5  # probar con otros numeros para entender que significa
+2 * a**2 + 0.5 * b + (a + b) / 2
+\end{lstlisting}
+\item Asignar el resultado anterior a la variable c, imprimir el contenido de c en la consola (corriendo c o print(c)). ¿Ven un [1] delante del valor de c? Esto indica que es un vector.
 \end{enumerate}
 
 \item Interpretar las siguientes operaciones lógicas y predecir el resultado antes de probar en la consola.
@@ -142,7 +161,9 @@ a == b
 not(a > b)
 ((c > a) or (10 * c > b)) and not(b / a > c)
 \end{lstlisting}
-Bonus: Abra la documentación de Python y lea sobre [tuplas](https://docs.python.org/es/3/library/stdtypes.html#tuples).
+
+\item Bonus: Abra la documentación de Python y lea sobre \href{https://docs.python.org/es/3/library/stdtypes.html\#tuples}{tuplas}.
+
 
 \item \textbf{Listas.}
 Las listas permiten guardar valores de distintos tipos en forma ordenada y acceder a los distintos elementos por su índice, comenzando desde 0.
@@ -153,7 +174,7 @@ s, s[0], s[1], s[-1]
 
 
 \item \textbf{Vectores.}
-Para trabajar con vectores en Python (y en general para todo tipo de operaciones matemáticas) vamos a usar el paquete \lstinline{numpy}. Para eso importamos primero la biblioteca \lstinline{numpy} y definimos vectores con el comando \lstinline{np.array}. Ejecutar el siguiente c\'odigo y observar los resultados.
+Para trabajar con vectores en Python (y en general para todo tipo de operaciones matemáticas) vamos a usar el paquete \lstinline{numpy}. Para eso importamos primero la biblioteca \lstinline{numpy} y definimos vectores con el comando \lstinline{np.array}. Ejecutar el siguiente cxdigo y observar los resultados.
 
 \begin{lstlisting}
 import numpy as np
@@ -162,13 +183,12 @@ w = np.array([1.2, 7, np.pi])
 v, w, v + w
 \end{lstlisting}
 
-\item \textbf{La magia de Numpy} La biblioteca Numpy reproduce muchas funcionalidades de Matlab. La mayor\'ia de las operaciones con vectores de Numpy se hacen coordenada a coordenada. Esto permite en muchos casos evitar usar ciclos o ciclos anidados y realizarlos con un solo comando.
+\item \textbf{La magia de Numpy} La biblioteca Numpy reproduce muchas funcionalidades de Matlab. La mayoría de las operaciones con vectores de Numpy se hacen coordenada a coordenada. Esto permite en muchos casos evitar usar ciclos o ciclos anidados y realizarlos con un solo comando.
 
-Ejecturar los siguientes comandos e interpretar los resultados. Bonus: descrifrar qué magia hace la _f-string_ que recibe como argumento `print`.
+Ejecutrar los siguientes comandos e interpretar los resultados. 
+
 \begin{lstlisting}
-import numpy as np
 np.set_printoptions(precision=2, suppress=True)
-
 v = np.array([1,2,np.e,7])
 w = np.array([1.2, np.pi, 4, 5])
 for expr in [
@@ -177,41 +197,41 @@ for expr in [
     print(f"{expr:11s} == {eval(expr)}")
 \end{lstlisting}
 
-\item Las operaciones l\'ogicas \lstinline{or} y \lstinline{and} no se pueden aplicar a vectores. Debemos usar los s\'imbolos \lstinline{|} (or) y \lstinline{&} (and).
+\item Bonus: descrifrar qué magia hace la 
+\href{https://docs.python.org/es/3.11/tutorial/inputoutput.html\#tut-f-strings}{f-string} que recibe como argumento \lstinline{print}. ¿Y eso de \href{https://docs.python.org/es/3.11/library/functions.html\#eval}{eval}?
+
+\item Las operaciones lógicas \lstinline{or} y \lstinline{and} no se pueden aplicar a vectores. Debemos usar los símbolos \lstinline{|} (or) y \lstinline{&} (and).
 \begin{lstlisting}
-print((v > 3) | (w < 3.5))
-print((v > 3) & (w < 3.5))
+(v > 3) | (w < 3.5)
+(v > 3) & (w < 3.5)
 \end{lstlisting}
 
-\item ¿C\'omo se puede aplicar \lstinline{not} a un vector de variables booleanas (TRUE o FALSE)? Pueden probar algunas ideas o buscar la respuesta en Internet.
+\item ¿Cómo se puede aplicar \lstinline{not} a un vector de variables booleanas ( $x \in \{\text{True, False}\}$ ? Pueden probar algunas ideas o buscar la respuesta en Internet.
 
 \item Algunos comandos pueden dar resultados inesperados. Intenten adivinar cuál va a ser el resultado de cada comando.
 \begin{lstlisting}
 v = np.array([1,2,np.e,7])
 w = np.array([1.2, np.pi, 4, 5])
 z = np.array([0,1])
-print(v * w)
-print(v+2)
-print(v+z)
+v * w
+v+2
+v+z
 \end{lstlisting}
 
 \item Explorar estas distintas formas de extraer información de un vector.
-\begin{lstlisting}
-v = np.array([1,2,np.e,7,5])
-print(v[0])
-print(v[1])
-print(v[-1])
-print(v[[0,3]])
-print(v[0:3])
-print(v[0:1])
+\begin{lstlisting}[language=Python]
+v = np.array([1, 2, np.e, 7, 5])
+v[0], v[1], v[-1]  # funcionara `v[-2]`?
+v[[0, 3]]
+v[0:3], v[0:1]
 \end{lstlisting}
 
 \item También podemos seleccionar los elementos que cumplan alguna propiedad.
 \begin{lstlisting}
-v = np.array([1,2,np.e,7,5])
-w = np.array([1,0,2,5,0])
-print(v[v>2])
-print(v[w != 0])
+v = np.array([1, 2, np.e, 7, 5])
+w = np.array([1, 0, 2, 5, 0])
+v[v > 2]
+v[w != 0]
 \end{lstlisting}
 
 \item \textbf{Matrices} Las matrices se definen en numpy como arrays de filas. Las operaciones usuales se realizan coordenada a coordenada al igual que con vectores.
@@ -219,30 +239,31 @@ print(v[w != 0])
 A = np.array([[3, 2, 2], [-1, 0, 1], [-2, 2, 4]])
 B = np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
 C = np.array([[0, 1, -1], [5, -2, 1]])
-print(A + B)
-print(A * B)
-print(C**2)
+A + B
+A * B
+C**2  # bonus: pruebe con np.
 \end{lstlisting}
 
-\item El producto usual de matrices se realiza con el comando \lstinline{@}
+\item El producto usual de matrices se realiza con el comando \lstinline{@}. \lstinline|A.T| es la transpuesta de A.
 \begin{lstlisting}
-print(A @ B)
-print(B @ C)
-print(C @ A)
+A @ B
+B @ C
+B.shape, C.shape
+B @ C.T
 \end{lstlisting}
 
 \end{enumerate}
 \textbf{\large Funciones}
 
-Las funciones son bloques de código organizado que se usan para realizar tares específicas. Reciben un input (un número o una variable, por ejemplo) y devuelven un output. Los inputs van entre par\'entesis y separados por una coma, si hay m\'as de uno. Muchas funciones están disponibles en la biblioteca est\'andar de Python, otras estás agrupadas en distintas bibliotecas, como \lstinline{numpy} que agrupa una gran cantidad de funciones matemáticas. El objetivo de estos ejercicios es familiarizarse con varias funciones básicas de Python.
+Las funciones son bloques de código organizado que se usan para realizar tares específicas. Reciben un input (un número o una variable, por ejemplo) y devuelven un output. Los inputs van entre paréntesis y separados por una coma, si hay más de uno. Muchas funciones están disponibles en la biblioteca estándar de Python, otras estás agrupadas en distintas bibliotecas, como \lstinline{numpy} que agrupa una gran cantidad de funciones matemáticas. El objetivo de estos ejercicios es familiarizarse con varias funciones básicas de Python.
 
 \begin{enumerate}[resume]
 \item Ejecutar estas operaciones en la consola para entender qué hacen las funciones de numpy:
 \begin{lstlisting}
 a = np.sqrt(2)
-print(a)
-print(np.round(a))
-print(np.round(a,2))
+a
+np.round(a)
+np.round(a,2)
 np.info(np.round)
 np.info(np.ceil)
 \end{lstlisting}
@@ -250,8 +271,8 @@ np.info(np.ceil)
 \item Muchas funciones de \lstinline{numpy} se pueden aplicar también en arrays:
 \begin{lstlisting}
 v = np.array([a, a**2, a**3, a**(.5)])
-print("v = ", v)
-print("np.floor(v) = ", np.floor(v))
+"v = ", v
+"np.floor(v) = ", np.floor(v)
 \end{lstlisting}
 
 \item Explorar las funciones \lstinline{np.max()}, \lstinline{np.min()}, \lstinline{np.sum()}, \lstinline{np.mean()} y \lstinline{np.sort()} aplicadas al vector $v$ del ejercicio anterior. ¿Qué hace cada una?
@@ -271,8 +292,8 @@ def todosPositivos(v):
   
 v1 = np.array([3, 4])
 v2 = np.array([3, 5, -1, 1])
-print(todosPositivos(v1))
-print(todosPositivos(v2))
+todosPositivos(v1)
+todosPositivos(v2)
 \end{lstlisting}
   
 \item Definir una función que calcule la norma-2 de un vector y verificarla en los vectores $v_1$ y $v_2$ del ejercicio anterior.
@@ -283,10 +304,10 @@ print(todosPositivos(v2))
 \begin{lstlisting}
 x = np.array(["cara", "ceca"])
 s = random.choices(x, k = 10)
-print(s)
+s
 y = np.array([1,2,3,4,5,6])
 t = random.choices(x, y = 10)
-print(t)
+t
 u = random.sample(x, y = 4)
 \end{lstlisting}
 
@@ -317,20 +338,20 @@ Utilicen o modifiquen el siguiente código.
 \begin{lstlisting}
 import pandas as pd
 datos = pd.read_csv("casos_coronavirus.csv")   # dataFrame
-print(datos)
+datos
 
 # Convertimos los datos a np.array
 datosNP = datos.to_numpy()
-print(datosNP)
+datosNP
 
 x = np.linspace(1,96,96)
-print(x)
+x
 
 plt.plot(x, datosNP[:,2])
 
 # Tomamos logaritmos para linealizar
 y = np.log(np.float64(datosNP[:,2]))
-print(y)
+y
 
 plt.plot(x,y)
 \end{lstlisting}
