@@ -15,10 +15,10 @@ Repositorio público de Laboratorio de Datos - LCD - 2024 S1
 ## Sobre los notebooks
 
 Recomendamos enfáticamente que aprendan a correr scripts/notebooks usando un ambiente virtual (_virtual anvironment_, o `venv`) local a sus computadoras. Existen infinidad de herramientas a este fin, (pyenv conda poetry) pero lo _más_ sencillo es usar `python`, el módulo `venv` y el manejador de paquetes estándar, `pip`.
-$$
+```bash
 ENV_DIR=venv
 python -m venv $ENV_DIR 
 source $ENV_DIR/bin/activate
 pip install --upgrade pip
 pip install -r requirements.in
-$$
+```
