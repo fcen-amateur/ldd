@@ -36,7 +36,8 @@
   stepnumber=5,                    % the step between two line-numbers. If it's 1, each line will be numbered
   stringstyle=\color{mymauve},     % string literal style
   tabsize=4,	                   % sets default tabsize to 2 spaces
-  title=\lstname                   % show the filename of files included with \lstinputlisting; also try caption instead of title
+  title=\lstname,                  % show the filename of files included with \lstinputlisting; also try caption instead of title
+  numbers=none
 }
 % Caracteres especiales
 \def\A{\mathbb{A}}
@@ -169,7 +170,7 @@ print(v + w)
 
 \item \textbf{La magia de Numpy.} La biblioteca Numpy reproduce muchas funcionalidades de Matlab. La mayor\'ia de las operaciones con vectores de Numpy se hacen coordenada a coordenada. Esto permite en muchos casos evitar usar ciclos o ciclos anidados y realizarlos con un solo comando.
 
-Ejecturar los siguientes comandos e interpretar los resultados.
+Ejecutar los siguientes comandos e interpretar los resultados.
 
 \begin{lstlisting}
 v = np.array([1,2,np.e,7])
