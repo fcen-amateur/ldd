@@ -20,5 +20,5 @@ ENV_DIR=venv
 python -m venv $ENV_DIR 
 source $ENV_DIR/bin/activate
 pip install --upgrade pip
-pip install --requirement requirements.in
+pip install -r requirements.in
 $$
