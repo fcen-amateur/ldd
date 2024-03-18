@@ -263,7 +263,7 @@ Las funciones son bloques de código organizado que se usan para realizar tares 
 a = np.sqrt(2)
 a
 np.round(a)
-np.round(a,2)
+np.round(a, 2)
 np.info(np.round)
 np.info(np.ceil)
 \end{lstlisting}
@@ -271,8 +271,7 @@ np.info(np.ceil)
 \item Muchas funciones de \lstinline{numpy} se pueden aplicar también en arrays:
 \begin{lstlisting}
 v = np.array([a, a**2, a**3, a**(.5)])
-"v = ", v
-"np.floor(v) = ", np.floor(v)
+np.floor(v)
 \end{lstlisting}
 
 \item Explorar las funciones \lstinline{np.max()}, \lstinline{np.min()}, \lstinline{np.sum()}, \lstinline{np.mean()} y \lstinline{np.sort()} aplicadas al vector $v$ del ejercicio anterior. ¿Qué hace cada una?
@@ -287,13 +286,13 @@ v = np.array([a, a**2, a**3, a**(.5)])
 \item En Python podemos definir nuestras propias funciones utilizando \lstinline{def}. ¿Qué hace la siguiente función? ¿Qué resultados esperan al aplicar la función a los vectores $v_1$ y $v_2$?
 \begin{lstlisting}
 def todosPositivos(v):
-  r = np.all(v>0)
-  return(r)
-  
-v1 = np.array([3, 4])
-v2 = np.array([3, 5, -1, 1])
-todosPositivos(v1)
-todosPositivos(v2)
+    return np.all(v > 0)
+
+
+v0 = np.array([3, 4])
+v1 = np.array([3, 5, -1, 1])
+for i, v in enumerate([v0, v1]):
+    assert todosPositivos(v), f"No todos los elementos son positivos en v{i}"
 \end{lstlisting}
   
 \item Definir una función que calcule la norma-2 de un vector y verificarla en los vectores $v_1$ y $v_2$ del ejercicio anterior.
@@ -302,21 +301,23 @@ todosPositivos(v2)
 
 \item Reproducir estos usos de la función random.choice() e interpretar qué hace esta función.
 \begin{lstlisting}
-x = np.array(["cara", "ceca"])
-s = random.choices(x, k = 10)
-s
-y = np.array([1,2,3,4,5,6])
-t = random.choices(x, y = 10)
-t
-u = random.sample(x, y = 4)
+import random
+
+
+x = ["cara", "ceca"]
+random.choices(x, k=10)
+y = range(1, 7)
+random.choices(y, k=10)
+random.sample(y, k=4)
+random.sample(x, 4)  # Entienden el error? Usen `help(random.sample)` para indagar.
 \end{lstlisting}
 
-Realicen otras pruebas para descubrir la diferencia entre \lstinline{random.choices()} y \lstinline{np.sample()}
+Realicen otras pruebas para descubrir la diferencia entre \lstinline{random.choices} y \lstinline{random.sample}
 
 \item {\textbf{El teorema central del límite.}} Este teorema asegura que si tiramos $n$ veces una moneda, el promedio de veces que sale cara tiende a $1/2$ cuando $n$ tiende a infinitio.
 Utilizando un código de una línea, simular 10 lanzamientos de una moneda y calcular el promedio de veces que sale cara. Repetir para $n = 1000$ y $n = 100.000$.
 
-Sugerencia: hay varias formas distintas de hacerlo, una posibilidad es usar el comando \lstinline{count} que puede aplicarse a listas.
+\item Bonus: Plantee al menos tres formas distintas de hacerlo; al menos una de ellas usando sólo tipos de datos nativos (lista, tupla, diccionario, et cetera).
 
 \end{enumerate}
 
@@ -329,7 +330,7 @@ Sugerencia: hay varias formas distintas de hacerlo, una posibilidad es usar el c
 \item Leer el archivo \lstinline{casos_coronavirus.csv}.
 \item Graficar la curva de casos por día.
 \item Graficar la curva de casos acumulados.
-\item Definir $y$ como el logaritmo de la cantidad de casos acumulados y graficar $y$ en función de la cantidad de días transcurridos.
+\item Definir $log_cum_casos$ como el logaritmo de la cantidad de casos acumulados y graficar en función de la cantidad de días transcurridos.
 \item Estimar tomando dos valores la pendiente de la recta para los datos a partir del dia 30.
 \end{enumerate}
 
@@ -337,27 +338,30 @@ Utilicen o modifiquen el siguiente código.
 
 \begin{lstlisting}
 import pandas as pd
-datos = pd.read_csv("casos_coronavirus.csv")   # dataFrame
-datos
+import matplotlib.pyplot as plt
 
-# Convertimos los datos a np.array
-datosNP = datos.to_numpy()
-datosNP
+df = pd.read_csv("Datos/casos_coronavirus.csv") 
+df.info()
+df["fecha"] = pd.to_datetime(df.fecha, format="%d-%m-%Y")
+casos = df.set_index("fecha").confirmados_Nuevos
 
-x = np.linspace(1,96,96)
-x
+plt.plot(casos)
+plt.show()
+# Bonus: pueden rotar las etiquetas del eje X para que no se superpongan?
 
-plt.plot(x, datosNP[:,2])
+cum_casos = casos.cumsum()
+plt.plot(cum_casos)
+plt.show()
 
 # Tomamos logaritmos para linealizar
-y = np.log(np.float64(datosNP[:,2]))
-y
+plt.plot(np.log(cum_casos))
+plt.show()
 
-plt.plot(x,y)
+# Alternativamente, podemos mantener los datos "al natural" y cambiar la _escala_ del eje y.
+plt.plot(cum_casos), plt.yscale("log")
+plt.show()
 \end{lstlisting}
 
 \end{enumerate}
-
-
 
 \end{document}
