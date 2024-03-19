@@ -377,8 +377,8 @@ cum_casos = casos_diarios.cumsum()
 plt.plot(cum_casos)
 plt.show()
 
-# Tomamos logaritmos para linealizar
-plt.plot(np.log(cum_casos))
+# Tomamos logaritmos para linealizar (convertimos los datos primero a float para poder tomar logaritmo)
+plt.plot(np.log(np.float64(cum_casos)))
 plt.show()
 
 # Alternativamente, podemos mantener los datos "al natural" y cambiar la _escala_ del eje y.
