@@ -19,7 +19,7 @@
 \lstdefinestyle{py}{
   language=Python,                 % the language of the code
   backgroundcolor=\color{white},   % choose the background color; you must add
-  basicstyle=\ttfamily\scriptsize,        % the size of the fonts that are used for the code
+  basicstyle=\ttfamily\small,        % the size of the fonts that are used for the code
   breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
   breaklines=true,                 % sets automatic line breaking
   captionpos=b,                    % sets the caption-position to bottom
@@ -131,19 +131,16 @@ Si ya instalaron el entorno de trabajo que sugiere el \lstinline|README.md|, pue
 \begin{enumerate}
 \item
 Realizar las siguientes operaciones básicas en Python.
-\begin{enumerate}
-\item \begin{lstlisting}
+
+\begin{lstlisting}
 2 + 2
 a = 2
 b = 5
 a**3
 16 %% 5  # probar con otros numeros para entender que significa
 2 * a**2 + 0.5 * b + (a + b) / 2
-\end{lstlisting}
-\item Asignar el resultado anterior a la variable c, imprimir el contenido de c en la consola (corriendo c o print(c)). ¿Ven un [1] delante del valor de c? Esto indica que es un vector.
-\end{enumerate}
 
-\item Interpretar las siguientes operaciones lógicas entre variables booleanas y predecir el resultado antes de probar en la consola.
+\item Interpretar las siguientes operaciones l\'ogicas entre variables booleanas y predecir el resultado antes de probar en la consola.
 \begin{lstlisting}
 a = True
 b = False
@@ -175,7 +172,7 @@ s, s[0], s[1], s[-1]
 
 
 \item \textbf{Vectores.}
-Para trabajar con vectores en Python (y en general para todo tipo de operaciones matemáticas) vamos a usar el paquete \lstinline{numpy}. Para eso importamos primero la biblioteca \lstinline{numpy} y definimos vectores con el comando \lstinline{np.array}. Ejecutar el siguiente cxdigo y observar los resultados.
+Para trabajar con vectores en Python (y en general para todo tipo de operaciones matemáticas) vamos a usar el paquete \lstinline{numpy}. Para eso importamos primero la biblioteca \lstinline{numpy} y definimos vectores con el comando \lstinline{np.array}. Ejecutar el siguiente código y observar los resultados.
 
 \begin{lstlisting}
 import numpy as np
@@ -198,7 +195,7 @@ for expr in [
     print(f"{expr:11s} == {eval(expr)}")
 \end{lstlisting}
 
-\item Bonus: descrifrar qué magia hace la 
+\item Bonus: descrifrar qué magia hace la
 \href{https://docs.python.org/es/3.11/tutorial/inputoutput.html\#tut-f-strings}{f-string} que recibe como argumento \lstinline{print}. ¿Y eso de \href{https://docs.python.org/es/3.11/library/functions.html\#eval}{eval}?
 
 \item Las operaciones lógicas \lstinline{or} y \lstinline{and} no se pueden aplicar a vectores. Debemos usar los símbolos \lstinline{|} (or) y \lstinline{&} (and).
@@ -207,7 +204,7 @@ for expr in [
 (v > 3) & (w < 3.5)
 \end{lstlisting}
 
-\item ¿Cómo se puede aplicar \lstinline{not} a un vector de variables booleanas ( $x \in \{\text{True, False}\}$ ? Pueden probar algunas ideas o buscar la respuesta en Internet.
+\item ¿Cómo se puede aplicar \lstinline{not} a un vector de variables booleanas ($x \in \{\text{True, False}\}$)? Pueden probar algunas ideas o buscar la respuesta en Internet.
 
 \item Algunos comandos pueden dar resultados inesperados. Intenten adivinar cuál va a ser el resultado de cada comando.
 \begin{lstlisting}
@@ -295,7 +292,7 @@ np.floor(v)
 \item $\langle v, w\rangle = v_1 \cdot w_1 + v_2 \cdot w_2 + \dots + v_n \cdot w_n = \sum_{i=1}^n v_i \cdot w_i$
 \end{enumerate}
 
-\item En Python podemos definir nuestras propias funciones utilizando \lstinline{def}. ¿Qué hace la siguiente función? ¿Qué resultados esperan al aplicar la función a los vectores $v_1$ y $v_2$?
+\item En Python podemos definir nuestras propias funciones utilizando \lstinline{def}. ¿Qué hace la siguiente función? ¿Qué resultados esperan al aplicar la función a los vectores $v_0$ y $v_1$?
 \begin{lstlisting}
 def todosPositivos(v):
     return np.all(v > 0)
@@ -307,11 +304,11 @@ for i, v in enumerate([v0, v1]):
     assert todosPositivos(v), f"No todos los elementos son positivos en v{i}"
 \end{lstlisting}
 
-\item Definir una función que calcule la norma-2 de un vector y verificarla en los vectores $v_1$ y $v_2$ del ejercicio anterior.
+\item Definir una función que calcule la norma-2 de un vector y verificarla en los vectores $v_0$ y $v_1$ del ejercicio anterior.
 
 \item Usar las funciones \lstinline{np.argmin()} y \lstinline{np.argmax()} con el vector de alturas definido anteriormente. Interpretar qué hace cada una. Realizar otro experimento para comprobarlo.
 
-\item Reproducir estos usos de la función \lstinline{np.random.choice()}e interpreta qué hace.
+\item Reproducir estos usos de la función \lstinline{np.random.choice()} e interpretar qué hace.
 \begin{lstlisting}
 x = np.array(["cara", "ceca"])
 s = np.random.choice(x, size=10)
@@ -328,7 +325,7 @@ print(u)
 \item {\textbf{Ley de los grandes números.}} Esta ley asegura que si tiramos $n$ veces una moneda, el promedio de veces que sale cara tiende a $1/2$ cuando $n$ tiende a infinito.
 Simular 10 lanzamientos de una moneda y calcular el promedio de veces que sale cara. Repetir para $n = 1000$ y $n = 100.000$.
 
-\item Bonus: Plantee al menos tres formas distintas de hacerlo; al menos una de ellas usando sólo tipos de datos nativos (lista, tupla, diccionario, et cetera).
+%\item Bonus: Plantee al menos tres formas distintas de hacerlo; al menos una de ellas usando sólo tipos de datos nativos (lista, tupla, diccionario, et cetera).
 
 \item Se tira $n$ veces una moneda. Intentar predecir, si existen, los siguientes límites cuando $n$ tiene a infinito y verificar la intuición mediante simulaciones.
 
@@ -352,7 +349,7 @@ Simular 10 lanzamientos de una moneda y calcular el promedio de veces que sale c
 \item Leer el archivo \lstinline{casos_coronavirus.csv}.
 \item Graficar la curva de casos por día.
 \item Graficar la curva de casos acumulados.
-\item Definir $log_cum_casos$ como el logaritmo de la cantidad de casos acumulados y graficar en función de la cantidad de días transcurridos.
+\item Definir $log\_cum\_casos$ como el logaritmo de la cantidad de casos acumulados y graficar en función de la cantidad de días transcurridos.
 \item Estimar, tomando dos valores, la pendiente de la recta para los datos a partir del dia 30.
 \item Graficar la recta estimada junto con los datos. ¿Consideran que es una buena estimación?
 \end{enumerate}
@@ -363,17 +360,20 @@ Utilicen o modifiquen el siguiente código.
 import pandas as pd
 import matplotlib.pyplot as plt
 
+df = pd.read_csv("casos_coronavirus.csv") # dataFrame
+df.head()
 
-df = pd.read_csv("Datos/casos_coronavirus.csv") 
 df.info()
-df["fecha"] = pd.to_datetime(df.fecha, format="%d-%m-%Y")
-casos = df.set_index("fecha").confirmados_Nuevos
 
-plt.plot(casos)
-plt.show()
-# Bonus: pueden rotar las etiquetas del eje X para que no se superpongan?
+# Convertimos los datos a np.array
+datosNP = df.to_numpy()
+print(datosNP)
 
-cum_casos = casos.cumsum()
+casos_diarios = datosNP[:,1]  # Nos quedamos con la segunda columna
+plt.plot(casos_diarios)
+
+# Calculamos la cantidad de casos acumulados con la funcion cumsum
+cum_casos = casos_diarios.cumsum()
 plt.plot(cum_casos)
 plt.show()
 
