@@ -196,7 +196,7 @@ I.gdp = \begin{cases}
 
 \item Definir desv\'io est\'andar. ?`Por qu\'e la diferencia en el numerador est\'a elevada al cuadrado? Escribir una funci\'on de Python que calcule el desv\'io est\'andar. Comparar el resultado de usar la funci\'on \lstinline{np.std()}.
 
-\item Calcular el mínimo, el máximo, el y el desv\'io estandar de la expectativa de vida (\lstinline{lifeExp}) entre pa\'ises tomando s\'olo el dataset \lstinline{gapminder} para el a\~no 1952.
+\item Calcular el mínimo, el máximo y el desv\'io estandar de la expectativa de vida (\lstinline{lifeExp}) entre pa\'ises tomando s\'olo el dataset \lstinline{gapminder} para el a\~no 1952.
 \end{enumerate}
 
 \textbf{\large Archivos de datos}
@@ -239,11 +239,7 @@ datos
 
 Reproduc\'i el gr\'afico de arriba reemplazando adecuadamente lo que falta en el siguiente c\'odigo:
 \begin{lstlisting}
-p <- ggplot(__COMPLETAR__) +
-  geom___COMPLETAR__(__COMPLETAR__) +
-  ...
-
-p
+sns.boxplot(gapminder, x=COMPLETAR, y=COMPLETAR, order=sorted(COMPLETAR))
 \end{lstlisting}
 
 \item Reproducir el siguiente gr\'afico:
@@ -252,7 +248,10 @@ p
 \includegraphics[scale=0.3]{practica2-img-gapminder-lifeExp.png}
 \end{center}
 
-\item (de ac\'a en adelante, trabajar con el dataset penguins del paquete palmerpenguins). ?`Cu\'antas filas y columnas hay en el dataset penguins?
+\item (De ac\'a en adelante, trabajar con el dataset \lstinline{penguins} del paquete \lstinline{palmerpenguins}).
+?`Cu\'antas
+filas y
+columnas hay en el dataset penguins?
 
 \item  Dar una estad\'istica descriptiva de la variable \lstinline{bill_depth_mm}.
 
