@@ -365,11 +365,10 @@ df.head()
 
 df.info()
 
-# Convertimos los datos a np.array
-datosNP = df.to_numpy()
-print(datosNP)
+# Convertimos la columna de casos nuevos a np.array
+casos_diarios = df.confirmados_Nuevos.values
 
-casos_diarios = datosNP[:,1]  # Nos quedamos con la segunda columna
+# Graficamos la serie de casos diarios
 plt.plot(casos_diarios)
 
 # Calculamos la cantidad de casos acumulados con la funcion cumsum
@@ -377,8 +376,8 @@ cum_casos = casos_diarios.cumsum()
 plt.plot(cum_casos)
 plt.show()
 
-# Tomamos logaritmos para linealizar (convertimos los datos primero a float para poder tomar logaritmo)
-plt.plot(np.log(np.float64(cum_casos)))
+# Tomamos logaritmos para linealizar
+plt.plot(np.log(cum_casos))
 plt.show()
 
 # Alternativamente, podemos mantener los datos "al natural" y cambiar la _escala_ del eje y.
