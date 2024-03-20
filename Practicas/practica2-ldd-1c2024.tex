@@ -107,7 +107,7 @@
  \hrule
 
  \bigskip
- \centerline{\bf Práctica N$^\circ$ 2: Estad\'istica descriptiva y visualizaci\'on de datos.}
+ \centerline{\bf Práctica N$^\circ$ 2: Estad\'istica descriptiva}
  \bigskip
 
 
@@ -134,12 +134,10 @@ display(pacientes)
 \begin{lstlisting}
 from gapminder import gapminder
 \end{lstlisting}
-
 Si da error es posible que no est\'e instalado. En tal caso ejecuten primero
 \begin{lstlisting}
 pip install gapminder
 \end{lstlisting}
-
 Esto crea un nuevo objeto \lstinline{gapminder}. Pueden ver el contenido con el comando \lstinline{display(gapminder)} o las primeras filas utilizando \lstinline{gapminder.head()}.
 
 \item ?`De qué clase es el objeto \lstinline{gapminder}? ?`Qu\'e variables tiene el dataset \lstinline{gapminder} y de qu\'e clase son?
@@ -190,13 +188,13 @@ I.gdp = \begin{cases}
 
 \item Definir funciones que calculen la media y mediana de un vector de valores numéricos y la moda de un vector de valores categóricos. ?`Qu\'e tiene que pasar para que existan dos modas?
 
-\item Probar las funciones definidas con las variables numéricas y categóricas del dataset gapminder utilizando solo los datos del año 2007.
+\item Probar las funciones definidas con las variables numéricas y categóricas del dataset \lstinline{gapminder} utilizando solo los datos del año 2007.
 
 \item Graficar el producto bruto interno promedio en América en función del año.
 
 \item Definir desv\'io est\'andar. ?`Por qu\'e la diferencia en el numerador est\'a elevada al cuadrado? Escribir una funci\'on de Python que calcule el desv\'io est\'andar. Comparar el resultado de usar la funci\'on \lstinline{np.std()}.
 
-\item Calcular el mínimo, el máximo, el y el desv\'io estandar de la expectativa de vida (\lstinline{lifeExp}) entre pa\'ises tomando s\'olo el dataset \lstinline{gapminder} para el a\~no 1952.
+\item Calcular el mínimo, el máximo y el desv\'io estandar de la expectativa de vida (\lstinline{lifeExp}) entre pa\'ises tomando s\'olo el dataset \lstinline{gapminder} para el a\~no 1952.
 \end{enumerate}
 
 \textbf{\large Archivos de datos}
@@ -218,121 +216,6 @@ Utilicen el siguiente c\'odigo para leer el archivo.
 import pandas as pd
 datos = pd.read_csv("casos_coronavirus.csv")   # dataFrame
 datos
-\end{lstlisting}
-
-\end{enumerate}
-
-\textbf{\large Visualizaci\'on}
-
-\begin{enumerate}[resume]
-\item Ten\'es datos de una encuesta realizada en distintas provincias de Argentina y quer\'es saber cu\'antas personas respondieron a la encuesta en cada provincia. ?`Hac\'es un gr\'afico de l\'ineas, de dispersi\'on (scatter), histograma o un gr\'afico de barras (bar plot)? Hac\'e a mano en tu cuaderno c\'omo esper\'as que se vea el gr\'afico.
-
-\item Est\'as estudiando la relaci\'on entre altura y peso de las personas. Ten\'es un data-set que tiene como variables la edad, sexo y peso de cada persona. Si quer\'es describir estas variables por separado, ?`qu\'e gr\'afico har\'ias para cada una? ?`y si quer\'es visualizar la relaci\'on entre peso y altura? Hac\'e a mano en tu cuaderno c\'omo esper\'as que se vea el gr\'afico.
-
-\item Hac\'e un gr\'afico de barras que muestre la cantidad de pa\'ises hay en cada continente seg\'un los datos de gapminder (recordar el ejercicio 1.4)
-
-\item Quer\'es investigar c\'omo var\'ia la expectativa de vida entre los continentes. Para eso necesit\'as un gr\'afico como el siguiente:
-
-\begin{center}
-\includegraphics[scale=0.3]{practica2-img-gapminder-boxplot.png}
-\end{center}
-
-Reproduc\'i el gr\'afico de arriba reemplazando adecuadamente lo que falta en el siguiente c\'odigo:
-\begin{lstlisting}
-p <- ggplot(__COMPLETAR__) +
-  geom___COMPLETAR__(__COMPLETAR__) +
-  ...
-
-p
-\end{lstlisting}
-
-\item Reproducir el siguiente gr\'afico:
-
-\begin{center}
-\includegraphics[scale=0.3]{practica2-img-gapminder-lifeExp.png}
-\end{center}
-
-\item (de ac\'a en adelante, trabajar con el dataset penguins del paquete palmerpenguins). ?`Cu\'antas filas y columnas hay en el dataset penguins?
-
-\item  Dar una estad\'istica descriptiva de la variable \lstinline{bill_depth_mm}.
-
-\item Hacer un \lstinline{scatterplot} de \lstinline{bill_depth_mm} (en el eje $y$) vs. \lstinline{bill_length_mm} (en el eje $x$).
-
-\item ?`Cu\'al ser\'ia un buen geom para ver la relaci\'on entre \lstinline{species} y \lstinline{bill_depth_mm}?
-
-\item Corregir el siguiente c\'odigo:
-\begin{lstlisting}
-ggplot(data = penguins) +
-  geom_point()
-\end{lstlisting}
-
-\item ?`Qu\'e significa el argumento \lstinline{na.rm} en \lstinline{geom_point()}? Usando el dataset de \lstinline{palmerpenguins} crear un gr\'afico donde se requiera usar ese argumento como \lstinline{TRUE}.
-
-\item Agregar un ``caption'' al gr\'afico de arriba. Ayuda: Mirar la documentaci\'on de \lstinline{labs()}.
-
-\item Recrear la siguiente visualizaci\'on. ?`A qu\'e aes deber\'ia mapearse \lstinline{bill_depth_mm}? ?`El mapeo debe ser global o local?
-\begin{center}
-\includegraphics[scale=0.3]{practica2-img-penguins-mass.png}
-\end{center}
-
-\item Sin correr el c\'odigo, predecir qu\'e gr\'afico produce.
-\begin{lstlisting}
-ggplot(data = penguins,
-       mapping = aes(x = flipper_length_mm, y = body_mass_g, color = island) ) +
-  geom_point() +
-  geom_smooth(se = FALSE)
-\end{lstlisting}
-
-\item Sin correr el c\'odigo, ?`estos dos gr\'aficos van a ser iguales o diferentes? ?`Por qu\'e?
-\begin{lstlisting}
-# grafico 1
-ggplot(
-  data = penguins,
-  mapping = aes(x = flipper_length_mm, y = body_mass_g)
-) +
-  geom_point() +
-  geom_smooth()
-
-# grafico 2
-ggplot() +
-  geom_point(
-    data = penguins,
-    mapping = aes(x = flipper_length_mm, y = body_mass_g)
-  ) +
-  geom_smooth(
-    data = penguins,
-    mapping = aes(x = flipper_length_mm, y = body_mass_g)
-  )
-\end{lstlisting}
-
-\item Sin correr el c\'odigo, predecir qu\'e gr\'afico produce.
-\begin{lstlisting}
-ggplot(data = penguins,
-       mapping = aes(x = flipper_length_mm, y = body_mass_g, color = island) ) +
-  geom_point() +
-  geom_smooth(se = FALSE)
-\end{lstlisting}
-
-\item Sin correr el c\'odigo, ?`estos dos gr\'aficos van a ser iguales o diferentes? ?`Por qu\'e?
-\begin{lstlisting}
-# grafico 1
-ggplot(
-  data = penguins,
-  mapping = aes(x = flipper_length_mm, y = body_mass_g)
-) +
-  geom_point() +
-  geom_smooth()
-
-# grafico 2
-ggplot() +
-  geom_point(
-    data = penguins,
-    mapping = aes(x = flipper_length_mm, y = body_mass_g)
-  ) +
-  geom_smooth(
-    data = penguins,
-    mapping = aes(x = flipper_length_mm, y = body_mass_g)
-  )
 \end{lstlisting}
 
 \end{enumerate}
