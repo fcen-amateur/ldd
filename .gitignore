@@ -13,3 +13,6 @@ venv
 
 # Cositas de macOS
 .DS_Store
+*.nav
+*.snm
+*.toc
