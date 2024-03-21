@@ -111,18 +111,70 @@
  \bigskip
 
 
-\textbf{\bf Data frames}
+\textbf{\large Estructuras de datos en Pandas}
 
-Un data frame es una representaci\'on de los datos en formato de tabla en la que cada columna son vectores del mismo tamaño. Como cada columna es un vector, cada columna puede contener datos de un \'unico tipo. Se pueden pensar como variables.
+\vspace{0.2cm}
+
+\textbf{Series.} Las series de Pandas son vectores similares a los arrays de NumPy, que podemos indexar usando etiquetas.
 
 \begin{enumerate}
+\item Crear la siguiente Series, observar qué devuelve array e index e interpretar.
+
+\begin{lstlisting}
+import pandas as pd
+obj = pd.Series([7,4,-5,3])
+display(obj)
+display(obj.array)
+display(obj.index)  # Por default, los indices van de 0 a N-1.
+\end{lstlisting}
+
+\item Podemos asignar etiquetas (o \'indices) a cada valor de la serie.
+\begin{lstlisting}
+obj2 = pd.Series([np.pi,0,-2,1.41], index = ["d", "b", "c", "a"])
+display(obj2)
+display(obj2.array)
+display(obj2.index)
+\end{lstlisting}
+
+\item Al igual que con arrays de Numpy podemos acceder a los elementos por su posici\'on, o podemos usar las etiquetas. Ejecutar los siguientes comandos.
+\begin{lstlisting}
+obj2["a"]
+obj2[3]
+obj2[1:3]
+
+obj3 = obj2[["a","b"]]
+obj3
+obj3.index
+
+obj2[obj2>1]
+\end{lstlisting}
+
+\item Las operaciones que pueden aplicarse a numpy arrays pueden aplicarse tambi\'en a series de Pandas, conservando los \'indices.
+\begin{lstlisting}
+np.exp(obj2)
+obj2 * 3
+\end{lstlisting}
+
+\item \textbf{M\'etodos de series.} Ejecutar los siguientes comandos e interpretar qu\'e hace cada uno.
+\begin{lstlisting}
+series1 = pd.Series(["a", "b", "c", "b", "a", "c"])
+series1.isin(["b", "c"])
+series1.valuecounts()
+\end{lstlisting}
+
+\end{enumerate}
+
+\textbf{Data frames.} Un data frame es una representaci\'on de los datos en formato de tabla en la que cada columna son vectores del mismo tama\~no. Como cada columna es un vector, cada columna puede contener datos de un \'unico tipo. Se pueden pensar como variables. Cada variable corresponde a una serie de Pandas, y todas las series de un dataframe están indexadas por los mismos índices.
+
+\begin{enumerate}[resume]
 \item Una forma de crear un data frame es utilizando un ``diccionario''. Todas las variables del diccionario deben ser vectores o listas de la misma longitud. Ejecutar el siguiente c\'odigo.
 
 \begin{lstlisting}
-data = {"nombre": ["Rodrigo", "Sergio", "Cristina", "Diana"], "altura": np.array([178, 172, 175, 168]), "peso": np.array([81.2, 76.1, 68.5, 64.0])}
+nombres = ["Rodrigo", "Sergio", "Cristina", "Diana"]
+data = {"altura": np.array([178, 172, 175, 168]), "peso": np.array([81.2, 76.1, 68.5, 64.0])}
 display(data)
 
-pacientes = pd.DataFrame(data)
+pacientes = pd.DataFrame(data, index = nombres)
 display(pacientes)
 \end{lstlisting}
 
@@ -130,7 +182,14 @@ display(pacientes)
 
 \item Guardar en una variable nueva el vector columna \lstinline{altura}. Pueden utilizar \lstinline{pacientes["altura"]} o \lstinline{pacientes.altura} (la primera opci\'on es preferible, la segunda puede dar error si el nombre coincide con alguna funci\'on ya existente).
 
-\item Cargar la biblioteca \lstinline{gapminder} utilizando
+\item A diferencia de las matrices en Numpy, un DataFrame de Pandas es un conjunto de columnas, no de filas. Pensar cu\'al de los dos comandos ser\'a correcto antes de ejecutarlos.
+\begin{lstlisting}
+pacientes["Rodrigo"].altura
+pacientes["altura"].Rodrigo
+\end{lstlisting}
+    
+    
+\item \textbf{Gapminder.} Cargar la biblioteca \lstinline{gapminder} utilizando
 \begin{lstlisting}
 from gapminder import gapminder
 \end{lstlisting}
@@ -138,34 +197,57 @@ Si da error es posible que no est\'e instalado. En tal caso ejecuten primero
 \begin{lstlisting}
 pip install gapminder
 \end{lstlisting}
-Esto crea un nuevo objeto \lstinline{gapminder}. Pueden ver el contenido con el comando \lstinline{display(gapminder)} o las primeras filas utilizando \lstinline{gapminder.head()}.
+Esto crea un nuevo objeto \lstinline{gapminder}. Pueden ver el contenido con el comando con algunos de estos comandos: \lstinline{display(gapminder)}, \lstinline{gapminder.info()}, \lstinline{gapminder.head()}, \lstinline{gapminder.tail()}.
 
-\item ?`De qué clase es el objeto \lstinline{gapminder}? ?`Qu\'e variables tiene el dataset \lstinline{gapminder} y de qu\'e clase son?
-
-\item ?`De cu\'antos pa\'ises hay datos? Ayuda: averiguar qu\'e hacen la funci\'on \lstinline{unique()} y \lstinline{nunique()}.
+\item ?`De qué clase es el objeto \lstinline{gapminder}? ?`Qu\'e variables tiene el dataset \lstinline{gapminder} y de qu\'e clase son? ?`Qu\'e \'indices usa?
 
 \item Explorar el tama\~no del dataset gapminder usando la función \lstinline{shape()}.
 
-\item ?`Cu\'ales son las variables? Usar el comando \lstinline{gapminder.columns.values}.
+\item ?`De cu\'antos pa\'ises hay datos? Ayuda: averiguar qu\'e hacen los métodos \lstinline{unique()} y \lstinline{nunique()} aplicados a series.
 
-\item Extraer la informaci\'on de Argentina, Uruguay y Chile y guardarla en un nuevo data frame \lstinline{gm.sur}. Sugerencia: \lstinline{np.isin}.
+
+%\item ?`Cu\'ales son las variables? Usar el comando \lstinline{gapminder.columns.values}.
+
+\item Extraer la informaci\'on de Argentina, Uruguay y Chile y guardarla en un nuevo data frame \lstinline{gm_sur}. Sugerencia: recordar el método \lstinline{isin}.
 
 ?`Cu\'antas filas tiene? ?`Cu\'al es el primero y el \'ultimo a\~no para el cu\'al existen datos de Argentina en gapminder?
+
+\item ¿Cómo está indexado el DataFrame \lstinline{gm_sur}? Para acceder a una fila de un dataframe, podemos usar los métodos \lstinline{loc[]} y \lstinline{iloc[]}. ¿Cómo se usan? ¿Cuál es la diferencia entre los dos comandos?
 
 %\item ?`Qu\'e resulta de hacer gm.sur[,"pop"]? ?`Qu\'e resulta de hacer gm.sur[,-(1:3)]?
 
 \end{enumerate}
+
+\textbf{\large Archivos de datos}
+
+\begin{enumerate}[resume]
+\item La biblioteca \lstinline{Pandas} nos permite tambi\'en trabajar con archivos de datos.
+
+\begin{enumerate}
+\item Leer el archivo \lstinline{casos_coronavirus.csv}.
+\item Graficar la curva de casos por d\'ia.
+\item Graficar la curva de casos acumulados (utilizar la función \lstinline{cum_sum} para calcularlos.
+\item Definir $y$ como el logaritmo de la cantidad de casos acumulados y graficar $y$ en funci\'on de la cantidad de d\'ias transcurridos.
+\end{enumerate}
+Utilicen el siguiente c\'odigo para leer el archivo y graficar.
+
+\begin{lstlisting}
+df = pd.read_csv("casos_coronavirus.csv")   # dataFrame
+df
+
+df["confirmados_Nuevos"].plot()
+\end{lstlisting}
 
 \textbf{\large Estad\'istica descriptiva}
 \begin{enumerate}[resume]
 
 \item Dar tres ejemplos de variables categ\'oricas y num\'ericas.
 
-\item En el dataset \lstinline{gapminder} del paquete hom\'onimo, una de las variables es el producto bruto per capita de los pa\'ises (gdpPercap). ?`Es una variable categ\'orica (nominal u ordinal) o num\'erica (discreta o continua)?
+\item En el dataset \lstinline{gapminder}, una de las variables es el producto bruto per capita de los pa\'ises (gdpPercap). ?`Es una variable categ\'orica (nominal u ordinal) o num\'erica (discreta o continua)?
 
 \item Supongamos que definimos una nueva variable que puede tomar los siguientes valores:
 \[
-I.gdp = \begin{cases}
+nivelGDP = \begin{cases}
 0, & \text{si \lstinline{gdpPercap}} < 1600. \\
 1, & \text{si $1600 \le $ \lstinline{gdpPercap} $< 6600$}. \\
 2, & \text{en otro caso.} \\
@@ -175,11 +257,11 @@ I.gdp = \begin{cases}
  es categ\'orica (nominal u ordinal) o num\'erica (discreta o continua)? ?`Cambia la respuesta si la variable
  toma valores ``bajo'', ``medio'' y ``alto'' en lugar de 0, 1, 2?
 
-\item Filtrar el dataset de \lstinline{gapminder} para el a\~no 2007. Luego, para ese a\~no, calcular la cantidad de pa\'ises en cada continente. Explorar las funciones aplicables a DataFrame: \lstinline{groupBy}, \lstinline{size}, \lstinline{nunique}.
+\item Filtrar el dataset de \lstinline{gapminder} para el a\~no 2007. Luego, para ese a\~no, calcular la cantidad de pa\'ises en cada continente. Explorar las funciones \lstinline{groupBy}, \lstinline{size}, \lstinline{nunique}.
 
-\item Con el mismo filtro que el ejercicio anterior (es decir, s\'olo para el a\~no 2007), crear una variable
+\item Con el mismo filtro que el ejercicio anterior (es decir, s\'olo para el a\~no 2007), crear una variable $I$
  que valga 1 si \lstinline{gdpPercap} es mayor que 2000 d\'olares y 0 si no lo es. Luego crear una tabla de 2 filas y 5 columnas que calcule la cantidad de pa\'ises donde $I = 0$ o $I = 1$
- en cada continente.
+ en cada continente. 
 
 %\item Convertir el vector colores a factor y comprobar que funcion\'o usando la funci\'on \lstinline{class()}. Verificar las categor\'ias creadas usando la funci\'on \lstinline{levels()}.
 %\begin{lstlisting}
@@ -194,29 +276,29 @@ I.gdp = \begin{cases}
 
 \item Definir desv\'io est\'andar. ?`Por qu\'e la diferencia en el numerador est\'a elevada al cuadrado? Escribir una funci\'on de Python que calcule el desv\'io est\'andar. Comparar el resultado de usar la funci\'on \lstinline{np.std()}.
 
-\item Calcular el mínimo, el máximo y el desv\'io estandar de la expectativa de vida (\lstinline{lifeExp}) entre pa\'ises tomando s\'olo el dataset \lstinline{gapminder} para el a\~no 1952.
+\item Calcular el mínimo, el máximo y el desv\'io estandar de la expectativa de vida (\lstinline{lifeExp}) entre pa\'ises tomando s\'olo el dataset \lstinline{gapminder} para el a\~no 2007.
 \end{enumerate}
 
-\textbf{\large Archivos de datos}
-
-\begin{enumerate}[resume]
-\item La biblioteca \lstinline{Pandas} nos permite tambi\'en trabajar con archivos de datos.
-
-\begin{enumerate}
-\item Leer el archivo \lstinline{casos_coronavirus.csv}.
-\item Graficar la curva de casos por d\'ia.
-\item Graficar la curva de casos acumulados.
-\item Definir $y$ como el logaritmo de la cantidad de casos acumulados y graficar $y$ en funci\'on de la cantidad de d\'ias transcurridos.
-\item Tomando dos valores, estimar la pendiente de la recta para los datos a partir del dia 30.
-\end{enumerate}
-
-Utilicen el siguiente c\'odigo para leer el archivo.
-
-\begin{lstlisting}
-import pandas as pd
-datos = pd.read_csv("casos_coronavirus.csv")   # dataFrame
-datos
-\end{lstlisting}
+%\textbf{\large Archivos de datos}
+%
+%\begin{enumerate}[resume]
+%\item La biblioteca \lstinline{Pandas} nos permite tambi\'en trabajar con archivos de datos.
+%
+%\begin{enumerate}
+%\item Leer el archivo \lstinline{casos_coronavirus.csv}.
+%\item Graficar la curva de casos por d\'ia.
+%\item Graficar la curva de casos acumulados.
+%\item Definir $y$ como el logaritmo de la cantidad de casos acumulados y graficar $y$ en funci\'on de la cantidad de d\'ias transcurridos.
+%\item Tomando dos valores, estimar la pendiente de la recta para los datos a partir del dia 30.
+%\end{enumerate}
+%
+%Utilicen el siguiente c\'odigo para leer el archivo.
+%
+%\begin{lstlisting}
+%import pandas as pd
+%datos = pd.read_csv("casos_coronavirus.csv")   # dataFrame
+%datos
+%\end{lstlisting}
 
 \end{enumerate}
 
