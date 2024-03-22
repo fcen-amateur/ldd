@@ -119,7 +119,7 @@
 \textbf{Series.} Las series de Pandas son vectores similares a los arrays de NumPy, que podemos indexar usando etiquetas.
 
 \begin{enumerate}
-\item Crear la siguiente Series, observar qué devuelve array e index e interpretar.
+\item Crear la siguiente Series, observar qué devuelve \lstinline{array} e \lstinline{index} e interpretar.
 
 \begin{lstlisting}
 import pandas as pd
@@ -158,14 +158,14 @@ obj2 * 3
 
 \item \textbf{M\'etodos de series.} Ejecutar los siguientes comandos e interpretar qu\'e hace cada uno.
 \begin{lstlisting}
-series1 = pd.Series(["a", "b", "c", "b", "a", "c"])
+series1 = pd.Series(["a", "b", "c", "b", "a", "c", "c", "x"])
 series1.isin(["b", "c"])
-series1.valuecounts()
+series1.value_counts()
 \end{lstlisting}
 
 \end{enumerate}
 
-\textbf{DataFrames.} Un DataFrame es una representaci\'on de los datos en formato de tabla donde las columnas son vectores del mismo tama\~no. Como cada columna es un vector, cada columna puede contener datos de un \'unico tipo. Se pueden pensar como variables. Cada variable corresponde a una serie de Pandas, y todas las series de un mismo DataFrame están indexadas por los mismos índices.
+\textbf{DataFrames.} Un DataFrame es una representaci\'on de los datos en formato de tabla donde las columnas son vectores del mismo tama\~no. Como cada columna es un vector, cada columna puede contener datos de un \'unico tipo. Se pueden pensar como variables. Cada variable corresponde a una serie de Pandas, y todas las series de un mismo DataFrame est\'an indexadas por los mismos \'indices.
 
 \begin{enumerate}[resume]
 \item Una forma de crear un DataFrame es utilizando un ``diccionario''. Todas las variables del diccionario deben ser vectores o listas de la misma longitud. Ejecutar el siguiente c\'odigo.
@@ -178,7 +178,7 @@ pacientes = pd.DataFrame(data).set_index("nombre")
 display(pacientes)
 \end{lstlisting}
 
-\item ?`Cuál es la clase del objeto \lstinline{pacientes}? ?`Cuál es la clase de cada uno de los vectores columna? (para saber la clase de un objeto, utilizar el comando \lstinline{type}, para saber el tipo de datos de un array de numpy, utilizar \lstinline{np.dtype})
+\item ?`Cu\'al es la clase del objeto \lstinline{pacientes}? ?`Cu\'al es la clase de cada uno de los vectores columna? (para saber la clase de un objeto, utilizar el comando \lstinline{type}, para saber el tipo de datos de un array de numpy, utilizar \lstinline{np.dtype})
 
 \item Guardar en una variable nueva el vector columna \lstinline{altura}. Pueden utilizar \lstinline{pacientes["altura"]} o \lstinline{pacientes.altura} (la primera opci\'on es preferible, la segunda puede dar error si el nombre coincide con alguna funci\'on ya existente).
 
@@ -187,10 +187,10 @@ display(pacientes)
 pacientes["Rodrigo"].altura
 pacientes["altura"].Rodrigo
 \end{lstlisting}
-    
-    
-\item \textbf{Gapminder.} A modo de ejemplo, vamos a explorar el DataFrame \lstinline{gapminder} que contiene datos poblacionales y de desarrollo humano de distintos países a lo largo del tiempo.
-    
+
+
+\item \textbf{Gapminder.} A modo de ejemplo, vamos a explorar el DataFrame \lstinline{gapminder} que contiene datos poblacionales y de desarrollo humano de distintos pa\'ises a lo largo del tiempo.
+
     Cargar la biblioteca \lstinline{gapminder} utilizando
 \begin{lstlisting}
 from gapminder import gapminder
@@ -201,20 +201,20 @@ pip install gapminder
 \end{lstlisting}
 Esto crea un nuevo objeto \lstinline{gapminder}. Pueden ver el contenido con el comando con algunos de estos comandos: \lstinline{display(gapminder)}, \lstinline{gapminder.info()}, \lstinline{gapminder.head()}, \lstinline{gapminder.tail()}.
 
-\item ?`De qué clase es el objeto \lstinline{gapminder}? ?`Qu\'e variables tiene el DataFrame \lstinline{gapminder} y de qu\'e clase son? ?`Qu\'e \'indices usa?
+\item ?`De qu\'e clase es el objeto \lstinline{gapminder}? ?`Qu\'e variables tiene el DataFrame \lstinline{gapminder} y de qu\'e clase son? ?`Qu\'e \'indices usa?
 
-\item Explorar el tama\~no del DataFrame \lstinline{gapminder} usando la función \lstinline{shape()}.
+\item Explorar el tama\~no del DataFrame \lstinline{gapminder} usando la funci\'on \lstinline{shape()}.
 
-\item ?`De cu\'antos pa\'ises hay datos? Ayuda: averiguar qu\'e hacen los métodos \lstinline{unique()} y \lstinline{nunique()} aplicados a series.
+\item ?`De cu\'antos pa\'ises hay datos? Ayuda: averiguar qu\'e hacen los m\'etodos \lstinline{unique()} y \lstinline{nunique()} aplicados a series.
 
 
 %\item ?`Cu\'ales son las variables? Usar el comando \lstinline{gapminder.columns.values}.
 
-\item Extraer la informaci\'on de Argentina, Uruguay y Chile y guardarla en un nuevo DataFrame \lstinline{gm_sur}. Sugerencia: recordar el método \lstinline{isin()}.
+\item Extraer la informaci\'on de Argentina, Uruguay y Chile y guardarla en un nuevo DataFrame \lstinline{gm_sur}. Sugerencia: recordar el m\'etodo \lstinline{isin()}.
 
-?`Cu\'antas filas tiene? ?`Cu\'al es el primero y el \'ultimo a\~no para el cu\'al existen datos de Argentina en \lstinline{gapminder}?
+?`Cu\'antas filas tiene? ?`Cu\'al es el primer y el \'ultimo a\~no para el cu\'al existen datos de Argentina en \lstinline{gapminder}?
 
-\item ¿Cómo está indexado el DataFrame \lstinline{gm_sur}? Para acceder a una fila de un DataFrame, podemos usar los métodos \lstinline{loc[]} y \lstinline{iloc[]}. ¿Cómo se usan? ¿Cuál es la diferencia entre los dos comandos?
+\item ?`C\'omo est\'a indexado el DataFrame \lstinline{gm_sur}? Para acceder a una fila de un DataFrame, podemos usar los m\'etodos \lstinline{loc[]} y \lstinline{iloc[]}. ?`C\'omo se usan? ?`Cu\'al es la diferencia entre los dos comandos?
 
 %\item ?`Qu\'e resulta de hacer gm.sur[,"pop"]? ?`Qu\'e resulta de hacer gm.sur[,-(1:3)]?
 
@@ -228,7 +228,7 @@ Esto crea un nuevo objeto \lstinline{gapminder}. Pueden ver el contenido con el 
 \begin{enumerate}
 \item Leer el archivo \lstinline{casos_coronavirus.csv}.
 \item Graficar la curva de casos por d\'ia.
-\item Graficar la curva de casos acumulados (utilizar la función \lstinline{cum_sum} para calcularlos.
+\item Graficar la curva de casos acumulados (utilizar la funci\'on \lstinline{cum_sum} para calcularlos.
 \item Definir $y$ como el logaritmo de la cantidad de casos acumulados y graficar $y$ en funci\'on de la cantidad de d\'ias transcurridos.
 \end{enumerate}
 Utilicen el siguiente c\'odigo para leer el archivo y graficar.
@@ -261,24 +261,27 @@ df["confirmados_Nuevos"].plot()
  es categ\'orica (nominal u ordinal) o num\'erica (discreta o continua)? ?`Cambia la respuesta si la variable
  toma valores ``bajo'', ``medio'' y ``alto'' en lugar de 0, 1, 2?
 
-\item Filtrar el DataFrame de \lstinline{gapminder} para el a\~no 2007. Luego, para ese a\~no, calcular la cantidad de pa\'ises en cada continente. Explorar las funciones \lstinline{groupBy}, \lstinline{size}, \lstinline{nunique}.
+\item Filtrar el DataFrame de \lstinline{gapminder} para el a\~no 2007. Luego, para ese a\~no, calcular la cantidad de pa\'ises en cada continente. Explorar la función \lstinline{groupBy()} y los métodos \lstinline{size()} y \lstinline{nunique()} de un DataFrame agrupado.
 
-\item Con el mismo filtro que el ejercicio anterior (es decir, s\'olo para el a\~no 2007), crear una variable $I$
- que valga 1 si \lstinline{gdpPercap} es mayor que 2000 d\'olares y 0 si no lo es. Luego crear una tabla de 2 filas y 5 columnas que calcule la cantidad de pa\'ises donde $I = 0$ o $I = 1$
- en cada continente. Ayuda: si tenemos la información por columnas, podemos convertirla a una tabla con la función \lstinline{unstack()}.
+\item Con el mismo filtro que el ejercicio anterior (es decir, s\'olo para el a\~no 2007), crear una variable $gdpAlto$
+ que valga 1 si \lstinline{gdpPercap} es mayor que 2000 d\'olares y 0 si no lo es. Luego crear una tabla de 2 filas y 5 columnas que calcule la cantidad de pa\'ises donde $gdpAlto = 0$ o $gdpAlto = 1$  en cada continente. 
+ 
+ Ayuda 1: para convertir un array de variables booleanas a 0/1 podemo usar \lstinline{.astype(int)} (o en este ejercicio podemos usar una variable booleana en vez de 0/1).
+ 
+ Ayuda 2: si tenemos la informaci\'on por columnas, podemos convertirla a una tabla con la funci\'on \lstinline{unstack()}.
 
 %\item Convertir el vector colores a factor y comprobar que funcion\'o usando la funci\'on \lstinline{class()}. Verificar las categor\'ias creadas usando la funci\'on \lstinline{levels()}.
 %\begin{lstlisting}
 %colores <- c('blue', 'red', 'green', 'red', 'black', 'yellow','blue','blue')
 %\end{lstlisting}
 
-\item En el gráfico vemos 11 puntos. Consideramos la media y mediana de la coordenada $x$ de esos puntos y graficamos dos rectas verticales $x = $ media y $x = $ mediana. ¿Cuál recta corresponde a la media y cuál a la mediana?
+\item En el gr\'afico vemos 11 puntos. Consideramos la media y mediana de la coordenada $x$ de esos puntos y graficamos dos rectas verticales $x = $ media y $x = $ mediana. ?`Cu\'al recta corresponde a la media y cu\'al a la mediana?
 
 \begin{center}
 \includegraphics[scale=0.6]{practica2-img-media_mediana_1.png}
 \end{center}
 
-\item Repetimos el mismo procedimiento con otros 30 puntos. Graficamos una línea azul para la media y una línea naranja para la mediana. Uno de los dos gráficos es correcto, ¿cuál?
+\item Repetimos el mismo procedimiento con otros 30 puntos. Graficamos una l\'inea azul para la media y una l\'inea naranja para la mediana. Uno de los dos gr\'aficos es correcto, ?`cu\'al?
 
 \begin{center}
 \includegraphics[scale=0.5]{practica2-img-media_mediana_2.png}
@@ -286,15 +289,15 @@ df["confirmados_Nuevos"].plot()
 \end{center}
 
 
-\item Definir funciones que calculen la media y mediana de un vector de valores numéricos.
+\item Definir funciones que calculen la media y mediana de un vector de valores num\'ericos.
 
-\item Probar las funciones definidas con las variables numéricas utilizando solo los datos del año 2007.
+\item Probar las funciones definidas con las variables num\'ericas utilizando solo los datos del a\~no 2007.
 
-\item Graficar el producto bruto interno promedio en América en función del año.
+\item Graficar el producto bruto interno promedio en Am\'erica en funci\'on del a\~no.
 
 \item Definir desv\'io est\'andar. ?`Por qu\'e las diferencias en el numerador est\'an elevada al cuadrado? Escribir una funci\'on de Python que calcule el desv\'io est\'andar. Comparar el resultado de usar la funci\'on \lstinline{np.std()}.
 
-\item Calcular el mínimo, el máximo y el desv\'io estandar de la expectativa de vida (\lstinline{lifeExp}) entre pa\'ises tomando s\'olo el DataFrame \lstinline{gapminder} para el a\~no 2007.
+\item Calcular el m\'inimo, el m\'aximo y el desv\'io estandar de la expectativa de vida (\lstinline{lifeExp}) entre pa\'ises tomando s\'olo el DataFrame \lstinline{gapminder} para el a\~no 2007.
 \end{enumerate}
 
 %\textbf{\large Archivos de datos}
