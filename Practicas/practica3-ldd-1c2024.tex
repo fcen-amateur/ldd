@@ -1,6 +1,7 @@
 \documentclass[a4paper,11pt]{article}
 \usepackage{amssymb, enumitem}
 
+
 \parindent 0cm
 \usepackage{amssymb,amsmath,amsthm,latexsym,epsfig,euscript,multicol}
 \usepackage{graphbox}
@@ -240,15 +241,25 @@ pinguinos_por_isla = penguins.???   # Usar el codigo del item anterior.
 \end{enumerate}
 
 \item 
-Como vimos en el Ejercicio \ref{ej:map}, si asignamos una variable al definir un \lstinline{Plot()}, el valor correspondiente se \emph{mapea} a las marcas (objetos mark). En cambio, si asignamos una variable como parámetro de \lstinline{Dot()}, el valor se asigna directamente. ?`Qu\'e resultado esperan para el siguiente gráfico? ?`Cu\'ales variables se mapean de \lstinline{Plot} a \lstinline{Dot} y cuáles no pueden mapearse? ¿Cuáles variables están asignadas en \lstinline{Dot()}? ¿De qué color van a pintarse los puntos?
+Como vimos en el Ejercicio \ref{ej:map}, si asignamos una codificación (o mapeo) al definir un \lstinline{Plot()}, el mapeo se asigna en todas las capas de marcas (objetos mark). En cambio, si asignamos una codificación dentro del método \lstinline{add()} de una marca, mapeo se realiza solo en esa capa. Por último, si asignamos un parámetro de la marca, el valor se asigna directamente (ver gráfico).
+
+\begin{center}
+\includegraphics[scale=0.5, align=c]{practica3-img-mappings.png}
+\end{center}
+
+
+?`Qu\'e resultado esperan para el siguiente gráfico? ?`Cu\'ales codificaciones se pasan de \lstinline{Plot()} a \lstinline{Dot()} y cuáles no pueden pasarse? ¿Cuáles codificaciones se establecen en \lstinline{Dot()}? ¿Cuáles variables están asignadas directamente en \lstinline{Dot()}? ¿De qué color van a pintarse los puntos?
+
+
 
 \begin{lstlisting}
 (
     so.Plot(
         penguins, x="bill_length_mm", y="bill_depth_mm",
-        edgecolor="sex", edgewidth="body_mass_g", marker = "species", linestyle = "island", color = "species"
+        edgewidth="body_mass_g", marker = "species", 
+        linestyle = "island", color = "species"
     )
-    .add(so.Dot(color=".8"))
+    .add(so.Dot(color=".8"), edgecolor="sex")
 )
 \end{lstlisting}
 
