@@ -3,6 +3,8 @@
 
 \parindent 0cm
 \usepackage{amssymb,amsmath,amsthm,latexsym,epsfig,euscript,multicol}
+\usepackage{graphbox}
+
 \usepackage[utf8x]{inputenc}
 \usepackage{listings,xcolor,bm}
 
@@ -118,45 +120,142 @@
 
 \item Est\'as estudiando la relaci\'on entre altura y peso de las personas. Ten\'es un data-set que tiene como variables la edad, sexo y peso de cada persona. Si quer\'es describir estas variables por separado, ?`qu\'e gr\'afico har\'ias para cada una? ?`y si quer\'es visualizar la relaci\'on entre peso y altura? Hac\'e a mano en tu cuaderno c\'omo esper\'as que se vea el gr\'afico.
 
-\item Hac\'e un gr\'afico de barras que muestre la cantidad de pa\'ises hay en cada continente seg\'un los datos de gapminder (recordar el ejercicio 1.4)
+\item Hac\'e un gr\'afico de barras que muestre la cantidad de pa\'ises hay en cada continente seg\'un los datos de gapminder (recordar el ejercicio 10 de la Práctica 2 para acceder a los datos de gapminder).
 
 \item Quer\'es investigar c\'omo var\'ia la expectativa de vida entre los continentes. Para eso necesit\'as un gr\'afico como el siguiente:
 
 \begin{center}
-\includegraphics[scale=0.3]{practica3-img-gapminder-boxplot.png}
+\includegraphics[scale=0.6]{practica3-img-gapminder-boxplot.png}
 \end{center}
 
 Reproduc\'i el gr\'afico de arriba reemplazando adecuadamente lo que falta en el siguiente c\'odigo:
 \begin{lstlisting}
+import seaborn as sns
 sns.boxplot(gapminder, x=COMPLETAR, y=COMPLETAR, order=sorted(COMPLETAR))
 \end{lstlisting}
 
-\item Reproducir el siguiente gr\'afico:
+\item
+\begin{enumerate}
+\item Utilizando \lstinline{seaborn.objects}, graficar la curva de la expectativa de vida en Argentina en función del año, completando el siguiente código. Sugerencia: recordar de la práctica anterior como filtrar datos de un dataset.
 
+\begin{lstlisting}
+import seaborn.objects as so
+(
+    so.Plot(data = gapminder[???], x = "year", y = "???")
+    .add(so.Line())
+)
+\end{lstlisting}
+    
+    
+\item Realizar un nuevo gráfico donde puedan verse las curvas de la expectativa de vida de los países de América en función del año, una curva por cada país.
+
+    Sugerencia: utilizar los parámetros \lstinline{group = ???} o \lstinline{color = ???}. ¿Cuál es la diferencia entre los dos?
+\item \label{ej:map} Queremos agregar al gráfico del ítem anterior una curva de tendencia lineal utilizando el método  \lstinline{.add(so.Line(), so.PolyFit(1))}. ¿Cuál de las siguientes dos formas de agrupar los datos es la forma correcta? Explicar la diferencia entre los dos códigos.
+
+\begin{lstlisting}
+# Codigo 1
+(
+    so.Plot(data = ???, x=???, y=???, group = ???)
+    .add(so.Lines(color="#bbca"))
+    .add(so.Line(), so.PolyFit(1))
+)
+
+# Codigo 2
+(
+    so.Plot(data = ???, x=???, y=???)
+    .add(so.Lines(color="#bbca"), group = ???)
+    .add(so.Line(), so.PolyFit(1))
+)
+\end{lstlisting}
+
+\item Realizar el siguiente gráfico, con las curvas de expectativa de vida agrupadas por continente. Sugerencias: ¿qué hace el método \lstinline{facet()} de \lstinline{seaborn.objects.Plot()}? ?`Y el parámetro \lstinline{wrap = ???} de \lstinline{facet()}?
 \begin{center}
-\includegraphics[scale=0.3]{practica3-img-gapminder-lifeExp.png}
+\includegraphics[scale=0.5]{practica3-img-gapminder-lifeExp.png}
 \end{center}
+\end{enumerate}
 
-\item (De ac\'a en adelante, trabajar con el dataset \lstinline{penguins} del paquete \lstinline{palmerpenguins}).
+\item (De ac\'a en adelante, trabajar con el dataset \lstinline{penguins} disponible en la biblioteca \lstinline{seaborn}).
 ?`Cu\'antas
 filas y
 columnas hay en el dataset penguins?
 
-\item  Dar una estad\'istica descriptiva de la variable \lstinline{bill_depth_mm}.
-
-\item Hacer un \lstinline{scatterplot} de \lstinline{bill_depth_mm} (en el eje $y$) vs. \lstinline{bill_length_mm} (en el eje $x$).
-
-\item ?`Cu\'al ser\'ia un buen geom para ver la relaci\'on entre \lstinline{species} y \lstinline{bill_depth_mm}?
-
-\item Corregir el siguiente c\'odigo:
 \begin{lstlisting}
-ggplot(data = penguins) +
-  geom_point()
+import seaborn as sns
+penguins = sns.load_dataset("penguins")
 \end{lstlisting}
 
-\item ?`Qu\'e significa el argumento \lstinline{na.rm} en \lstinline{geom_point()}? Usando el dataset de \lstinline{palmerpenguins} crear un gr\'afico donde se requiera usar ese argumento como \lstinline{TRUE}.
+\begin{center}
+\includegraphics[scale=0.5, align=c]{practica3-img-penguins_species.png}
+\includegraphics[scale=0.3, align=c]{practica3-img-penguins_bill.png}
+\end{center}
 
-\item Agregar un ``caption'' al gr\'afico de arriba. Ayuda: Mirar la documentaci\'on de \lstinline{labs()}.
+\item 
+\begin{enumerate}
+\item ¿Cuántos pingüinos hay en cada isla en la base de datos? Recordar los comandos \lstinline{groupby()} y \lstinline{size()} de la práctica anterior.
+\item Realizar un grafico de barras con la cantidad de pingünos en cada isla, completando el siguiente código.
+\begin{lstlisting}
+pinguinos_por_isla = penguins.???   # Usar el codigo del item anterior.
+(
+    so.Plot(x=pinguinos_por_isla.index, y=???)
+    .add(so.Bar())
+)
+\end{lstlisting}
+\item El gráfico que acabamos de hacer es un histograma categórico (usamos una variable categórica en el eje X). Podemos realizar el mismo gráfico usando la función \lstinline{Hist()} para contar automáticamente las cantidades (sin definir una variable \lstinline{pinguinos_por_isla}. Completar el siguiente código.
+\begin{lstlisting}
+(
+    so.Plot(data = penguins, x=island)
+    .add(so.Bar(), so.Hist())
+)
+\end{lstlisting}
+\item ¿Por qué no especificamos ninguna variable $y$ en el último gráfico?
+\item Queremos ver en un gráfico cuántos pingüinos de cada especie hay en cada isla, ¿cómo podemos hacerlo? Si usan un gráfico de barras, pueden utilizar la función \lstinline{dodge()} para hacer varias barras por categoría.
+\item ¿Cómo podrían visualizar lo mismo usando \lstinline{facet()}?
+\end{enumerate}
+
+\item Realizar un histograma de la cantidad de pingüinos en función del tamaño del ala (variable \lstinline{flipper_length_mm}). A partir del gráfico, estimar el valor mínimo, máximo, la media y la mediana. Verificar sus estimaciones utilizando los comandos apropiados.
+
+\item \label{depthvslength}
+\begin{enumerate}
+\item Hacer un \lstinline{scatterplot} de \lstinline{bill_depth_mm} (en el eje $y$) vs. \lstinline{bill_length_mm} (en el eje $x$).
+\item ¿Distinguen grupos distintos de puntos en el gráfico? ¿A qué puede deberse?
+\item Introducir alguna modificación en el gráfico anterior para verificar o refutar su conjetura del ítem anterior.
+\end{enumerate}
+
+\item \begin{enumerate}
+\item Calcular distintos estadísticos de la variable \lstinline{bill_depth_mm} (mínimo, máximo, media, ...).
+\item Según lo observado en el ejercicio anterior, ¿esos valores varían según la especie? ¿Cómo podemos usar gráficos BoxPlot para para ver la relaci\'on entre \lstinline{species} y \lstinline{bill_depth_mm}?
+\end{enumerate}
+
+\item
+\begin{enumerate}
+\item Rehacer el scatter plot del ejercicio \ref{depthvslength}, coloreando los puntos según el sexo. ¿Qué se observa?
+\item Usando la función \lstinline{facet()} separar el gráfico del item anterior en tres subgráficos, uno para cada especie.
+\end{enumerate}
+
+%\item Agregar un ``caption'' al gr\'afico de arriba. Ayuda: Mirar la documentaci\'on de \lstinline{labs()}.
+\item 
+\begin{enumerate}
+\item Rehacer el scatter plot del ejercicio \ref{depthvslength}, modificando el tamaño de los puntos según el peso de cada pingüino, utilizando el parámetro \lstinline{pointsize="???"}. ¿Qué se observa?
+\item En base a lo observado, ¿cuál es la especie con mayor peso? Verificarlo mediante alguna visualización.
+\end{enumerate}
+
+\item 
+Como vimos en el Ejercicio \ref{ej:map}, si asignamos una variable al definir un \lstinline{Plot()}, el valor correspondiente se \emph{mapea} a las marcas (objetos mark). En cambio, si asignamos una variable como parámetro de \lstinline{Dot()}, el valor se asigna directamente. ?`Qu\'e resultado esperan para el siguiente gráfico? ?`Cu\'ales variables se mapean de \lstinline{Plot} a \lstinline{Dot} y cuáles no pueden mapearse? ¿Cuáles variables están asignadas en \lstinline{Dot()}? ¿De qué color van a pintarse los puntos?
+
+\begin{lstlisting}
+(
+    so.Plot(
+        penguins, x="bill_length_mm", y="bill_depth_mm",
+        edgecolor="sex", edgewidth="body_mass_g", marker = "species", linestyle = "island", color = "species"
+    )
+    .add(so.Dot(color=".8"))
+)
+\end{lstlisting}
+
+\end{enumerate}
+
+\end{document}
+
 
 \item Recrear la siguiente visualizaci\'on. ?`A qu\'e aes deber\'ia mapearse \lstinline{bill_depth_mm}? ?`El mapeo debe ser global o local?
 \begin{center}
@@ -222,10 +321,6 @@ ggplot() +
     mapping = aes(x = flipper_length_mm, y = body_mass_g)
   )
 \end{lstlisting}
-
-\end{enumerate}
-
-\end{document}
 
 
 FACTORES
