@@ -239,7 +239,7 @@ La Gramática de Gráficos es un marco para pensar sobre la visualización desar
 
 Referencia:
 \begin{itemize}
-\item "The Grammar of Graphics (Statistics and Computing)", Leland Wilkinson. 
+\item "The Grammar of Graphics (Statistics and Computing)", Leland Wilkinson.
 \end{itemize}
 \end{minipage} %
 \begin{minipage}{.4\textwidth}
@@ -261,7 +261,7 @@ En el centro de cualquier visualización, por supuesto, están los datos que se 
 
 \textbf{2) Las marcas}
 
-Para visualizar nuestros datos, debemos representar los datos con marcas reales en nuestra figura. 
+Para visualizar nuestros datos, debemos representar los datos con marcas reales en nuestra figura.
 
 Estos incluyen no sólo los ejes que dan forma a nuestra figura, sino también puntos, círculos, barras u otras formas geométricas.
 
@@ -278,7 +278,7 @@ Para vincular nuestros datos a las marcas en nuestra figura, debemos decidir sob
 
 \textbf{4) Canales}
 
-Las características visuales de nuestro gráfico en las que podemos codificar información se denominan "canales". 
+Las características visuales de nuestro gráfico en las que podemos codificar información se denominan "canales".
 
 Algunos canales son obvios: un canal puede ser la ubicación de puntos a lo largo del eje x, otro canal es la ubicación de puntos a lo largo del eje y.
 
@@ -329,8 +329,8 @@ Seaborn es una biblioteca de visualización construida sobre \lstinline{matplotl
 
 \begin{itemize}
 \item Si asignamos una codificación (o mapeo) al definir un Plot(),
-el mapeo se asigna en todas las capas de marcas (objetos mark). 
-\item Si asignamos una codificación dentro del método add() de una marca, el mapeo se realiza solo en esa capa. 
+el mapeo se asigna en todas las capas de marcas (objetos mark).
+\item Si asignamos una codificación dentro del método add() de una marca, el mapeo se realiza solo en esa capa.
 \item Si asignamos un parámetro de la marca, el valor se asigna directamente (no es una codificación de datos).
 \end{itemize}
 
@@ -400,6 +400,67 @@ El tamaño de la barra representa la cantidad de veces que se repite cada valor 
 Un gráfico \textbf{box plot} usa cajas y líneas para mostrar información de la distribución de uno o más grupos de datos numéricos.
 
 \begin{center}
+\includegraphics[scale=.3]{practica3-img-gapminder-boxplot.png}
+\end{center}
+
+\end{frame}
+
+%------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Elementos de un Box plot}
+
+Dada una variable numérica, ordenamos los valores y los partimos en 4 grupos de igual tamaño.
+
+\begin{itemize}
+\item Primer cuartil (Q1): es un valor mayor que el $25\%$ de los datos y menor que el otro $75\%$.
+\item Segundo cuartil (Q2): es un valor mayor que el $50\%$ de los datos y menor que el otro $50\%$ (corresponde a la mediana).
+\item Tercer cuartil (Q3): es un valor mayor que el $75\%$ de los datos y menor que el otro $25\%$.
+\end{itemize}
+
+\begin{center}
+\includegraphics[scale=.5]{clase4-cuartiles-esquema.png}
+\end{center}
+
+
+
+%En un box plot, dibujamos una caja, con límites en Q1 y Q3 y una línea central marcando el valor de Q2.
+
+\end{frame}
+
+%------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Cuartiles: ejemplo}
+
+Ordenamos los datos de menor a mayor y tomamos valores que dividen a los datos en 4 partes iguales.
+
+\begin{center}
+\includegraphics[scale=.3]{clase4-cuartiles-Q1yQ2.jpg}
+\end{center}
+%En un box plot, dibujamos una caja, con límites en Q1 y Q3 y una línea central marcando el valor de Q2.
+
+\end{frame}
+
+%------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Cálculo de cuartiles en Wikipedia...}
+
+\begin{center}
+\includegraphics[scale=.3]{clase4-cuartiles.png}
+\end{center}
+
+\end{frame}
+
+%------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Box plot}
+
+Un gráfico \textbf{box plot} usa cajas y líneas para mostrar información de la distribución de uno o más grupos de datos numéricos.
+
+\begin{center}
 \includegraphics[scale=.5]{clase4-box-plot-construction.png}
 \end{center}
 
@@ -412,30 +473,11 @@ Un gráfico \textbf{box plot} usa cajas y líneas para mostrar información de l
 
 Dada una variable numérica, ordenamos los valores y los partimos en 4 grupos de igual tamaño.
 
-\begin{itemize}
-\item Primer cuartil (Q1): es un valor mayor que el $25\%$ de los datos y menor que el otro $75\%$.
-\item Segundo cuartil (Q2): es un valor mayor que el $50\%$ de los datos y menor que el otro $50\%$ (corresponde a la mediana).
-\item Tercer cuartil (Q3): es un valor mayor que el $75\%$ de los datos y menor que el otro $25\%$.
-\end{itemize}
-
 En un box plot, dibujamos una caja, con límites en Q1 y Q3 y una línea central marcando el valor de Q2.
 
-\end{frame}
-
-%------------------------------------------------------------------
-
-\begin{frame}
-\frametitle{Elementos de un Box plot}
-
-Dada una variable numérica, ordenamos los valores y los partimos en 4 grupos de igual tamaño.
-
-\begin{itemize}
-\item Primer cuartil (Q1): es un valor mayor que el $25\%$ de los datos y menor que el otro $75\%$.
-\item Segundo cuartil (Q2): es un valor mayor que el $50\%$ de los datos y menor que el otro $50\%$ (corresponde a la mediana).
-\item Tercer cuartil (Q3): es un valor mayor que el $75\%$ de los datos y menor que el otro $25\%$.
-\end{itemize}
-
-En un box plot, dibujamos una caja, con límites en Q1 y Q3 y una línea central marcando el valor de Q2.
+\begin{center}
+\includegraphics[scale=.45]{clase4-box-plot-construction.png}
+\end{center}
 
 \end{frame}
 
@@ -445,14 +487,31 @@ En un box plot, dibujamos una caja, con límites en Q1 y Q3 y una línea central
 \frametitle{Elementos de un Box plot}
 
 La distancia entre Q3 y Q1 se conoce como \emph{rango intercuartil} (IQR) y se utilizan para trazar los "bigotes".
- 
-Cada bigote se extiende hasta el valor más lejano de los datos a una distancia menor a $1.5$ veces el valor IQR. 
+
+Cada bigote se extiende hasta el valor más lejano de los datos a una distancia menor a $1.5$ veces el valor IQR.
 
 Cualquier valor de los datos más allá de esa distancia se considera un dato atípico (outlier) y se marca con un punto.
 
 \begin{center}
 \includegraphics[scale=.35]{clase4-box-plot-construction.png}
 \end{center}
+
+\end{frame}
+
+%------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{¿Qué buscan en una búsqueda laboral?}
+
+[general\_dat] busqueda Machine Learnining Engineer SSr- Quantit
+
+Perfil de las personas:
+
+- Ser estudiante de Grado o graduade de carreras como Ciencia de Datos, Ciencias de la Computación, Física, Matemática, Ingeniería, u otra carrera afín.
+
+- Conocimientos de programación en Python.
+
+- Familiaridad con bibliotecas como Pandas, Numpy, Matplotlib,  Seaborn y Scikit-learn.
 
 \end{frame}
 
