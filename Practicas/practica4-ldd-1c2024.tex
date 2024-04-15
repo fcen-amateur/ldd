@@ -5,6 +5,8 @@
 \usepackage{amssymb,amsmath,amsthm,latexsym,epsfig,euscript,multicol}
 \usepackage[utf8x]{inputenc}
 \usepackage{listings,xcolor,bm}
+\usepackage{babel}[spanish]
+\usepackage{url}
 
 
 \definecolor{mygreen}{rgb}{0,0.6,0}
@@ -107,7 +109,7 @@
  \hrule
 
  \bigskip
- \centerline{\bf Práctica N$^\circ$ 4: Regresión lineal.}
+ \centerline{\bf Práctica N$^\circ$ 4: Regresión lineal y Cuadrados M\'inimos}
  \bigskip
 
 
@@ -121,7 +123,7 @@
      \[
      \begin{array}{rl}
           {\beta}_1 = & \dfrac{\displaystyle\sum_{i=1}^n(x_i - \bar{x})(y_i - \bar{y})}{\displaystyle\sum_{i=1}^n(x_i - \bar{x})^2}  \\[1em]
-          {\beta}_0 = & \bar{y} - \hat{\beta}_1\bar{x}
+          {\beta}_0 = & \bar{y} - \beta_1\bar{x}
      \end{array}
      \]
 
@@ -215,7 +217,7 @@ def r_cuad(x, y, pendiente, o_origen):
 
 \end{enumerate}
 
-\item En el archivo \texttt{bitcoin.csv} se encuentran datos de cotizacion de Bitcoin desde el 17/09/2014 hasta el 19/02/2022. Cargamos el dataset:
+\item En el archivo \texttt{bitcoin.csv} se encuentran datos de cotizacion de Bitcoin desde el 17/09/2014 hasta el 19/02/2022 \footnote{Fuente: \url{https://www.kaggle.com/datasets/meetnagadia/bitcoin-stock-data-sept-17-2014-august-24-2021}}. Cargamos el dataset:
 \begin{lstlisting}
 btc = pd.read_csv('datos/bitcoin.csv')
 btc.head()
@@ -230,10 +232,29 @@ btc_2021 = btc[(btc['Date']>"2021-01-01") & (btc['Date']<"2021-07-01")]
 \end{lstlisting}
 
 Visualizar el ajuste lineal para los datos del dataframe \verb |btc_2021|. En este caso, ¿resulta más conveniente un scatterplot o un gráfico de lineas para los datos? ¿Te resultaría útil utilizar esta recta para predecir el valor de BTC o para describir el cambio de su valor en este periodo?
-    
 
 
+\item Utilizando el dataset \verb|tips| de \verb|seaborn|:
+\begin{lstlisting}
+datos = sns.load_dataset('tips')
+\end{lstlisting}
+realizar la Regresión Lineal donde la variable $X$ es \verb|total_bill| menos el promedio de \verb|total_bill| y la variable $Y$ es \verb|tip|. Responder las siguientes preguntas:
+\begin{enumerate}
+    \item ¿Qué interpretación se le puede dar a $\beta_0$? \textit{Pista:} calcular el promedio de las propinas.
+    \item ¿Cambia el valor de $\beta_1$ respecto a la Regresión Lineal de \verb|total_bill| vs. \verb|tip|?
 \end{enumerate}
 
+\item En este ejercicio utilizaremos el dataset \verb|healthexp| de \verb|seaborn|, donde se recopila cada año (\verb|Year|) lo que cada país (\verb|Country|) invierte en salud por habitante (\verb|Spending_USD|) y su expectativa de vida (\verb|Life_Expectancy|). 
+
+Nos enfocaremos en los datos de Japón, nuestra variable predictora será \verb|Spending_USD| y la dependiente será \verb|Life_Expectancy|.
+\begin{enumerate}
+    \item Visualizar en un mismo gráfico los datos y los polinomios de grado 1, de grado 2 y de grado 3 que mejor ajustan a los datos. Añadir etiquetas que para facilitar la interpretación del gráfico.
+    \item En base al gráfico obtenido en el ítem anterior, elegir el grado que considerás que mejor ajusta a los datos. Utilizando \verb|scikit-learn|, calcular los coeficientes de ese polinomio.
+    \item Calcular el $R^2$ y el ECM.
+    \item Según el polinomio obtenido en el ítem anterior, estimar cuál sería la expectativa de vida de los habitantes de Japón si el país invirtiera U\$D $5000$.
+    \item Visualizar el polinomio de grado $10$ que mejor ajusta a los datos. ¿Se aprecia una mejora? ¿Resulta conveniente ajustar con un polinomio de grado $50$?
+\end{enumerate}
+
+\end{enumerate}
 \end{document}
 

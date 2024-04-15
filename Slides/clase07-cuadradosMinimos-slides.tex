@@ -74,6 +74,8 @@
     \vfill
     \end{frame}}
 
+\section{Cuadrados Mínimos}
+
 \begin{frame}
     \centering
     Teníamos los datos del precio de Bitcoin durante cierto periodo
@@ -136,13 +138,11 @@
 \begin{frame}
     Si todo viene siendo muy parecido a Regresión Lineal, entonces deben haber fórmulas \textit{sencillas} para calcular cada $\beta$...
 
+    \vspace{2em}
     \pause
-    \centering
-    \includegraphics[scale=0.4]{img/meme_03.jpg}
-\end{frame}
+    Si bien al buscar los mínimos de $RSS(\beta)$ también se obtiene un sistema de ecuaciones lineales, para calcular el valor de los $\beta$ necesitamos herramientas que se ven en \alert{Álgebra Lineal Computacional}.
 
-\begin{frame}
-    Para calcular el valor de los $\beta$ necesitamos herramientas que se ven en \alert{Álgebra Lineal Computacional}.
+    \vspace{2em}
 
     Sin embargo, gracias a \texttt{seaborn}, la visualización es sencilla:
 \end{frame}
@@ -155,7 +155,7 @@
 
 \begin{frame}
     \centering
-    \texttt{.add(so.Line(color='red'), so.PolyFit(5))}
+    \texttt{.add(so.Line(color='red'), so.PolyFit(\alert{5}))}
     \includegraphics[width=0.75\linewidth]{img/bitcoin_lsq.png}
     \begin{tikzpicture}[remember picture,overlay]
         \node[xshift=3cm, yshift=1cm] at (current page.west) {\includegraphics[scale=0.15]{img/meme_04.jpg}};
@@ -167,7 +167,7 @@
     ¿Cómo elegimos el grado del polinomio?
 
     \normalsize
-    El grado del polinomio es el \underline{hiper-parámetro} del modelo de Regresión Polinomial. No hay una fórmula o una regla que nos diga cuál es el grado apropiado para nuestros datos. 
+    El grado del polinomio es el \underline{parámetro} del modelo. No hay una fórmula o una regla que nos diga cuál es el grado apropiado para nuestros datos. 
     
     \pause
     Sin embargo, tenemos algunas opciones:
@@ -224,7 +224,21 @@
 
 \begin{frame}
     \centering
-    Vamos a calcular la LSMA sobre estos datos con un periodo de $k=4$
+\only<1>{\includegraphics[scale=0.75]{img/LSMA_0.png}}
+\only<2>{\includegraphics[scale=0.75]{img/LSMA_1.png}}
+\only<3>{\includegraphics[scale=0.75]{img/LSMA_2.png}}
+\only<4>{\includegraphics[scale=0.75]{img/LSMA_3.png}}
+\only<5>{\includegraphics[scale=0.75]{img/LSMA_4.png}}
+\only<6>{\includegraphics[scale=0.75]{img/LSMA_5.png}}
+\only<7>{\includegraphics[scale=0.75]{img/LSMA_6.png}}
+\only<8>{\includegraphics[scale=0.75]{img/LSMA_7.png}}
+\only<9>{\includegraphics[scale=0.75]{img/LSMA_8.png}}
+\only<10>{\includegraphics[scale=0.75]{img/LSMA_9.png}}
+\only<11>{\includegraphics[scale=0.75]{img/LSMA_10.png}}
+\only<12>{\includegraphics[scale=0.75]{img/LSMA_11.png}}
+\only<13>{\includegraphics[scale=0.75]{img/LSMA_12.png}}
+\only<14>{\includegraphics[scale=0.75]{img/LSMA_13.png}}
+\only<15>{\includegraphics[scale=0.75]{img/LSMA_14.png}}
 \end{frame}
 \end{document}
 
