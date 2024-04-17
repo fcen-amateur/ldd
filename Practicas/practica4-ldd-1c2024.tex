@@ -1,0 +1,261 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage{amssymb, enumitem}
+
+\parindent 0cm
+\usepackage{amssymb,amsmath,amsthm,latexsym,epsfig,euscript,multicol}
+\usepackage[utf8x]{inputenc}
+\usepackage{listings,xcolor,bm}
+\usepackage{babel}[spanish]
+\usepackage{url}
+
+
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+\lstset{
+  backgroundcolor=\color{white},   % choose the background color; you must add
+  basicstyle=\small\ttfamily,      % the size of the fonts that are used for the code
+  breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+  breaklines=true,                 % sets automatic line breaking
+  captionpos=b,                    % sets the caption-position to bottom
+  commentstyle=\color{mygreen},    % comment style
+  deletekeywords={...},            % if you want to delete keywords from the given language
+  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+  firstnumber=1,                % start line enumeration with line 1000
+  frame=none,	                   % adds a frame around the code
+  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+  keywordstyle=\color{blue},       % keyword style
+  language=Python,                 % the language of the code
+  morekeywords={*,...},            % if you want to add more keywords to the set
+  numbers=none,                    % where to put the line-numbers; possible values are (none, left, right)
+  numbersep=5pt,                   % how far the line-numbers are from the code
+  numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
+  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+  showstringspaces=false,          % underline spaces within strings only
+  showtabs=false,                  % show tabs within strings adding particular underscores
+  stepnumber=5,                    % the step between two line-numbers. If it's 1, each line will be numbered
+  stringstyle=\color{mymauve},     % string literal style
+  tabsize=4,	                   % sets default tabsize to 2 spaces
+  title=\lstname                   % show the filename of files included with \lstinputlisting; also try caption instead of title
+}
+% Caracteres especiales
+\def\A{\mathbb{A}}
+\def\C{\mathbb{C}}
+\def \N{\mathbb{N}}
+\def \P{\mathbb{P}}
+\def \Q{\mathbb{Q}}
+\def \R{\mathbb{R}}
+\def \Z{\mathbb{Z}}
+\def \sen{\textrm{sen}}
+
+\def\Np{$\N$}
+\def\Zp{$\Z$}
+\def\Qp{$\Q$}
+\def\Rp{$\R$}
+\def\Cp{$\C$}
+
+\def\bb{\bm{b}}
+\def\bu{\bm{u}}
+\def\bv{\bm{v}}
+\def\bx{\bm{x}}
+\def\bA{\bm{A}}
+\def\bB{\bm{B}}
+\def\bD{\bm{D}}
+\def\bE{\bm{E}}
+\def\bM{\bm{M}}
+\def\bT{\bm{T}}
+
+
+\def\K{\textrm{K}}
+\def\V{\textrm{V}}
+\def\S{\textrm{S}}
+
+\def\degres{$^\circ$}
+
+\newcount\todno
+\def\no{\global\advance\todno by 1 \the\todno}
+
+\topmargin-2cm \vsize 29.5cm \hsize 21cm
+\setlength{\textwidth}{16.75cm}\setlength{\textheight}{23.5cm}
+\setlength{\oddsidemargin}{0.0cm}
+\setlength{\evensidemargin}{0.0cm}
+
+
+\theoremstyle{definition}
+\newtheorem{ejer}{Ejercicio}
+\newcommand{\bej}{\begin{ejer}}
+\newcommand{\fej}{\end{ejer}}
+
+\begin{document}
+
+\centerline{{\small Universidad de Buenos Aires - Facultad de Ciencias Exactas y Naturales - Ciencias de Datos}}
+
+\vskip 0.2cm
+
+\hrule
+
+\vskip 0.2cm
+
+ \centerline{{\bf\Large{\sc Laboratorio de Datos}}}
+
+ \vskip 0.2cm
+
+ \centerline{\ttfamily Primer Cuatrimestre 2024}
+
+\vskip 0.2cm
+
+ \hrule
+
+ \bigskip
+ \centerline{\bf Práctica N$^\circ$ 4: Regresión lineal y Cuadrados M\'inimos}
+ \bigskip
+
+
+% \textbf{\large Visualizaci\'on}
+
+\begin{enumerate}[resume]
+\item 
+\begin{enumerate}
+    \item Implementar una función que calcule la pendiente y la ordenada al origen de la recta de regresión lineal con las fórmulas vistas en clase:
+
+     \[
+     \begin{array}{rl}
+          {\beta}_1 = & \dfrac{\displaystyle\sum_{i=1}^n(x_i - \bar{x})(y_i - \bar{y})}{\displaystyle\sum_{i=1}^n(x_i - \bar{x})^2}  \\[1em]
+          {\beta}_0 = & \bar{y} - \beta_1\bar{x}
+     \end{array}
+     \]
+
+          donde:
+     \[
+     \begin{array}{rl}
+          \bar{x} =& \dfrac{1}{n} \displaystyle\sum_{i=1}^n x_i  \\
+          \bar{y} =& \dfrac{1}{n} \displaystyle\sum_{i=1}^n y_i
+     \end{array}
+     \]
+
+
+    La función debe tomar como argumentos a \texttt{x} e \texttt{y}, que son \verb|pandas.Series| o \verb|numpy.array|, y devolver los valores de $\beta_0$ y $\beta_1$. 
+    
+    \textbf{Sugerencia:} recordar que dado un \texttt{pandas Series} se utiliza \texttt{.mean()} para calcular su promedio y recordar el uso de \texttt{np.sum}
+    \vspace{0.2cm} 
+\begin{lstlisting}
+def coefs_rl(x, y):
+    beta_1 = ???
+    beta_0 = ???
+    return beta_1, beta_0
+\end{lstlisting}
+    \item Con el dataset \texttt{gapminder}, utilizar la función implementada en el item anterior para realizar una regresión lineal entre los años y la expectiva de vida en Argentina. Comparar los coeficientes con los obtenidos por \texttt{scikit-learn}.
+    \vspace{0.2cm} 
+    
+\begin{lstlisting}
+datos = gapminder[???]
+print(coefs_rl(datos[???], datos[???]))
+
+modelo = linear_model.LinearRegression()
+modelo.fit(datos[[???]], datos[[???]])
+beta_1 = modelo.???
+beta_0 = modelo.???
+print(beta_1, beta_0)
+\end{lstlisting}
+\end{enumerate}
+
+\item En este ejercicio trabajaremos con el dataset de inmuebles (\texttt{inmuebles.csv} en la página de la materia). El dataset contiene datos sobre inmuebles que están a la venta en cierta ciudad: su superficie en $m^2$, su precio en millones de pesos y la zona de la ciudad donde se encuentra. Recordar como cargar un dataset desde un \texttt{.csv} y visualizar sus primeras filas:
+\vspace{0.2cm}
+\begin{lstlisting}
+datos = pd.read_csv('inmuebles.csv')
+datos.head()
+\end{lstlisting}
+
+\begin{enumerate}
+    \item Realizar un gráfico de dispersión (scatterplot) que muestre la relación entre la superficie y el precio de cada imueble.
+    
+    \item Realizar un gráfico de la regresión lineal entre ambas variables. El gráfico debe titularse ``Datos inmobiliarios" y la recta de Regresión Lineal debe tener una leyenda que diga ``Regresión".
+    
+    \item Calcular los coeficientes de la recta que mejor ajusta a los datos. Según el modelo, ¿qué podríamos interpretar sobre el costo del metro cuadrado en la ciudad?
+    
+    \item Para medir qué tan bien ajusta la recta a los datos, vamos a implementar dos funciones: una que calcule el error cuadrático medio (ECM) y otra que calcule el coeficiente de determinación $R^2$. Recordemos que:
+
+    \[
+    \begin{array}{rrl}
+        \text{Error cuadrático medio:} & ECM =& \dfrac{1}{n}\displaystyle \sum_{i=1}^n (y_i - \hat{y}_i)^2 \\[2em]
+         \text{Coeficiente de determinación:}& R^2 =& \dfrac{\displaystyle\sum_{i=1}^n (\hat{y}_i - \bar{y})^2}{\displaystyle\sum_{i=1}^n (y_i - \bar{y})^2} 
+    \end{array}
+    \]
+
+    Para calcular ambas necesitamos los datos \texttt{x}, \texttt{y} y los coeficientes de la recta.
+
+\begin{lstlisting}
+def ecm(x, y, pendiente, o_origen):      
+    return ???
+
+def r_cuad(x, y, pendiente, o_origen):
+    return ???
+\end{lstlisting}
+
+    \item Utilizando las funciones implementadas en el ítem anterior, calcular el ECM y el $R^2$ del ajuste realizado en el item b). ¿En qué unidades está cada medida? ¿Cómo podemos interpretarlas?
+
+    \item Comparar los resultados obtenidos en el ítem anterior con los proporcionados por \texttt{r2\_score} y \texttt{mean\_squared\_error} de \texttt{scikit-learn}
+
+    \item Mediante la confección de un boxplot, decidir en cuál de las zonas hay mayor variabilidad de precios. ¿Hay algún outlier?
+
+    \item Para cada una de las zonas de la ciudad, calcular los coeficientes, el ECM y $R^2$ de la recta que mejor aproxima a los datos.
+    
+    \item Graficar los datos y el ajuste lineal de cada zona utilizando el método \lstinline{facet()} de \lstinline{Plot()} (recordar ejercicio 5.b de la práctica 3) ¿Cuál es el valor del metro cuadrado en cada zona? ¿Qué podemos concluir si comparamos estos valores con lo obtenido en el ítem c) ?
+
+    \item Supongamos que queremos poner a la venta un inmueble de $105$ m$^2$. Sólo con esa información y teniendo en cuenta los items anteriores, ¿cuál sería el precio de refencia para la venta? Si sabemos además que el inmueble está en la Zona 2, ¿cambiaría en algo el valor calculado anteriormente? 
+
+    \item Si me ofrecen un inmueble de $100$ m$^2$ en la Zona 2 a un precio de 300, ¿qué tan barato o caro es respecto a
+     su precio de referencia?
+
+    \item \textit{Efecto de los outliers.} En este item trabajaremos con los datos de \texttt{inmuebles\_outliers.csv}, que tiene los mismos datos que \texttt{inmuebles.csv}, salvo cuatro que son outliers.
+    \begin{enumerate}
+        \item Realizar un boxplot que permita identificar en qué zona(s) se encuentran los outliers.
+        \item Comparar los coeficientes del ajuste lineal de la(s) zona(s) afectada(s) con los obtenidos en el ítem h)
+    \end{enumerate}
+    
+
+\end{enumerate}
+
+\item En el archivo \texttt{bitcoin.csv} se encuentran datos de cotizacion de Bitcoin desde el 17/09/2014 hasta el 19/02/2022 \footnote{Fuente: \url{https://www.kaggle.com/datasets/meetnagadia/bitcoin-stock-data-sept-17-2014-august-24-2021}}. Cargamos el dataset:
+\begin{lstlisting}
+btc = pd.read_csv('datos/bitcoin.csv')
+btc.head()
+\end{lstlisting}
+Nos interesa analizar la evolución del precio de cierre (\textit{Close}) en periodo comprendido entre el 01/01/2021 y el 01/07/2021:
+\begin{lstlisting}
+# Nos aseguramos que pandas interprete la fecha correctamente
+btc['Date'] = pd.to_datetime(btc['Date'], format='%Y-%m-%d') 
+
+# Filtramos el dataset en el periodo de interes
+btc_2021 = btc[(btc['Date']>"2021-01-01") & (btc['Date']<"2021-07-01")]
+\end{lstlisting}
+
+Visualizar el ajuste lineal para los datos del dataframe \verb |btc_2021|. En este caso, ¿resulta más conveniente un scatterplot o un gráfico de lineas para los datos? ¿Te resultaría útil utilizar esta recta para predecir el valor de BTC o para describir el cambio de su valor en este periodo?
+
+
+\item Utilizando el dataset \verb|tips| de \verb|seaborn|:
+\begin{lstlisting}
+datos = sns.load_dataset('tips')
+\end{lstlisting}
+realizar la Regresión Lineal donde la variable $X$ es \verb|total_bill| menos el promedio de \verb|total_bill| y la variable $Y$ es \verb|tip|. Responder las siguientes preguntas:
+\begin{enumerate}
+    \item ¿Qué interpretación se le puede dar a $\beta_0$? \textit{Pista:} calcular el promedio de las propinas.
+    \item ¿Cambia el valor de $\beta_1$ respecto a la Regresión Lineal de \verb|total_bill| vs. \verb|tip|?
+\end{enumerate}
+
+\item En este ejercicio utilizaremos el dataset \verb|healthexp| de \verb|seaborn|, donde se recopila cada año (\verb|Year|) lo que cada país (\verb|Country|) invierte en salud por habitante (\verb|Spending_USD|) y su expectativa de vida (\verb|Life_Expectancy|). 
+
+Nos enfocaremos en los datos de Japón, nuestra variable predictora será \verb|Spending_USD| y la dependiente será \verb|Life_Expectancy|.
+\begin{enumerate}
+    \item Visualizar en un mismo gráfico los datos y los polinomios de grado 1, de grado 2 y de grado 3 que mejor ajustan a los datos. Añadir etiquetas que para facilitar la interpretación del gráfico.
+    \item En base al gráfico obtenido en el ítem anterior, elegir el grado que considerás que mejor ajusta a los datos. Utilizando \verb|scikit-learn|, calcular los coeficientes de ese polinomio.
+    \item Calcular el $R^2$ y el ECM.
+    \item Según el polinomio obtenido en el ítem anterior, estimar cuál sería la expectativa de vida de los habitantes de Japón si el país invirtiera U\$D $5000$.
+    \item Visualizar el polinomio de grado $10$ que mejor ajusta a los datos. ¿Se aprecia una mejora? ¿Resulta conveniente ajustar con un polinomio de grado $50$?
+\end{enumerate}
+
+\end{enumerate}
+\end{document}
+
