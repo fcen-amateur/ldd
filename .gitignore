@@ -16,4 +16,4 @@ venv
 *.nav
 *.snm
 *.toc
-/Notebooks/.ipynb_checkpoints
+**/.ipynb_checkpoints
