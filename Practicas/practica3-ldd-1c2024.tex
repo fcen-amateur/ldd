@@ -1,5 +1,7 @@
 \documentclass[a4paper,11pt]{article}
 \usepackage{amssymb, enumitem}
+\setlist[enumerate,1]{label={\bfseries\arabic*.},ref={\bfseries{Ejercicio \arabic*}}}
+\setlist[enumerate,2]{label={\bfseries(\alph*)},ref={\bfseries(\alph*)}}
 
 
 \parindent 0cm
@@ -15,8 +17,8 @@
 \definecolor{mymauve}{rgb}{0.58,0,0.82}
 \lstset{
   backgroundcolor=\color{white},   % choose the background color; you must add
-  basicstyle=\small\ttfamily,      % the size of the fonts that are used for the code
-  breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+  basicstyle=\ttfamily,      % the size of the fonts that are used for the code
+  breakatwhitespace=true,         % sets if automatic breaks should only happen at whitespace
   breaklines=true,                 % sets automatic line breaking
   captionpos=b,                    % sets the caption-position to bottom
   commentstyle=\color{mygreen},    % comment style
@@ -39,7 +41,8 @@
   stepnumber=5,                    % the step between two line-numbers. If it's 1, each line will be numbered
   stringstyle=\color{mymauve},     % string literal style
   tabsize=4,	                   % sets default tabsize to 2 spaces
-  title=\lstname                   % show the filename of files included with \lstinputlisting; also try caption instead of title
+  title=\lstname,                  % show the filename of files included with \lstinputlisting; also try caption instead of title
+  belowskip=0em
 }
 % Caracteres especiales
 \def\A{\mathbb{A}}
@@ -117,41 +120,29 @@
 % \textbf{\large Visualizaci\'on}
 
 \begin{enumerate}[resume]
-\item Ten\'es datos de una encuesta realizada en distintas provincias de Argentina y quer\'es saber cu\'antas personas respondieron a la encuesta en cada provincia. ?`Hac\'es un gr\'afico de l\'ineas, de dispersi\'on (scatter), histograma o un gr\'afico de barras (bar plot)? Hac\'e a mano en tu cuaderno c\'omo esper\'as que se vea el gr\'afico.
 
-\item Est\'as estudiando la relaci\'on entre altura y peso de las personas. Ten\'es un data-set que tiene como variables la edad, sexo y peso de cada persona. Si quer\'es describir estas variables por separado, ?`qu\'e gr\'afico har\'ias para cada una? ?`y si quer\'es visualizar la relaci\'on entre peso y altura? Hac\'e a mano en tu cuaderno c\'omo esper\'as que se vea el gr\'afico.
+\item \label{ej:gapminder}
+En este ejercicio utilizamos los datos de \lstinline{gapminder} (recordar el ejercicio 10 de la Práctica 2 para acceder a los datos de gapminder).
 
-\item Hac\'e un gr\'afico de barras que muestre la cantidad de pa\'ises hay en cada continente seg\'un los datos de gapminder (recordar el ejercicio 10 de la Práctica 2 para acceder a los datos de gapminder).
-
-\item Quer\'es investigar c\'omo var\'ia la expectativa de vida entre los continentes. Para eso necesit\'as un gr\'afico como el siguiente:
-
-\begin{center}
-\includegraphics[scale=0.6]{practica3-img-gapminder-boxplot.png}
-\end{center}
-
-Reproduc\'i el gr\'afico de arriba reemplazando adecuadamente lo que falta en el siguiente c\'odigo:
-\begin{lstlisting}
-import seaborn as sns
-sns.boxplot(gapminder, x=COMPLETAR, y=COMPLETAR, order=sorted(COMPLETAR))
-\end{lstlisting}
-
-\item
 \begin{enumerate}
 \item Utilizando \lstinline{seaborn.objects}, graficar la curva de la expectativa de vida en Argentina en función del año, completando el siguiente código. Sugerencia: recordar de la práctica anterior como filtrar datos de un dataset.
 
 \begin{lstlisting}
+from gapminder import gapminder
 import seaborn.objects as so
+
+datosArgentina = ???
 (
-    so.Plot(data = gapminder[???], x = "year", y = "???")
+    so.Plot(data = datosArgentina, x = "year", y = "???")
     .add(so.Line())
 )
 \end{lstlisting}
-    
-    
+
+
 \item Realizar un nuevo gráfico donde puedan verse las curvas de la expectativa de vida de los países de América en función del año, una curva por cada país.
 
     Sugerencia: utilizar los parámetros \lstinline{group = ???} o \lstinline{color = ???}. ¿Cuál es la diferencia entre los dos?
-\item \label{ej:map} Queremos agregar al gráfico del ítem anterior una curva de tendencia lineal utilizando el método  \lstinline{.add(so.Line(), so.PolyFit(1))}. ¿Cuál de las siguientes dos formas de agrupar los datos es la forma correcta? Explicar la diferencia entre los dos códigos.
+\item Queremos agregar al gráfico del ítem anterior una curva de tendencia lineal utilizando el método  \lstinline{.add(so.Line(), so.PolyFit(1))}. ¿Cuál de las siguientes dos formas de agrupar los datos es la forma correcta? Explicar la diferencia entre los dos códigos. \label{item:map} 
 
 \begin{lstlisting}
 # Codigo 1
@@ -169,13 +160,29 @@ import seaborn.objects as so
 )
 \end{lstlisting}
 
-\item Realizar el siguiente gráfico, con las curvas de expectativa de vida agrupadas por continente. Sugerencias: ¿qué hace el método \lstinline{facet()} de \lstinline{seaborn.objects.Plot()}? ?`Y el parámetro \lstinline{wrap = ???} de \lstinline{facet()}?
+\item Realizar el siguiente gráfico, con las curvas de expectativa de vida agrupadas por continente. 
+
 \begin{center}
 \includegraphics[scale=0.5]{practica3-img-gapminder-lifeExp.png}
 \end{center}
+
+Basándonde en el código del \'item \ref{item:map}, completar el siguiente código.
+    
+    
+\begin{lstlisting}
+(
+    so.Plot(data = gapminder, ???)
+    .add(???)
+    .add(???)
+    .facet("continent", wrap = ???)
+)
+\end{lstlisting}
+
+¿Qué hace el método \lstinline{facet()} de \lstinline{so.Plot()}? ?`Y el parámetro \lstinline{wrap} de \lstinline{facet()}?
+
 \end{enumerate}
 
-\item (De ac\'a en adelante, trabajar con el dataset \lstinline{penguins} disponible en la biblioteca \lstinline{seaborn}).
+\item En los siguientes ejercicios vamos a trabajar con el dataset \lstinline{penguins} disponible en la biblioteca \lstinline{seaborn}.
 ?`Cu\'antas
 filas y
 columnas hay en el dataset penguins?
@@ -191,7 +198,7 @@ penguins = sns.load_dataset("penguins")
 \end{center}
 
 \item
-Como vimos en el Ejercicio \ref{ej:map}, si asignamos una codificación (o mapeo) al definir un \lstinline{Plot()}, el mapeo se asigna en todas las capas de marcas (objetos mark). En cambio, si asignamos una codificación dentro del método \lstinline{add()} de una marca, mapeo se realiza solo en esa capa. Por último, si asignamos un parámetro de la marca, el valor se asigna directamente (ver gráfico).
+Como vimos en el \ref{ej:gapminder}\ref{item:map}, si asignamos una codificación (o mapeo) al definir un \lstinline{Plot()}, el mapeo se asigna en todas las capas de marcas (objetos mark). En cambio, si asignamos una codificación dentro del método \lstinline{add()} de una marca, el mapeo se realiza solo en esa capa. Por último, si asignamos un parámetro de la marca, el valor se asigna directamente (ver gráfico).
 
 \begin{center}
 \includegraphics[scale=0.5, align=c]{practica3-img-mappings.png}
@@ -213,9 +220,23 @@ Como vimos en el Ejercicio \ref{ej:map}, si asignamos una codificación (o mapeo
 )
 \end{lstlisting}
 
-\item 
+\item \label{ej:depthvslength}
 \begin{enumerate}
-\item ¿Cuántos pingüinos hay en cada isla en la base de datos? Recordar los comandos \lstinline{groupby()} y \lstinline{size()} de la práctica anterior.
+\item \label{item:scatter} Hacer un gráfico de dispersión de \lstinline{bill_depth_mm} (en el eje $x$) vs. \lstinline{bill_length_mm} (en el eje $y$).
+\item ¿Distinguen grupos distintos de puntos en el gráfico? ¿A qué puede deberse?
+\item Introducir alguna modificación en el gráfico anterior para verificar o refutar su conjetura del ítem anterior.
+\end{enumerate}
+
+\item
+\begin{enumerate}
+\item Rehacer el gráfico del \ref{ej:depthvslength}\ref{item:scatter}, coloreando los puntos según el sexo. ¿Qué se observa?
+\item Usando la función \lstinline{facet()} separar el gráfico del item anterior en tres subgráficos, uno para cada especie.
+\end{enumerate}
+
+
+\item
+\begin{enumerate}
+\item ¿Cuántos pingüinos se registraron en cada isla en la base de datos? Recordar los comandos \lstinline{groupby()} y \lstinline{size()} de la práctica anterior.
 \item Realizar un grafico de barras con la cantidad de pingünos en cada isla, completando el siguiente código.
 \begin{lstlisting}
 pinguinos_por_isla = penguins.???   # Usar el codigo del item anterior.
@@ -232,37 +253,57 @@ pinguinos_por_isla = penguins.???   # Usar el codigo del item anterior.
 )
 \end{lstlisting}
 \item ¿Por qué no especificamos ninguna variable $y$ en el último gráfico?
-\item Queremos ver en un gráfico cuántos pingüinos de cada especie hay en cada isla, ¿cómo podemos hacerlo? Si usan un gráfico de barras, pueden utilizar la función \lstinline{dodge()} para hacer varias barras por categoría.
+\item Queremos ver en un gráfico cuántos pingüinos de cada especie hay en cada isla, ¿cómo podemos hacerlo? Si usan un gráfico de barras, pueden utilizar la función \lstinline{Dodge()} para hacer barras distintas por categoría.
+\begin{lstlisting}
+(
+    so.Plot(data = penguins, x = ???)
+    .add(so.Bar(), so.Hist(), so.Dodge(), color = ???)
+)
+\end{lstlisting}
+    
+¿Qué pasa si hacemos el mismo gráfico sin utilizar \lstinline{so.Dodge()}?
+    
+    
 \item ¿Cómo podrían visualizar lo mismo usando \lstinline{facet()}?
 \end{enumerate}
 
 \item Realizar un histograma de la cantidad de pingüinos en función del tamaño del ala (variable \lstinline{flipper_length_mm}). A partir del gráfico, estimar el valor mínimo, máximo, la media y la mediana. Verificar sus estimaciones utilizando los comandos apropiados.
 
-\item \label{depthvslength}
-\begin{enumerate}
-\item Hacer un \lstinline{scatterplot} de \lstinline{bill_depth_mm} (en el eje $y$) vs. \lstinline{bill_length_mm} (en el eje $x$).
-\item ¿Distinguen grupos distintos de puntos en el gráfico? ¿A qué puede deberse?
-\item Introducir alguna modificación en el gráfico anterior para verificar o refutar su conjetura del ítem anterior.
-\end{enumerate}
-
 \item \begin{enumerate}
 \item Calcular distintos estadísticos de la variable \lstinline{bill_depth_mm} (mínimo, máximo, media, ...).
-\item Según lo observado en el ejercicio anterior, ¿esos valores varían según la especie? ¿Cómo podemos usar gráficos BoxPlot para para ver la relaci\'on entre \lstinline{species} y \lstinline{bill_depth_mm}?
-\end{enumerate}
-
-\item
-\begin{enumerate}
-\item Rehacer el scatter plot del ejercicio \ref{depthvslength}, coloreando los puntos según el sexo. ¿Qué se observa?
-\item Usando la función \lstinline{facet()} separar el gráfico del item anterior en tres subgráficos, uno para cada especie.
+\item Según lo observado en el \ref{ej:depthvslength}, ¿esos valores varían según la especie? ¿Cómo podemos usar gráficos BoxPlot para para ver la relaci\'on entre \lstinline{species} y \lstinline{bill_depth_mm}?
 \end{enumerate}
 
 %\item Agregar un ``caption'' al gr\'afico de arriba. Ayuda: Mirar la documentaci\'on de \lstinline{labs()}.
-\item 
+\item
 \begin{enumerate}
-\item Rehacer el scatter plot del ejercicio \ref{depthvslength}, modificando el tamaño de los puntos según el peso de cada pingüino, utilizando el parámetro \lstinline{pointsize="???"}. ¿Qué se observa?
+\item Rehacer el scatter plot del \ref{ej:depthvslength}, modificando el tamaño de los puntos según el peso de cada pingüino, utilizando el parámetro \lstinline{pointsize="???"}. ¿Qué se observa?
 \item En base a lo observado, ¿cuál es la especie con mayor peso? Verificarlo mediante alguna visualización.
 \end{enumerate}
 
+
+\item Ten\'es datos de una encuesta realizada en distintas provincias de Argentina y quer\'es saber cu\'antas personas respondieron a la encuesta en cada provincia. ?`Hac\'es un gr\'afico de l\'ineas, de dispersi\'on (scatter), histograma o un gr\'afico de barras (bar plot)? Hac\'e a mano en tu cuaderno c\'omo esper\'as que se vea el gr\'afico.
+
+\item Est\'as estudiando la relaci\'on entre altura y peso de las personas. Ten\'es un data-set que tiene como variables la edad, sexo y peso de cada persona. Si quer\'es describir estas variables por separado, ?`qu\'e gr\'afico har\'ias para cada una? ?`y si quer\'es visualizar la relaci\'on entre peso y altura? Hac\'e a mano en tu cuaderno c\'omo esper\'as que se vea el gr\'afico.
+
+\item Hac\'e un gr\'afico de barras que muestre la cantidad de pa\'ises hay en cada continente seg\'un los datos de \lstinline{gapminder}, de las siguientes dos formas distintas:
+
+\begin{enumerate}
+\item Calculando primero las cantidades y llamando a \lstinline{.add(so.Bar())}.
+\item Utilizando \lstinline{so.Hist()} para calcular las cantidades.
+\end{enumerate}
+
+\item Quer\'es investigar c\'omo var\'ia la expectativa de vida entre los continentes. Para eso necesit\'as un gr\'afico como el siguiente:
+
+\begin{center}
+\includegraphics[scale=0.6]{practica3-img-gapminder-boxplot.png}
+\end{center}
+
+Reproduc\'i el gr\'afico de arriba reemplazando adecuadamente lo que falta en el siguiente c\'odigo:
+\begin{lstlisting}
+import seaborn as sns
+sns.boxplot(gapminder, x=COMPLETAR, y=COMPLETAR, order=sorted(COMPLETAR))
+\end{lstlisting}
 
 \end{enumerate}
 
