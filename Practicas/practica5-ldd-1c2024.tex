@@ -1,0 +1,203 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage{amssymb, enumitem}
+\setlist[enumerate,1]{label={\bfseries\arabic*.},ref={\bfseries{Ejercicio \arabic*}}}
+\setlist[enumerate,2]{label={\bfseries(\alph*)},ref={\bfseries(\alph*)}}
+
+
+\parindent 0cm
+\usepackage{amssymb,amsmath,amsthm,latexsym,epsfig,euscript,multicol}
+\usepackage{graphbox}
+
+\usepackage[utf8x]{inputenc}
+\usepackage{listings,xcolor,bm}
+
+
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+\lstset{
+  backgroundcolor=\color{white},   % choose the background color; you must add
+  basicstyle=\ttfamily,      % the size of the fonts that are used for the code
+  breakatwhitespace=true,         % sets if automatic breaks should only happen at whitespace
+  breaklines=true,                 % sets automatic line breaking
+  captionpos=b,                    % sets the caption-position to bottom
+  commentstyle=\color{mygreen},    % comment style
+  deletekeywords={...},            % if you want to delete keywords from the given language
+  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+  firstnumber=1,                % start line enumeration with line 1000
+  frame=single,	                   % adds a frame around the code
+  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+  keywordstyle=\color{blue},       % keyword style
+  language=Python,                 % the language of the code
+  morekeywords={*,...},            % if you want to add more keywords to the set
+  numbers=none,                    % where to put the line-numbers; possible values are (none, left, right)
+  numbersep=5pt,                   % how far the line-numbers are from the code
+  numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
+  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+  showstringspaces=false,          % underline spaces within strings only
+  showtabs=false,                  % show tabs within strings adding particular underscores
+  stepnumber=5,                    % the step between two line-numbers. If it's 1, each line will be numbered
+  stringstyle=\color{mymauve},     % string literal style
+  tabsize=4,	                   % sets default tabsize to 2 spaces
+  title=\lstname,                  % show the filename of files included with \lstinputlisting; also try caption instead of title
+  belowskip=0em
+}
+% Caracteres especiales
+\def\A{\mathbb{A}}
+\def\C{\mathbb{C}}
+\def \N{\mathbb{N}}
+\def \P{\mathbb{P}}
+\def \Q{\mathbb{Q}}
+\def \R{\mathbb{R}}
+\def \Z{\mathbb{Z}}
+\def \sen{\textrm{sen}}
+
+\def\Np{$\N$}
+\def\Zp{$\Z$}
+\def\Qp{$\Q$}
+\def\Rp{$\R$}
+\def\Cp{$\C$}
+
+\def\bb{\bm{b}}
+\def\bu{\bm{u}}
+\def\bv{\bm{v}}
+\def\bx{\bm{x}}
+\def\bA{\bm{A}}
+\def\bB{\bm{B}}
+\def\bD{\bm{D}}
+\def\bE{\bm{E}}
+\def\bM{\bm{M}}
+\def\bT{\bm{T}}
+
+
+\def\K{\textrm{K}}
+\def\V{\textrm{V}}
+\def\S{\textrm{S}}
+
+\def\degres{$^\circ$}
+
+\newcount\todno
+\def\no{\global\advance\todno by 1 \the\todno}
+
+\topmargin-2cm \vsize 29.5cm \hsize 21cm
+\setlength{\textwidth}{16.75cm}\setlength{\textheight}{23.5cm}
+\setlength{\oddsidemargin}{0.0cm}
+\setlength{\evensidemargin}{0.0cm}
+
+
+\theoremstyle{definition}
+\newtheorem{ejer}{Ejercicio}
+\newcommand{\bej}{\begin{ejer}}
+\newcommand{\fej}{\end{ejer}}
+
+\begin{document}
+
+\centerline{{\small Universidad de Buenos Aires - Facultad de Ciencias Exactas y Naturales - Ciencias de Datos}}
+
+\vskip 0.2cm
+
+\hrule
+
+\vskip 0.2cm
+
+ \centerline{{\bf\Large{\sc Laboratorio de Datos}}}
+
+ \vskip 0.2cm
+
+ \centerline{\ttfamily Primer Cuatrimestre 2024}
+
+\vskip 0.2cm
+
+ \hrule
+
+ \bigskip
+ \centerline{\bf Práctica N$^\circ$ 5: Modelo lineal multivariado. Entrenamiento y testeo.}
+ \bigskip
+
+
+% \textbf{\large Visualizaci\'on}
+
+\begin{enumerate}
+
+\item \label{ejer:grado3} Queremos estudiar la relación entre la longitud de la aleta de un ping\"uino y el peso del ping\"uino. Como en una esfera, el peso es proporcional a la longitud del radio elevada al cubo, podemos conjeturar que un polinomio de grado 3 es apropiado para ajustar el peso en función de la longitud de la aleta. Queremos verificar si nuestra conjetura tiene sustento en los datos.
+\begin{enumerate}
+\item \label{item:nan} \textbf{Datos faltantes.} Ejecutar el siguiente c\'odigo y observar si hay filas con datos faltantes (NaN).
+\begin{lstlisting}
+penguins = sns.load_dataset("penguins")
+penguins.head()
+\end{lstlisting}
+
+Para hacerlo en forma más sistemática (en lugar de mirar solo algunas filas) podes usar el siguiente código
+\begin{lstlisting}
+penguins.isnull().values.any()
+\end{lstlisting}
+
+Para eliminar las filas con valores faltantes aplicamos al DataFrame el método \lstinline{dropna()}. Eliminar las filas con datos faltantes del DataFrame de ping\"uinos y verificar que el DataFrame resultante no contiene valores faltantes.
+
+\item Dividir el dataset resultante  en un grupo de entrenamiento y uno de test (80\% - 20\%).
+\item Crear y ajustar 3 modelos utilizando polinomios de grados 1, 2 y 3.
+\item Calcular para cada uno el error predicción en el grupo de entrenamiento y en el grupo de test.
+\item ¿Cuál modelo tiene el menor error (ECM) en el ajuste? ¿Cuál el menor error (ECM) de predicción?
+\item En base a los resultados obtenidos, ¿cu\'al de los tres modelos utilizaría?
+\end{enumerate}
+
+\item En el archivo \lstinline{50_startups.csv} tenemos los siguientes datos de 50 compa\~n\'ias: gastos en investigación y desarrollo, gastos administrativos, gastos en marketing y ganancias. Queremos estimar las ganancias a partir de los gastos en las distintas áreas.
+\begin{enumerate}
+\item Leer el archivo, y realizar un gráfico de dispersión para cada par de variables. Se pueden generar todos los gráficos automáticamente con el \lstinline{pairplot}.
+\begin{lstlisting}
+startups = pd.read_csv(???)
+sns.pairplot(
+    data=startups, aspect = .8)
+\end{lstlisting}
+
+En base a estos gr\'aficos, si quisiéramos predecir la ganancia mediante un modelo lineal utilizando una sola variable predictora, ¿cu\'al variable utilizar\'ia? Diseñar un experimento para verificar su respuesta.
+\item En este ejemplo, ¿considera que un modelo lineal multivariado ayudar\'ia a predecir mejor la ganancia que el modelo lineal univariado del ítem anterior? Realizar un experimento para verificar su respuesta.
+\end{enumerate}
+
+\item En el \ref{ejer:grado3} no tuvimos en cuenta el sexo del ping\"uino para predecir el peso, y puede ser una variable importante. Se quiere predecir ahora el peso de un ping\"uino usando como variables predictoras el largo de la aleta y el sexo del ping\"uino (utilizar el DataFrame sin datos faltantes, como vimos en el \ref{ejer:grado3} \ref{item:nan}).
+\begin{enumerate}
+\item ¿Cu\'ales son todos los valores que toma la variable ``sex''? ¿Qu\'e tipo de variable es: numérica o categórica, ordinal o nominal? ¿Es una variable binaria?
+
+\item Escribir (en lápiz y papel) la ecuación de un modelo lineal para este caso. ¿Qué unidades tienen las variables y cómo se codifica la variable “sexo del pinguino”?
+
+\item \textbf{Codificación de variables binarias.} Para crear una columna con el sexo codificado como 0 y 1, utilizamos el siguiente c\'odigo:
+\begin{lstlisting}
+from sklearn.preprocessing import OrdinalEncoder
+encoder = OrdinalEncoder()
+sex01 = encoder.fit_transform(penguins[["sex"]])
+penguins["sex01"] = sex01
+\end{lstlisting}
+
+\item Ajustar el modelo usando todos los datos disponibles. Reportar los coeficientes encontrados y calcular el error de predicción (ECM). ?`Considera que agregar la variable ``sex'' mejoró el modelo?
+\item Hacer un gráfico de los datos junto con las predicciones del modelo.
+\item Dos ping\"uinos que tienen igual largo de aleta, uno macho y otro hembra, ¿qué diferencia de peso predice el modelo que tendrán?
+\end{enumerate}
+
+\item Ahora se quiere predecir el peso de un pinguino usando como variables predictoras el largo de la aleta y la especie del ping\"uino.
+\begin{enumerate}
+\item Trabajamos con la base de ping\"uinos sin datos faltantes. ¿Cu\'ales son todos los valores que toma la variable ``sex''? ¿Qu\'e tipo de variable es: numérica o categórica, ordinal o nominal? ¿Es una variable binaria?
+\item Escribir (en lápiz y papel) la ecuación de un modelo lineal para este caso. ¿Cómo se codifica la variable “especie”?
+\item Explicar qué diferencia tiene este modelo respecto al propuesto en el ejercicio 1.
+\item \textbf{Codificación de variables categóricas.} Para agregar variables dummies para cada una de las especies usamos \lstinline{OneHotEncoder}. Correr el siguiente c\'odigo y verificar el resultado:
+\begin{lstlisting}
+from sklearn.preprocessing import OneHotEncoder
+penguins = sns.load_dataset("penguins").dropna()
+encoderOHE = OneHotEncoder(sparse_output = False)
+species3 = encoderOHE.fit_transform(penguins[["species"]])
+species3_df = pd.DataFrame(species3, columns=encoderOHE.get_feature_names_out(), index=penguins.index)
+penguins3 = pd.concat([penguins, species3_df], axis = 1)
+penguins3.head()
+\end{lstlisting}
+
+Verificar que los tama\~nos de \lstinline{species3} y \lstinline{penguins3} sean los esperados, y que el DataFrame resultante no tenga datos faltantes (como el DataFrame original no tiene faltantes, este tampoco debería tenerlos, pero nunca está mal verificarlo).
+
+\item Ajustar el modelo usando todos los datos disponibles. Reportar los coeficientes encontrados y calcular el error de predicción.
+\item Hacer un gráfico de los datos junto con las predicciones del modelo.
+\end{enumerate}
+
+\end{enumerate}
+
+\end{document}
+
