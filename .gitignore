@@ -16,3 +16,4 @@ venv
 *.nav
 *.snm
 *.toc
+**/.ipynb_checkpoints
