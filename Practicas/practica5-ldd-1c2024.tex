@@ -171,13 +171,13 @@ penguins["sex01"] = sex01
 \end{lstlisting}
 
 \item Ajustar el modelo usando todos los datos disponibles. Reportar los coeficientes encontrados y calcular el error de predicción (ECM). ?`Considera que agregar la variable ``sex'' mejoró el modelo?
-\item Hacer un gráfico de los datos junto con las predicciones del modelo.
+\item Realizar una visualización apropiada para ver de los datos junto con las predicciones del modelo.
 \item Dos ping\"uinos que tienen igual largo de aleta, uno macho y otro hembra, ¿qué diferencia de peso predice el modelo que tendrán?
 \end{enumerate}
 
 \item Ahora se quiere predecir el peso de un pinguino usando como variables predictoras el largo de la aleta y la especie del ping\"uino.
 \begin{enumerate}
-\item Trabajamos con la base de ping\"uinos sin datos faltantes. ¿Cu\'ales son todos los valores que toma la variable ``sex''? ¿Qu\'e tipo de variable es: numérica o categórica, ordinal o nominal? ¿Es una variable binaria?
+\item Trabajamos con la base de ping\"uinos sin datos faltantes. ¿Cu\'ales son todos los valores que toma la variable ``species''? ¿Qu\'e tipo de variable es: numérica o categórica, ordinal o nominal? ¿Es una variable binaria?
 \item Escribir (en lápiz y papel) la ecuación de un modelo lineal para este caso. ¿Cómo se codifica la variable “especie”?
 \item Explicar qué diferencia tiene este modelo respecto al propuesto en el ejercicio 1.
 \item \textbf{Codificación de variables categóricas.} Para agregar variables dummies para cada una de las especies usamos \lstinline{OneHotEncoder}. Correr el siguiente c\'odigo y verificar el resultado:
@@ -194,7 +194,7 @@ penguins3.head()
 Verificar que los tama\~nos de \lstinline{species3} y \lstinline{penguins3} sean los esperados, y que el DataFrame resultante no tenga datos faltantes (como el DataFrame original no tiene faltantes, este tampoco debería tenerlos, pero nunca está mal verificarlo).
 
 \item Ajustar el modelo usando todos los datos disponibles. Reportar los coeficientes encontrados y calcular el error de predicción.
-\item Hacer un gráfico de los datos junto con las predicciones del modelo.
+\item Realizar una visualización apropiada para ver de los datos junto con las predicciones del modelo.
 \end{enumerate}
 
 \end{enumerate}
