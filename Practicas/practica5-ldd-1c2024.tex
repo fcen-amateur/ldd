@@ -136,7 +136,47 @@ penguins.isnull().values.any()
 
 Para eliminar las filas con valores faltantes aplicamos al DataFrame el método \lstinline{dropna()}. Eliminar las filas con datos faltantes del DataFrame de ping\"uinos y verificar que el DataFrame resultante no contiene valores faltantes.
 
-\item Dividir el dataset resultante  en un grupo de entrenamiento y uno de test (80\% - 20\%).
+\item \textbf{Conjuntos de entrenamiento y testeo.} Dividir el dataset resultante  en un grupo de entrenamiento y uno de testeo (80\% - 20\%).
+Hacerlo de las siguientes dos formas distintas:
+
+\vspace{.5cm}
+
+A. Utilizando un array de Numpy para filtrar:
+\begin{enumerate} 
+\item Crear un array de Numpy booleano de longitud igual a la cantidad de filas del DataFrame que tome el valor True en el primer $80\%$ de las coordenadas y False en el restante $20\%$.
+\item Si se quiere seleccionar una muestra al azar, se puede utilizar \lstinline{numpy.random.shuffle} para ``mezclar'' el vector.
+\item Utilizar el vector generado para filtrar el Dataframe.
+\end{enumerate}
+
+Siguiendo esos pasos, completar el siguiente código:
+\begin{lstlisting}
+train_ind = np.full(???, False)
+train_ind[0:???] = True
+np.random.shuffle(train_ind)  # Lo guarda en el mismo vector.
+penguins_train = penguins[???]
+penguins_test = penguins[???]
+\end{lstlisting}
+
+B. Utilizando la función \lstinline{train_test_split} de \lstinline{sklearn}:
+\begin{lstlisting}
+from sklearn.model_selection import train_test_split
+penguins_train, penguins_test = train_test_split(penguins, test_size=0.2, random_state=42)
+\end{lstlisting}
+
+En este codigo, \lstinline{random_state} se conoce también como semilla aleatoria. Si corremos varias veces el código con el mismo número, obtendremos siempre la misma muestra. Esto permite que el experimento sea reproducible. Si modificamos el número (o no lo indicamos), obtendremos distitnas muestras aleatorias.
+
+\vspace{.5cm}
+
+Podemos también separar primero las variables explicativas y variable respuesta:
+
+\begin{lstlisting}
+from sklearn.model_selection import train_test_split
+X = ???
+y = ???
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+\end{lstlisting}
+
+
 \item Crear y ajustar 3 modelos utilizando polinomios de grados 1, 2 y 3.
 \item Calcular para cada uno el error predicción en el grupo de entrenamiento y en el grupo de test.
 \item ¿Cuál modelo tiene el menor error (ECM) en el ajuste? ¿Cuál el menor error (ECM) de predicción?
