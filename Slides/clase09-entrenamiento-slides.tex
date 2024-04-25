@@ -517,24 +517,15 @@ Seguimos los siguientes pasos:
 %------------------------------------------------------------------
 
 \begin{frame}
-\frametitle{Histograma de una variable numérica}
+\frametitle{Ejemplo real: cálculo de calorías}
 
-\begin{minipage}{.55\textwidth}
-Si la variable es numérica:
-\begin{itemize}
-\item en el eje $X$ representamos intervalos contiguos de los valores que toma la variable.
-\item en el eje $Y$ representamos la cantidad de veces que los valores de la serie caen en cada intevalo.
-\end{itemize}
-
-El tamaño de la barra representa la cantidad de veces que el valor de la serie cae en ese intervalo.
-
-\end{minipage} \hspace{1cm} %
-\begin{minipage}{.35\textwidth}
-\begin{center}
-\includegraphics[scale=1.5]{clase4-histogram-example-1.png}
-\end{center}
-\end{minipage}
-
+Vamos a repetir estos pasos en un caso real: calculas las calorías de un alimento en función de sus componentes, utilizando las herramientas de Python para la construcción de modelos.
+\begin{enumerate}
+\item Construimos las matrices $X$ e $y$ utilizando \lstinline{Formulaic}.
+\item Separamos las matrices en entrenamiento y testeo utilizando \lstinline{train_test_split}
+\item Ajustamos el modelo utilizando \lstinline{linear_model.fit()}.
+\item Calculamos el error en los datos de testeo utilizando \lstinline{linear_model.predict()}.
+\end{enumerate}
 
 \end{frame}
 
