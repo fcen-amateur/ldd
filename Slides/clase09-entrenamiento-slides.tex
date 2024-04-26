@@ -561,7 +561,7 @@ Dadas una variable a predecir $y$ y variables explicativas $x_1, x_2, \dots$, ¿
 \begin{frame}
 \frametitle{Ejemplo real: cálculo de calorías}
 
-Vamos a repetir estos pasos en un caso real: calculas las calorías de un alimento en función de sus componentes, utilizando las herramientas de Python para la construcción de modelos.
+Vamos a repetir estos pasos en un caso real: calcular las calorías de un alimento en función de sus componentes, utilizando las herramientas de Python para la construcción de modelos.
 \begin{enumerate}
 \item Construimos las matrices $X$ e $y$ utilizando \lstinline{Formulaic}.
 \item Separamos las matrices en entrenamiento y testeo utilizando \lstinline{train_test_split}
@@ -571,112 +571,6 @@ Vamos a repetir estos pasos en un caso real: calculas las calorías de un alimen
 
 \end{frame}
 
-
-%------------------------------------------------------------------
-
-\begin{frame}
-\frametitle{Box plot}
-
-Un gráfico \textbf{box plot} usa cajas y líneas para mostrar información de la distribución de uno o más grupos de datos numéricos.
-
-\begin{center}
-\includegraphics[scale=.3]{practica3-img-gapminder-boxplot.png}
-\end{center}
-
-\end{frame}
-
-%------------------------------------------------------------------
-
-\begin{frame}
-\frametitle{Elementos de un Box plot: cuartiles}
-
-Dada una variable numérica, ordenamos los valores y los partimos en 4 grupos de igual tamaño.
-
-\begin{itemize}
-\item Primer cuartil (Q1): es un valor mayor que el $25\%$ de los datos y menor que el otro $75\%$.
-\item Segundo cuartil (Q2): es un valor mayor que el $50\%$ de los datos y menor que el otro $50\%$ (corresponde a la mediana).
-\item Tercer cuartil (Q3): es un valor mayor que el $75\%$ de los datos y menor que el otro $25\%$.
-\end{itemize}
-
-\begin{center}
-\includegraphics[scale=.5]{clase4-cuartiles-esquema.png}
-\end{center}
-
-
-
-%En un box plot, dibujamos una caja, con límites en Q1 y Q3 y una línea central marcando el valor de Q2.
-
-\end{frame}
-
-%------------------------------------------------------------------
-
-\begin{frame}
-\frametitle{Cuartiles: ejemplo}
-
-Ordenamos los datos de menor a mayor y tomamos valores que dividen a los datos en 4 partes iguales.
-
-\begin{center}
-\includegraphics[scale=.3]{clase4-cuartiles-Q1yQ2.jpg}
-\end{center}
-%En un box plot, dibujamos una caja, con límites en Q1 y Q3 y una línea central marcando el valor de Q2.
-
-\end{frame}
-
-%------------------------------------------------------------------
-
-\begin{frame}
-\frametitle{Cálculo de cuartiles en Wikipedia...}
-
-\begin{center}
-\includegraphics[scale=.3]{clase4-cuartiles.png}
-\end{center}
-
-\end{frame}
-
-%------------------------------------------------------------------
-
-%\begin{frame}
-%\frametitle{Box plot}
-%
-%Un gráfico \textbf{box plot} usa cajas y líneas para mostrar información de la distribución de uno o más grupos de datos numéricos.
-%
-%\begin{center}
-%\includegraphics[scale=.5]{clase4-box-plot-construction.png}
-%\end{center}
-%
-%\end{frame}
-
-%------------------------------------------------------------------
-
-\begin{frame}
-\frametitle{Elementos de un Box plot}
-
-Dada una variable numérica, ordenamos los valores y los partimos en 4 grupos de igual tamaño.
-
-En un box plot, dibujamos una caja, con límites en Q1 y Q3 y una línea central marcando el valor de Q2.
-
-\begin{center}
-\includegraphics[scale=.45]{clase4-box-plot-construction.png}
-\end{center}
-
-\end{frame}
-
-%------------------------------------------------------------------
-
-\begin{frame}
-\frametitle{Elementos de un Box plot}
-
-La distancia entre Q3 y Q1 se conoce como \emph{rango intercuartil} (IQR) y se utilizan para trazar los "bigotes".
-
-Cada bigote se extiende hasta el valor más lejano de los datos a una distancia menor a $1.5$ veces el valor IQR.
-
-Cualquier valor de los datos más allá de esa distancia se considera un dato atípico (outlier) y se marca con un punto.
-
-\begin{center}
-\includegraphics[scale=.35]{clase4-box-plot-construction.png}
-\end{center}
-
-\end{frame}
 
 
 
