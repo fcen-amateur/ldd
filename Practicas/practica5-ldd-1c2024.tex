@@ -142,7 +142,7 @@ Hacerlo de las siguientes dos formas distintas:
 \vspace{.5cm}
 
 A. Utilizando un array de Numpy para filtrar:
-\begin{enumerate} 
+\begin{enumerate}
 \item Crear un array de Numpy booleano de longitud igual a la cantidad de filas del DataFrame que tome el valor True en el primer $80\%$ de las coordenadas y False en el restante $20\%$.
 \item Si se quiere seleccionar una muestra al azar, se puede utilizar \lstinline{numpy.random.shuffle} para ``mezclar'' el vector.
 \item Utilizar el vector generado para filtrar el Dataframe.
@@ -202,7 +202,9 @@ En base a estos gr\'aficos, si quisiéramos predecir la ganancia mediante un mod
 
 \item Escribir (en lápiz y papel) la ecuación de un modelo lineal para este caso. ¿Qué unidades tienen las variables y cómo se codifica la variable “sexo del pinguino”?
 
-\item \textbf{Codificación de variables binarias.} Para crear una columna con el sexo codificado como 0 y 1, utilizamos el siguiente c\'odigo:
+\item \textbf{Codificación de variables binarias.} Si utilizamos \lstinline{Formulaic} para generar la matriz de datos e incluimos la variable sexo en el modelo, automáticamente va a  crear una columna con el sexo codificado con 0's y 1's.
+    
+    Alternativamente, podemos utilizar el siguiente c\'odigo:
 \begin{lstlisting}
 from sklearn.preprocessing import OrdinalEncoder
 encoder = OrdinalEncoder()
@@ -220,7 +222,9 @@ penguins["sex01"] = sex01
 \item Trabajamos con la base de ping\"uinos sin datos faltantes. ¿Cu\'ales son todos los valores que toma la variable ``species''? ¿Qu\'e tipo de variable es: numérica o categórica, ordinal o nominal? ¿Es una variable binaria?
 \item Escribir (en lápiz y papel) la ecuación de un modelo lineal para este caso. ¿Cómo se codifica la variable “especie”?
 \item Explicar qué diferencia tiene este modelo respecto al propuesto en el ejercicio 1.
-\item \textbf{Codificación de variables categóricas.} Para agregar variables dummies para cada una de las especies usamos \lstinline{OneHotEncoder}. Correr el siguiente c\'odigo y verificar el resultado:
+\item \textbf{Codificación de variables categóricas.}  Si utilizamos \lstinline{Formulaic} para generar la matriz de datos e incluimos variables categóricas, automáticamente va a crear las columnas indicadoras con 0's y 1's necesarias (variables dummies).
+    
+    Alternativamente podemos usar el siguiente código que utiliza la función \lstinline{OneHotEncoder}:
 \begin{lstlisting}
 from sklearn.preprocessing import OneHotEncoder
 penguins = sns.load_dataset("penguins").dropna()
@@ -231,7 +235,7 @@ penguins3 = pd.concat([penguins, species3_df], axis = 1)
 penguins3.head()
 \end{lstlisting}
 
-Verificar que los tama\~nos de \lstinline{species3} y \lstinline{penguins3} sean los esperados, y que el DataFrame resultante no tenga datos faltantes (como el DataFrame original no tiene faltantes, este tampoco debería tenerlos, pero nunca está mal verificarlo).
+Si utilizan este código, verifiquen que los tama\~nos de \lstinline{species3} y \lstinline{penguins3} sean los esperados, y que el DataFrame resultante no tenga datos faltantes (como el DataFrame original no tiene faltantes, este tampoco debería tenerlos, pero nunca está mal verificarlo).
 
 \item Ajustar el modelo usando todos los datos disponibles. Reportar los coeficientes encontrados y calcular el error de predicción.
 \item Realizar una visualización apropiada para ver de los datos junto con las predicciones del modelo.
