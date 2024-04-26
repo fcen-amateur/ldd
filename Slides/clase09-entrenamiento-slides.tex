@@ -234,14 +234,14 @@ Primer Cuatrimestre 2024 \\ Turnos tarde y noche
 \begin{frame}
 \frametitle{Introducción: sistemas de ecuaciones lineales}
 
-Sabemos que un fonde de inversión invirtió en acciones de YPF, Santander y Nvidia (y solo en estas acciones) pero no sabemos cuántas acciones compró de cada una. ¿Cómo podemos averiguarlo? 
+Sabemos que un fonde de inversión invirtió en acciones de YPF, Santander y Nvidia (y solo en estas acciones) pero no sabemos cuántas acciones compró de cada una. ¿Cómo podemos averiguarlo?
 
 \pause
 
 Suponemos que tenemos disponible:
 \begin{itemize}
 \item La valorización del fondo al final de cada día.
-\item El valor la acción de cada empresa al cierre de cada día. 
+\item El valor la acción de cada empresa al cierre de cada día.
 \end{itemize}
 
 \end{frame}
@@ -306,12 +306,12 @@ Como tenemos 3 incógnitas, nos alcanza con 3 ecuaciones:
 
 Para resolver el sistema, construimos la matriz ampliada
 
-$$ 
+$$
 \left(\begin{array}{ccc|c}
 20935.0	& 20100.0 & 37100.0 & 170262.00	 \\
 21030.0	& 20500.0 & 36255.0 & 169929.50	 \\
 20770.0	& 21700.0 & 36000.0 & 171064.00	
-\end{array}\right) 
+\end{array}\right)
 $$
 
 \vspace{0.5cm}
@@ -351,7 +351,7 @@ $$
 c_1 \\
 c_2 \\
 c_3
-\end{pmatrix} = 
+\end{pmatrix} =
 \begin{pmatrix}
 170262.00 \\
 169929.50 \\
@@ -494,7 +494,7 @@ $$ X c = y,$$
 es solución del sistema lineal de ecuaciones
 $$ X^T X c = X^T y.$$
 
-Es un sistema cuadrado y en general tiene solución única. 
+Es un sistema cuadrado y en general tiene solución única.
 
 El problema DIFICIL de minimizar los errores se transforma en el problema FÁCIL de resolver un sistema lineal de ecuaciones. \textbf{Este es el milagro de los mínimos cuadrados.}
 
@@ -555,6 +555,7 @@ Dadas una variable a predecir $y$ y variables explicativas $x_1, x_2, \dots$, ¿
 \item $y = c_0 \cdot c_1 ^{x_1}$
 \end{enumerate}
 
+\pause Algunos de estos modelos se pueden linearizar, pero eso ya es otra historia...
 \end{frame}
  %------------------------------------------------------------------
 
