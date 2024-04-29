@@ -252,7 +252,10 @@ Esto suele hacerse mediante una \emph{función de pérdida}.
 \frametitle{?`C\'omo elegir entre distintos modelos?}
 
 \textbf{Función de pérdida:} Si fijamos los parámetros de nuestro modelo $\beta_1, \dots, \beta_s$ y aplicamos el modelo resultante a un conjunto de datos $X$, la función de pérdida mide cuánto ``perdemos'' utilizando el modelo en lugar de los datos reales.
+
 En regresión lineal, la función de pérdida más común es el \emph{error cuadrático medio (MSE)}.
+
+Vamos a llamar $L(\beta \mid X)$ a la función de pérdida para un conjunto de par\'ametros $\beta = (\beta_1, \dots, \beta_s)$ y un conjunto de datos $X$.
 
 \end{frame}
 
@@ -268,7 +271,7 @@ consiste en:
 \item Tomar un problema relevante del mundo material.
 \item Elegir un modelo matemático que lo represente. El modelo en general va a depender de ciertos parámetros $\beta_1, \dots, \beta_s$.
 Por ejemplo en un modelo de regresión lineal, estos parámatros son los coeficientes de cada variable.
-\item Definir una una \emph{función de pérdida}.
+\item Definir una una \emph{función de pérdida} $L(\beta \mid X)$.
 \item ``Aprender'' los coeficientes $\beta_1, \dots, \beta_s$. Es decir, encontrar valores $\beta_1, \dots, \beta_s$ que minimicen la pérdida.
 \end{enumerate}
 \end{frame}
@@ -276,22 +279,30 @@ Por ejemplo en un modelo de regresión lineal, estos parámatros son los coefici
 %------------------------------------------------------------------
 
 \begin{frame}
-\frametitle{Nivel 0: Entrenar y evaluar sobre todo el conjunto de datos}
+\frametitle{Nivel 1: Entrenar y evaluar sobre todo el conjunto de datos}
 
 Como primer acercamiento, entrenamos nuestros modelos con un conjunto de datos $X$ y evaluamos la perfomance sobre \emph{los mismos datos $X$}.
 
 En este contexto, si un modelo $M_1$ es \emph{más complejo} que un modelo $M_0$ (es decir tiene más variables o parámetros), entonces necesariamente el valor de la función de pérdida será menor o igual.
+\end{frame}
+
+%------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Nivel 1: Entrenar y evaluar sobre todo el conjunto de datos}
 
 Ejemplo:
 \begin{itemize}
-\item $M_0 = \text{gastos mensuales} ~ b_0 + b_1 \text{sueldo} + b_2 \text{cantidad de hijos}$
-\item $M_1 = \text{gastos mensuales} ~ b_0 + b_1 \text{sueldo} + b_2 \text{cantidad de hijos} + b_3 \text{altura}$
+\item $M_0: \text{gastos mensuales} \sim b_0 + b_1 \cdot \text{sueldo} + b_2 \cdot \text{cantidad de hijos}$
+\item $M_1: \text{gastos mensuales} \sim b_0 + b_1 \cdot \text{sueldo} + b_2 \cdot \text{cantidad de hijos} + b_3 \cdot \text{altura}$
 \end{itemize}
 
 El modelo $M_1$ es m\'as complejo que $M_0$. Podemos ver a $M_0$ como un caso particular de $M_1$ tomando $b_3 = 0$.
 
-El valor mínimo de pérdida de $M_1$ es menor o igual que el valor mínimo de pérdida de $M_0$.
-
+El valor mínimo de pérdida de $M_1$ es menor o igual que el valor mínimo de pérdida de $M_0$:
+$$
+L_{M_1}(\beta_0^*,\beta_1^*,\beta_2^*,\beta_3^* \mid X) \le L_{M_0}(\beta_0^*,\beta_1^*,\beta_2^* \mid X)
+$$
 
 \end{frame}
 
@@ -303,9 +314,9 @@ El valor mínimo de pérdida de $M_1$ es menor o igual que el valor mínimo de p
 
 Pero esto no nos asegura que el modelo $M_1$ es mejor que $M_0$ (tiene mejor capacidad predictiva).
 
-Que un modelo alcance un error muy pequeño durante el entrenamiento, puede ser tanto por mérito propio del modelo como un síntoma de una excesiva parametrización, que le permite ``interpolar'' o ``memorizar'' los datos.
+Que un modelo alcance un error muy pequeño durante el entrenamiento, puede ser tanto mérito propio del modelo como un síntoma de una excesiva parametrización, que le permite ``interpolar'' o ``memorizar'' los datos.
 
-Si tenemos $n$ observaciones y tomamos un polinomio de grado $n-1$ o un modelo con $n$ variables (independientes), vamos a poder obtener un modelo exacto, la pérdida será 0.
+\textbf{Ejemplo:} Si tenemos $n$ observaciones y tomamos un polinomio de grado $n-1$ o un modelo con $n$ variables (independientes), vamos a poder obtener un modelo exacto, la pérdida será 0.
 
 \end{frame}
 
@@ -331,12 +342,18 @@ Entrenaremos cada modelo con los mismos datos de train para obtener los $\beta$
 
 Como antes argumentamos que el modelo que minimiza el error de entrenamiento
 puede estar sobreajustándose a los datos, es igualmente posible que aquél que minimiza el error de prueba esté sobreajustándose a los datos de test: al fin y al cabo, así fue como definimos nuestra regla de selección (minimizar el error de prueba).
+\end{frame}
+
+%------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Nivel 3: Split entrenamiento - validación - prueba}
 
 Para evitar este problema, se suele dividir el conjunto de datos en tres partes: entrenamiento, validación y test:
 \begin{enumerate}
-\item Entrenamos los modelos minimizando L en Xtrain (los datos de entrenamiento)
-\item Seleccionamos el mejor minimizando L en Xval y
-\item Evaluamos su performance ``en el mundo real'' con L
+\item Entrenamos los modelos minimizando $L$ en $X_{\text{train}}$ (los datos de entrenamiento).
+\item Seleccionamos el mejor minimizando $L$ en $X_{\text{val}}$.
+\item Evaluamos su performance ``en el mundo real'' con $L$ en $X_{\text{test}}$.
 \end{enumerate}
 
 \end{frame}
@@ -351,7 +368,7 @@ achica el tamaño efectivo de la muestra. Más aún, como hay un único conjunto
 test, y todo el proceso está atravesado por ruido estocástico, la selección de modelos
 sigue teniendo un fuerte componente de azar.
 
-Si queremos estimar la distribución del error de prueba Ltest de un modelo, necesitaremos de varias repeticiones del experimento. ¿Pero de dónde sacamos los datos para ello?
+Si queremos estimar la distribución del error de prueba $L(X_{\text{test}})$ de un modelo, necesitaremos de varias repeticiones del experimento. ¿Pero de dónde sacamos los datos para ello?
 
 ¡Pues los reutilizamos!
 
