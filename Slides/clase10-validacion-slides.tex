@@ -276,97 +276,50 @@ Por ejemplo en un modelo de regresión lineal, estos parámatros son los coefici
 %------------------------------------------------------------------
 
 \begin{frame}
-\frametitle{Planteamos el sistema lineal}
+\frametitle{Nivel 0: Entrenar y evaluar sobre todo el conjunto de datos}
 
-Llamamos $c_1$, $c_2$ y $c_3$ a la cantidad de acciones de cada tipo.
-Para calcular los valores, tenemos que resolver el siguiente sistema de ecuaciones:
+Como primer acercamiento, entrenamos nuestros modelos con un conjunto de datos $X$ y evaluamos la perfomance sobre \emph{los mismos datos $X$}.
 
-\begin{align*}
-& \quad YPF \quad \ Santander \quad Nvidia \\
-& \quad \quad \downarrow \quad  \quad  \quad  \quad \downarrow  \quad  \quad \quad \quad \downarrow  \\
-\text{D\'ia 1} \rightarrow \quad 170262.00	&= 20935	c_1 + 20100 c_2 + 37100.0 c_3 \\
-\text{D\'ia 2} \rightarrow \quad 169929.50	&= 21030	c_1 + 20500 c_2 + 36255.0 c_3 \\
-\text{D\'ia 3} \rightarrow \quad 171064.00	&= 20770	c_1 + 21700 c_2 + 36000.0 c_3 \\
-\text{D\'ia 4} \rightarrow \quad 169637.35	&= 20950	c_1 + 21000 c_2 + 35645.5 c_3 \\
-\text{D\'ia 5} \rightarrow \quad 164625.45	&= 20750	c_1 + 20316 c_2 + 33878.5 c_3 \\
-\end{align*}
+En este contexto, si un modelo $M_1$ es \emph{más complejo} que un modelo $M_0$ (es decir tiene más variables o parámetros), entonces necesariamente el valor de la función de pérdida será menor o igual.
+
+Ejemplo:
+\begin{itemize}
+\item $M_0 = \text{gastos mensuales} ~ b_0 + b_1 \text{sueldo} + b_2 \text{cantidad de hijos}$
+\item $M_1 = \text{gastos mensuales} ~ b_0 + b_1 \text{sueldo} + b_2 \text{cantidad de hijos} + b_3 \text{altura}$
+\end{itemize}
+
+El modelo $M_1$ es m\'as complejo que $M_0$. Podemos ver a $M_0$ como un caso particular de $M_1$ tomando $b_3 = 0$.
+
+El valor mínimo de pérdida de $M_1$ es menor o igual que el valor mínimo de pérdida de $M_0$.
+
+
+\end{frame}
+
+
+%------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Nivel 1: Entrenar y evaluar sobre todo el conjunto de datos}
+
+Pero esto no nos asegura que el modelo $M_1$ es mejor que $M_0$ (tiene mejor capacidad predictiva).
+
+Que un modelo alcance un error muy pequeño durante el entrenamiento, puede ser tanto por mérito propio del modelo como un síntoma de una excesiva parametrización, que le permite ``interpolar'' o ``memorizar'' los datos.
+
+Si tenemos $n$ observaciones y tomamos un polinomio de grado $n-1$ o un modelo con $n$ variables (independientes), vamos a poder obtener un modelo exacto, la pérdida será 0.
 
 \end{frame}
 
 %------------------------------------------------------------------
 
 \begin{frame}
-\frametitle{Resolvemos el sistema}
+\frametitle{Nivel 2: Separar en conjuntos de entrenamiento («train») y prueba («test»)}
 
-Como tenemos 3 incógnitas, nos alcanza con 3 ecuaciones:
-\begin{align*}
-170262.00	&= 20935	c_1 + 20100 c_2 + 37100.0 c_3 \\
-169929.50	&= 21030	c_1 + 20500 c_2 + 36255.0 c_3 \\
-171064.00	&= 20770	c_1 + 21700 c_2 + 36000.0 c_3
-\end{align*}
+Para evitar el \emph{sobreajuste} (overfitting) de los modelos, es habitual dividir el conjunto
+de datos en dos partes mutuamente excluyentes (y conjuntamente exhaustivas, ¡nada
+se tira!).
 
-Para resolver el sistema, construimos la matriz ampliada
-
-$$
-\left(\begin{array}{ccc|c}
-20935.0	& 20100.0 & 37100.0 & 170262.00	 \\
-21030.0	& 20500.0 & 36255.0 & 169929.50	 \\
-20770.0	& 21700.0 & 36000.0 & 171064.00	
-\end{array}\right)
-$$
-
-\vspace{0.5cm}
-
-¿Qué hay en las primeras 3 columnas de la matriz? ¿Qué hay en la última columna?
-
-\end{frame}
-
-%------------------------------------------------------------------
-
-\begin{frame}
-\frametitle{Solución del sistema}
-
-Triangulando la matriz y despejando, obtenemos los valores
-$$
-c_1 = 3.2, \quad \quad c_2 =  2.0, \quad \quad c_3 = 1.7.
-$$
-
-Estas son las cantidades de cada acción que tiene el fondo de inversión.
-
-\end{frame}
-
-%------------------------------------------------------------------
-
-\begin{frame}
-\frametitle{Notación matricial}
-
-Podemos escribir el sistema de ecuaciones
-en forma compacta usando notación matricial:
-$$
-\begin{pmatrix}
-20935.0	& 20100.0 & 37100.0 \\
-21030.0	& 20500.0 & 36255.0 \\
-20770.0	& 21700.0 & 36000.0
-\end{pmatrix}
-\begin{pmatrix}
-c_1 \\
-c_2 \\
-c_3
-\end{pmatrix} =
-\begin{pmatrix}
-170262.00 \\
-169929.50 \\
-171064.00
-\end{pmatrix}
-$$
-
-Obtenemos un sistema de la forma
-$$
-X c = y
-$$
-
-¿Qué hay en las columnas de $X$? ¿Que hay en la matriz $y$?
-
+Entrenaremos cada modelo con los mismos datos de train para obtener los $\beta$
+óptimos, pero seleccionaremos como ``mejor'' a aquel modelo que minimice la pérdida  sobre el conjunto de test.
 
 
 \end{frame}
@@ -374,19 +327,33 @@ $$
 %------------------------------------------------------------------
 
 \begin{frame}
-\frametitle{Verificación del ``modelo''}
+\frametitle{Nivel 3: Split entrenamiento - validación - prueba}
 
-En base a los resultados que obtuvimos, ¿podemos confirmar que las acciones del fondo son las 3 acciones que usamos?
+Como antes argumentamos que el modelo que minimiza el error de entrenamiento
+puede estar sobreajustándose a los datos, es igualmente posible que aquél que minimiza el error de prueba esté sobreajustándose a los datos de test: al fin y al cabo, así fue como definimos nuestra regla de selección (minimizar el error de prueba).
 
-Si no estamos seguros si eran acciones de Santander o Galicia, ¿cómo podríamos asegurarnos?
+Para evitar este problema, se suele dividir el conjunto de datos en tres partes: entrenamiento, validación y test:
+\begin{enumerate}
+\item Entrenamos los modelos minimizando L en Xtrain (los datos de entrenamiento)
+\item Seleccionamos el mejor minimizando L en Xval y
+\item Evaluamos su performance ``en el mundo real'' con L
+\end{enumerate}
 
-Cambiamos los valores de Santander por los valores de Galicia:
-\begin{align*}
-170262.00	&= 20935	c_1 + {\bf 20100} c_2 + 37100.0 c_3 \\
-169929.50	&= 21030	c_1 + {\bf 19400} c_2 + 36255.0 c_3 \\
-171064.00	&= 20770	c_1 + {\bf 21900} c_2 + 36000.0 c_3
-\end{align*}
+\end{frame}
 
+%------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Nivel 4: Validación Cruzada en $k$ Pliegos (``K-fold CV'')}
+
+En un esquema tripartito «train-val-test», el error de test sólo sirve para reporte, y
+achica el tamaño efectivo de la muestra. Más aún, como hay un único conjunto de
+test, y todo el proceso está atravesado por ruido estocástico, la selección de modelos
+sigue teniendo un fuerte componente de azar.
+
+Si queremos estimar la distribución del error de prueba Ltest de un modelo, necesitaremos de varias repeticiones del experimento. ¿Pero de dónde sacamos los datos para ello?
+
+¡Pues los reutilizamos!
 
 \end{frame}
 
@@ -396,15 +363,14 @@ Cambiamos los valores de Santander por los valores de Galicia:
 \begin{frame}
 \frametitle{Sobreajuste}
 
-Resolvemos el sistema y obtenemos estos valores:
-$$c_1 = 6.69507872, \quad \quad c_2 = 1.16828332, \quad \quad c_3 = 0.17838362$$
+En validación cruzada de k pliegos (``k-fold cross-validation''), dividimos primero el conjunto de datos sólo en
+train y test. Luego, partimos train en en k partes iguales, que se rotarán el papel de validacion: entrenamos y
+evaluamos el modelo $k$ veces, cada vez dejando uno distinto de los $k$ pliegos como val y el resto para train.
 
-Los números no se ven menos redondos, pero eso no alcanza para decidir cuál es el modelo correcto.
+\begin{center}
+\includegraphics[scale=0.5]{clase10-grid_search_cross_validation.png}
+\end{center}
 
-Un sistema de 3 ecuaciones y 3 incógnitas en general \textbf{siempre} tiene solución.
-
-\textbf{Sobreajuste (overfitting).} Cuando tenemos igual cantidad de parámetros que observaciones, el sistema (casi) siempre va a tener solución
-pero no nos da ninguna información sobre si el modelo es correcto, no podemos usarlo para estimar otros valores.
 
 \end{frame}
 
