@@ -312,7 +312,7 @@ $$
 \begin{frame}
 \frametitle{Nivel 1: Entrenar y evaluar sobre todo el conjunto de datos}
 
-Pero esto no nos asegura que el modelo $M_1$ es mejor que $M_0$ (tiene mejor capacidad predictiva).
+En este esquema, un valor de pérdida menor no nos asegura que el modelo $M_1$ sea mejor que $M_0$ (tenga mejor capacidad predictiva).
 
 Que un modelo alcance un error muy pequeño durante el entrenamiento, puede ser tanto mérito propio del modelo como un síntoma de una excesiva parametrización, que le permite ``interpolar'' o ``memorizar'' los datos.
 
@@ -341,7 +341,7 @@ Entrenaremos cada modelo con los mismos datos de train para obtener los $\beta$
 \frametitle{Nivel 3: Split entrenamiento - validación - prueba}
 
 Como antes argumentamos que el modelo que minimiza el error de entrenamiento
-puede estar sobreajustándose a los datos, es igualmente posible que aquél que minimiza el error de prueba esté sobreajustándose a los datos de test: al fin y al cabo, así fue como definimos nuestra regla de selección (minimizar el error de prueba).
+puede estar sobreajustándose a los datos, es igualmente posible que aquél que minimiza el error de prueba esté sobreajustándose a los datos de prueba: al fin y al cabo, así fue como definimos nuestra regla de selección (minimizar el error de prueba).
 \end{frame}
 
 %------------------------------------------------------------------
@@ -352,7 +352,7 @@ puede estar sobreajustándose a los datos, es igualmente posible que aquél que 
 Para evitar este problema, se suele dividir el conjunto de datos en tres partes: entrenamiento, validación y test:
 \begin{enumerate}
 \item Entrenamos los modelos minimizando $L$ en $X_{\text{train}}$ (los datos de entrenamiento).
-\item Seleccionamos el mejor minimizando $L$ en $X_{\text{val}}$.
+\item Una vez entrenados los modelo, medimo la pérdida $L$ en $X_{\text{val}}$ y seleccionamos el modelo con menor pérdida.
 \item Evaluamos su performance ``en el mundo real'' con $L$ en $X_{\text{test}}$.
 \end{enumerate}
 
@@ -364,11 +364,13 @@ Para evitar este problema, se suele dividir el conjunto de datos en tres partes:
 \frametitle{Nivel 4: Validación Cruzada en $k$ Pliegos (``K-fold CV'')}
 
 En un esquema tripartito «train-val-test», el error de test sólo sirve para reporte, y
-achica el tamaño efectivo de la muestra. Más aún, como hay un único conjunto de
+achica el tamaño efectivo de la muestra. 
+
+Más aún, como hay un único conjunto de
 test, y todo el proceso está atravesado por ruido estocástico, la selección de modelos
 sigue teniendo un fuerte componente de azar.
 
-Si queremos estimar la distribución del error de prueba $L(X_{\text{test}})$ de un modelo, necesitaremos de varias repeticiones del experimento. ¿Pero de dónde sacamos los datos para ello?
+Para evitar posibles sesgos en la selección de los conjuntos de entranamiento y validación, resulta conveniente realizar varias repeticiones del experimento con distintos conjuntos de datos. ¿Pero de dónde sacamos los datos para ello?
 
 ¡Pues los reutilizamos!
 
@@ -378,192 +380,20 @@ Si queremos estimar la distribución del error de prueba $L(X_{\text{test}})$ de
 %------------------------------------------------------------------
 
 \begin{frame}
-\frametitle{Sobreajuste}
+\frametitle{Nivel 4: Validación Cruzada en $k$ Pliegos (``K-fold CV'')}
 
-En validación cruzada de k pliegos (``k-fold cross-validation''), dividimos primero el conjunto de datos sólo en
-train y test. Luego, partimos train en en k partes iguales, que se rotarán el papel de validacion: entrenamos y
-evaluamos el modelo $k$ veces, cada vez dejando uno distinto de los $k$ pliegos como val y el resto para train.
+
+En validación cruzada de $k$ pliegos (``k-fold cross-validation''), dividimos primero el conjunto de datos sólo en
+train y test. 
+
+Luego, partimos train en $k$ partes iguales, que se rotarán el papel de validaci\'on: entrenamos y
+evaluamos el modelo $k$ veces, cada vez dejando uno distinto de los $k$ pliegos como \emph{val} y el resto para \emph{train}.
 
 \begin{center}
-\includegraphics[scale=0.5]{clase10-grid_search_cross_validation.png}
+\includegraphics[scale=0.2]{clase10-grid_search_cross_validation.png}
 \end{center}
 
 
 \end{frame}
-
-
-%------------------------------------------------------------------
-
-\begin{frame}
-\frametitle{Selección de modelos}
-
-¿Qué estrategias se les ocurren para ver cuál modelo es mejor? \pause
-
-\begin{enumerate}
-\item Verificar la fórmula en otros días. \pause
-\item Utilizar más días al plantear el sistema de ecuaciones.
-\end{enumerate}
-
-\pause
-
-Las dos estretegias son ideas centrales en la construcción de modelos:
-\begin{enumerate}
-\item Probar el modelo en datos distintos a los que usamos para construir el modelo.
-\item Utilizar la mayor cantidad posible de datos para construir el modelo.
-\end{enumerate}
-
-\end{frame}
-
-
-%------------------------------------------------------------------
-
-\begin{frame}
-\frametitle{1. Conjuntos de entrenamiento y testeo}
-
-Separamos nuestro conjunto de datos en dos subconjuntos:
-\begin{itemize}
-\item \textbf{Conjunto de entrenamiento.} Lo utilizamos para construir el modelo. En un modelo lineal, lo usamos para calcular los coeficientes
-    ($c_1, c_2, c_3$).
-\item \textbf{Conjunto de testeo.} Lo utilizamos para verificar si el modelo construido ajusta bien a los datos en este conjunto.
-\end{itemize}
-
-\end{frame}
-
-
-%------------------------------------------------------------------
-
-\begin{frame}
-\frametitle{2. Más ecuaciones que variables - Ejemplo de juguete}
-
-Si consideramos el sistema original, tenemos 5 ecuaciones y 3 variables.
-
-\begin{align*}
-& \quad YPF \quad \ Santander \quad Nvidia \\
-& \quad \quad \downarrow \quad  \quad  \quad  \quad \downarrow  \quad  \quad \quad \quad \downarrow  \\
-\text{D\'ia 1} \rightarrow \quad 170262.00	&= 20935	c_1 + 20100 c_2 + 37100.0 c_3 \\
-\text{D\'ia 2} \rightarrow \quad 169929.50	&= 21030	c_1 + 20500 c_2 + 36255.0 c_3 \\
-\text{D\'ia 3} \rightarrow \quad 171064.00	&= 20770	c_1 + 21700 c_2 + 36000.0 c_3 \\
-\text{D\'ia 4} \rightarrow \quad 169637.35	&= 20950	c_1 + 21000 c_2 + 35645.5 c_3 \\
-\text{D\'ia 5} \rightarrow \quad 164625.45	&= 20750	c_1 + 20316 c_2 + 33878.5 c_3
-\end{align*}
-
-En este ejemplo (de juguete) si utilizamos los datos de Santander, el sistema tiene solución.
-Si usamos los datos de Galicia el sistema no tiene solución.
-
-\end{frame}
-
-
-%------------------------------------------------------------------
-
-\begin{frame}
-\frametitle{2. Más ecuaciones que variables - La vida real}
-
-Cuando consideramos un sistema con más ecuaciones que variables, en general \textbf{NO} tiene solución.
-
-Aunque teóricamente exista solución, en la práctica siempre aparecen errores numéricos y no podemos determinar si un sistema tiene solución
-(numéricamente es MUY difícil saber si un número es igual a 0 o no).
-
-Solución: en vez de buscar una solución exacta del sistema de ecuaciones
-$$ X c = y,$$
-buscamos un vector $c$ que minimice el error, es decir, que haga pequeñas las coordenadas del vector de errores
-$$ X c - y.$$
-
-\end{frame}
-
-
-%------------------------------------------------------------------
-
-\begin{frame}
-\frametitle{El milagro de los mínimos cuadrados}
-
-Llegamos así al método de mínimos cuadrados. El vector $c$ que  minimiza la suma de los errores al cuadrado del sistema
-$$ X c = y,$$
-es solución del sistema lineal de ecuaciones
-$$ X^T X c = X^T y.$$
-
-Es un sistema cuadrado y en general tiene solución única.
-
-El problema DIFICIL de minimizar los errores se transforma en el problema FÁCIL de resolver un sistema lineal de ecuaciones. \textbf{Este es el
-milagro de los mínimos cuadrados.}
-
-\end{frame}
-
-%------------------------------------------------------------------
-
-\begin{frame}
-\frametitle{Resumen}
-
-Tenemos dos modelos posibles y queremos elegir el más apropiado:
-\begin{align*}
-A) total &= c_1 \cdot YPF + c_2 \cdot Santander + c_3 \cdot Nvidia \\
-B) total &= c_1 \cdot YPF + c_2 \cdot Galicia + c_3 \cdot Nvidia
-\end{align*}
-
-Seguimos los siguientes pasos:
-\begin{enumerate}
-\item Buscamos datos de la mayor cantidad posible de días.
-\item Separamos el conjunto en dos: conjunto de entrenamiento ($80\%$ de los días) y conjunto de testeo ($20\%$ restante)
-\item Calculamos $c_1, c_2, c_3$ para cada uno de los dos modelos utilizando mínimos cuadrados en el conjunto de entrenamiento.
-\item Calculamos el error cuadrático medio de lás fórmulas resultantes aplicadas al conjunto de testeo.
-\end{enumerate}
-
-\end{frame}
-
-%------------------------------------------------------------------
-
-\begin{frame}
-\frametitle{Modelo lineal multivariado}
-
-El caso recién visto fue un ejemplo de juguete, donde existe una relación lineal entre las variables que tenemos que estimar.
-
-En las aplicaciones reales, esa formula puede no existir (por ejemplo, si queremos estimar los gastos en tarjeta de crédito de una persona en
-función del sueldo y la cantidad de hijos), pero el modelo lineal puede darnos una buena estimación.
-
-En el modelo lineal suponemos que existe una relación del tipo
-$$ X c = y.$$
-
-Como esa relación en general no existe, buscamos un vector $c$ que haga que $X c$ se parezca lo más posible a $y$.
-
-\end{frame}
-
-%------------------------------------------------------------------
-
-\begin{frame}
-\frametitle{Ejercicio: modelos lineales}
-
-Dadas una variable a predecir $y$ y variables explicativas $x_1, x_2, \dots$, ¿cuáles de los siguientes modelos son lineales? ¿Cuál es la matriz $X$
-en cada caso?
-
-\begin{enumerate}
-\item $y = c_0 + c_1 x_1 + c_2 x_2$
-\item $y = c_0 + c_1 x_1 + c_2 x_1^2$
-\item $y = c_0 + c_1 x_1 + x_1^{c_2}$
-\item $y = c_0 + c_1 x_1 + c_2 x_2 + c_3 x_1 x_2$
-\item $y = c_0 + c_1 \sin(x_1) + c_2 \sin(x_2)$
-\item $y = c_0 + c_1 \sin(c_2 + x_1)$
-\item $y = c_0 + c_1 e^{x_1}$
-\item $y = c_0 \cdot c_1 ^{x_1}$
-\end{enumerate}
-
-\pause Algunos de estos modelos se pueden linearizar, pero eso ya es otra historia...
-\end{frame}
- %------------------------------------------------------------------
-
-\begin{frame}
-\frametitle{Ejemplo real: cálculo de calorías}
-
-Vamos a repetir estos pasos en un caso real: calcular las calorías de un alimento en función de sus componentes, utilizando las herramientas de
-Python para la construcción de modelos.
-\begin{enumerate}
-\item Construimos las matrices $X$ e $y$ utilizando \lstinline{Formulaic}.
-\item Separamos las matrices en entrenamiento y testeo utilizando \lstinline{train_test_split}
-\item Ajustamos el modelo utilizando \lstinline{linear_model.fit()}.
-\item Calculamos el error en los datos de testeo utilizando \lstinline{linear_model.predict()}.
-\end{enumerate}
-
-\end{frame}
-
-
-
 
 \end{document}
