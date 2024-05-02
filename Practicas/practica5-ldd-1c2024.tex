@@ -241,6 +241,29 @@ Si utilizan este código, verifiquen que los tama\~nos de \lstinline{species3} y
 \item Realizar una visualización apropiada para ver de los datos junto con las predicciones del modelo.
 \end{enumerate}
 
+\item En este ejercicio trabajaremos con el dataset de inmuebles (\verb|inmuebles.csv|). El objetivo de este ejercicio es comparar tres modelos lineales para predecir el precio de un inmueble:
+\[
+\begin{array}{rl}
+    \text{Modelo 1:} &  precio \sim superficie \\
+    \text{Modelo 2:} &  precio \sim superficie + zona \\
+    \text{Modelo 3:} &  \text{un modelo propuesto por usted}
+\end{array}
+\]
+Como medida de comparación utilizaremos la raíz cuadrada del ECM, que notaremos RECM. En cada ítem, indicar qué modelo tiene el mejor desempeño.
+
+\begin{enumerate}
+    \item \textit{Nivel 1}. Entrenar cada modelo sobre la totalidad de los datos disponibles. Graficar, en una misma figura, los datos y las predicciones del modelo 2 y del modelo 3. Las predicciones deben estar señaladas en la leyenda (recuerde el uso del argumento \verb|label|) y las lineas del modelo 3 deben estar punteadas (investigue agregar \verb|linestyle='--'| donde corresponda). Puede adaptar el siguiente c\'odigo:
+\begin{lstlisting}
+(
+    so.Plot(data=data, x='superficie', y='precio')
+    .add(so.Dot(), color='zona')
+    .add(so.Line(), y=modelo.predict(X).flatten(), color='zona')
+)
+\end{lstlisting}
+\item \textit{Nivel 2}. Separar los datos en conjuntos de entrenamiento (\textit{train}) y prueba (\textit{test}). Entrenar cada modelo sobre el \underline{mismo} conjunto de entrenamiento y comparar su desempeño sobre el conjunto de prueba.
+\item \textit{Nivel 3}. Separar los datos en dos conjuntos: entrenamiento y testeo. Luego, dividir el conjunto de entrenamiento en dos conjuntos: entrenamiento y validaci\'on. Entrenar cada modelo sobre el conjunto de entrenamiento y comparar su desempeño en el conjunto de validación. Elija el que usted considere el más apropiado, entrénelo sobre la unión de los datos de testeo y validación  y calcule la RECM y el $R^2$ sobre el conjunto de testeo.
+\item \textit{Nivel 4 - $k$-Fold Cross-Validation}. Aplicar validaci\'on cruzada en $k$ pliegos con $k=6$. Para esto, separar el conjunto de datos en entrenamiento y testeo. Aplicar la t\'ecnica de $k$-Fold CV para cada modelo con el conjunto de testeo. Elegir el modelo con menor promedio de RECM y calcular la RECM y el $R^2$ sobre el conjunto de testeo.
+\end{enumerate}
 \end{enumerate}
 
 \end{document}
