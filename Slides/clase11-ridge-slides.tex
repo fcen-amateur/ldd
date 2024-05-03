@@ -260,9 +260,9 @@ EXPO\_AGROP & EXPO\_PECUAR & EXPO\_AGRIC & EXPO\_CEREAL & EXPO\_OLEAGI & EXPO\_O
 \end{tabular}
 \end{table}
 }
-
+\pause
 \begin{itemize}
-\item EXPO\_AGROP = EXPO\_PECUAR + EXPO\_AGRIC
+\item EXPO\_AGROP = EXPO\_PECUAR + EXPO\_AGRIC \pause
 \item EXPO\_AGRIC = EXPO\_CEREAL + EXPO\_OLEAGI + EXPO\_OTAGRIC
 \end{itemize}
 \end{frame}
@@ -280,7 +280,7 @@ El problema de mínimos cuadrados no tiene solución única.
 {\footnotesize
 \begin{itemize}
 \item PBI $\simeq$ EXPO\_PECUAR + EXPO\_AGRIC + ...
-\item PBI $\simeq$ EXPO\_AGROP + ... 
+\item PBI $\simeq$ EXPO\_AGROP + ...
 \item PBI $\simeq$ EXPO\_PECUAR + EXPO\_CEREAL + EXPO\_OLEAGI + EXPO\_OTAGRIC  + ...
 \end{itemize}
 }
@@ -289,22 +289,24 @@ El problema de mínimos cuadrados no tiene solución única.
 \begin{frame}
 \frametitle{Explosión de coeficientes}
 
-Peor aún, podemos obtener fórmulas con coeficientes enormes. 
+Peor aún, podemos obtener fórmulas con coeficientes enormes.
 
 Estas fórmulas también son equivalentes:
+{\small
 \begin{itemize}
 \item $\text{PBI} \simeq \text{EXPO\_AGROP} + \cdots$
-\item $\text{PBI} \simeq 1001 \cdot \text{EXPO\_AGROP} - 500 \cdot \text{EXPO\_PECUAR} - 500 \cdot \text{EXPO\_AGRIC} + \cdots$
+\item $\text{PBI} \simeq 1001 \cdot \text{EXPO\_AGROP} - 1000 \cdot \text{EXPO\_PECUAR} - 1000 \cdot \text{EXPO\_AGRIC} + \cdots$
 \end{itemize}
+}
 
-Estas fórmulas con coeficientes tan grandes van a traer problemas numéricos  y afectan severamente el modelo.
+Fórmulas con coeficientes tan grandes (que se cancelan mutuamente) van a traer problemas numéricos  y afectan severamente el modelo.
 
 \end{frame}
 
 \begin{frame}
 \frametitle{¿Cómo tratamos la colinealidad?}
 
-Existen diversos métodos para lidiar con la colinealidad. 
+Existen diversos métodos para lidiar con la colinealidad.
 
 En este ejemplo, la opción más simple sería eliminar variables redundantes (por ejemplo, EXPO\_AGROP y EXPO\_OTAGRIC).
 
@@ -380,7 +382,7 @@ Consideramos estos dos conjuntos de datos. Queremos explicar $y$ utilizando las 
 
 Si bien en el segundo modelo el error en entrenamiento es menor (porque la solución es exacta), un modelo con coeficientes tan grandes generalmente va a funcionar mal, va a tener menor capacidad predictiva.
 
-Podemos pensar el segundo modelo como un caso de sobreajuste. 
+Podemos pensar el segundo modelo como un caso de sobreajuste.
 \end{frame}
 
 
@@ -404,10 +406,10 @@ Podemos pensar la segunda condición como \emph{buscar un modelo lo más simple 
 \begin{frame}
 \frametitle{Solución: penalizamos a los modelos complicados}
 
-Como el problema de mínimos cuadrados en general tiene solución única, podemos minimizar una de las dos cosas, pero no las dos a la vez. 
+Como el problema de mínimos cuadrados en general tiene solución única, podemos minimizar una de las dos cosas, pero no las dos a la vez.
 
-\textbf{Penalidades.} La solución común cuando queremos minimizar varias cosas a la vez es introducir penalidades. 
- 
+\textbf{Penalidades.} La solución común cuando queremos minimizar varias cosas a la vez es introducir penalidades.
+
 En este caso, queremos agregar al problema de mínimos cuadrados una penalidad cuando los errores son grandes.
 
 \end{frame}
@@ -438,7 +440,7 @@ $$
 \|v\|^2 = \|(v_1, \dots, v_m)\|^2 = v_1^2 + v_2^2 + \dots + v_m^2
 $$
 
-Observamos que 
+Observamos que
 $$EC = \|(y_1 - \hat y_1, y_2 - \hat y_2, \dots, y_m - \hat y_m)\|^2 = \|y - \hat y\|^2.$$
 
 Por lo tanto:
@@ -469,11 +471,11 @@ Es decir, queremos que tanto la norma del vector de errores como la norma del ve
 \begin{frame}
 \frametitle{Formulación matemática}
 
-Obtenemos así el método conocido como \emph{regresión Ridge} (o mínimos cuadrados regularizados o regulizarción $L_2$ o regularización de Tychonov). 
+Obtenemos así el método conocido como \emph{regresión Ridge} (o mínimos cuadrados regularizados o regulizarción $L_2$ o regularización de Tychonov).
 
 Es un método muy común y utilizado en diversas áreas, por eso los diversos nombres.
 
-La función de pérdida es 
+La función de pérdida es
 $$
 L = \|y - \hat y\|_2^2 + \alpha \|\beta\|_2^2
 $$
@@ -490,8 +492,8 @@ El problema de mínimos cuadrados regularizados parece mucho más complicado.
 
 Milagrosamente, este problema también puede resolverse fácilmente  utilizando álgebra lineal.
 
-Dado un sistema de ecuaciones $X \beta = y$, para hallar el vector $\beta$ que minimiza 
-$$L = \|y - \hat y\|_2^2 + \alpha \|\beta\|_2^2$$ 
+Dado un sistema de ecuaciones $X \beta = y$, para hallar el vector $\beta$ que minimiza
+$$L = \|y - \hat y\|_2^2 + \alpha \|\beta\|_2^2$$
 resolvemos el sistema lineal
 $$
 \left(X^{\mathsf {T}}X+ \alpha I\right) \beta = X^{\mathsf {T}}{y}.
@@ -519,12 +521,12 @@ Una forma usual para elegir el valor del hiperparámetro es por validación cruz
 Realizamos los siguientes pasos:
 
 \begin{enumerate}
-\item \textbf{Preparación de datos}: Dividimos los datos en conjunto de entrenamiento y conjunto de testeo. 
+\item \textbf{Preparación de datos}: Dividimos los datos en conjunto de entrenamiento y conjunto de testeo.
 
-\item \textbf{Selección de parámetros}: Definimos un vector de posibles valores para el hiperparámetro $\alpha$. 
+\item \textbf{Selección de parámetros}: Definimos un vector de posibles valores para el hiperparámetro $\alpha$.
 
 \item \textbf{Ajuste del modelo}: Para cada valor de $\alpha$, ajustamos un modelo Ridge utilizando los datos de entrenamiento y calculamos su rendimiento utilizando validación cruzada.
-\label{end-enumerate}% Save counter at end of enumerate    
+\label{end-enumerate}% Save counter at end of enumerate
 \end{enumerate}
 \end{frame}
 
@@ -535,8 +537,8 @@ Realizamos los siguientes pasos:
 \setcounterref{enumi}{end-enumerate}
 \item \textbf{Validación cruzada}: Los datos de entrenamiento se dividen en $k$ pliegues (folds), y el modelo se entrena $k$ veces, cada vez utilizando $k-1$ pliegues para el entrenamiento y el pliegue restante para la validación. Este proceso se repite $k$ veces, de manera que cada pliegue se utiliza una vez como conjunto de validación. El error del modelo se promedia sobre las $k$ iteraciones.
 
-\item \textbf{Selección del mejor valor de $\alpha$}: Seleccionamos el valor de $\alpha$ que minimiza el promedio de los errores en las $k$ iteraciones. 
-    
+\item \textbf{Selección del mejor valor de $\alpha$}: Seleccionamos el valor de $\alpha$ que minimiza el promedio de los errores en las $k$ iteraciones.
+
 \item \textbf{Entrenamiento final}: Una vez que seleccionamos el mejor valor de $\alpha$, ajustamos un modelo Ridge final utilizando todos los datos de entrenamiento y este valor de $\alpha$.
 
 \item \textbf{Evaluación final}: Evaluamos el modelo final utilizando el conjunto de prueba reservado anteriormente para obtener una estimación imparcial de su rendimiento en datos no vistos.
