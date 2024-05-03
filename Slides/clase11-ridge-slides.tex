@@ -4,6 +4,7 @@
 %\usepackage{icomma} % Use dot as decimal separator
 \usepackage{booktabs} % For better-looking tables
 \usepackage{wrapfig}
+\usepackage{caption}
 %\usepackage{siunitx}
 
 \usepackage{refcount}
@@ -319,7 +320,7 @@ Las variables pueden ser en teoría linealmente independientes pero en la práct
 
 En estos casos, podemos usar métodos para reducción de dimensionalidad (disminuir la cantidad de variables sin perder mucha información).
 
-Alternativamente, podemos modificar el método de mínimos cuadrados para atacar la multicolinealidad.
+Alternativamente, podemos modificar el método de mínimos cuadrados para atacar la colinealidad.
 
 \end{frame}
 
@@ -328,11 +329,13 @@ Alternativamente, podemos modificar el método de mínimos cuadrados para atacar
 
 Consideramos estos dos conjuntos de datos. Queremos explicar $y$ utilizando las variables $x$ como predictoras (sin intercept).
 
+\vspace{-0.3cm}
+
 \begin{table}[htbp]
 \centering
 \begin{minipage}{.5\textwidth}
   \centering
-  \caption{$y = \beta_1 x_1$}
+  \caption*{Modelo: $y = \beta_1 x_1$}
   \begin{tabular}{cc}
     \hline
     \( y \) & \( x_1 \) \\
@@ -345,7 +348,7 @@ Consideramos estos dos conjuntos de datos. Queremos explicar $y$ utilizando las 
 \end{minipage}%
 \begin{minipage}{.5\textwidth}
   \centering
-  \caption{$y = \beta_1 x_1 + \beta_2 x_2$}
+  \caption*{Modelo: $y = \beta_1 x_1 + \beta_2 x_2$}
   \begin{tabular}{ccc}
     \hline
     \( y \) & \( x_1 \) & \( x_2 \) \\
@@ -418,7 +421,7 @@ En este caso, queremos agregar al problema de mínimos cuadrados una penalidad c
 $$L = \text{error cuadrático medio del ajuste} + \alpha \cdot \ \text{tamaño de los coeficientes}$$
 para algún parámetro $\alpha$ apropiado de penalidad. $\alpha$ es el \emph{peso} que le damos a la penalidad en el modelo.
 
-\textbf{Intuitivamente,} entre dos modelos que ajustan bien, elegimos el que tiene coeficientes más chicos.
+\textbf{Intuitivamente,} entre dos modelos que ajustan razonablemente bien, elegimos el que tiene coeficientes más chicos.
 \end{frame}
 
 \begin{frame}
@@ -466,7 +469,7 @@ Es decir, queremos que tanto la norma del vector de errores como la norma del ve
 \begin{frame}
 \frametitle{Formulación matemática}
 
-Obtenemos así el método conocido como \emph{regresión de Ridge} (o mínimos cuadrados regularizados o regulizarción $L_2$ o regularización de Tychonov). 
+Obtenemos así el método conocido como \emph{regresión Ridge} (o mínimos cuadrados regularizados o regulizarción $L_2$ o regularización de Tychonov). 
 
 Es un método muy común y utilizado en diversas áreas, por eso los diversos nombres.
 
@@ -520,7 +523,7 @@ Realizamos los siguientes pasos:
 
 \item \textbf{Selección de parámetros}: Definimos un vector de posibles valores para el hiperparámetro $\alpha$. 
 
-\item \textbf{Ajuste del modelo}: Para cada valor de $\alpha$, ajustamos un modelo de Ridge utilizando los datos de entrenamiento y calculamos su rendimiento utilizando validación cruzada.
+\item \textbf{Ajuste del modelo}: Para cada valor de $\alpha$, ajustamos un modelo Ridge utilizando los datos de entrenamiento y calculamos su rendimiento utilizando validación cruzada.
 \label{end-enumerate}% Save counter at end of enumerate    
 \end{enumerate}
 \end{frame}
@@ -534,7 +537,7 @@ Realizamos los siguientes pasos:
 
 \item \textbf{Selección del mejor valor de $\alpha$}: Seleccionamos el valor de $\alpha$ que minimiza el promedio de los errores en las $k$ iteraciones. 
     
-\item \textbf{Entrenamiento final}: Una vez que seleccionamos el mejor valor de $\alpha$, ajustamos un modelo final de Ridge utilizando todos los datos de entrenamiento y este valor de $\alpha$.
+\item \textbf{Entrenamiento final}: Una vez que seleccionamos el mejor valor de $\alpha$, ajustamos un modelo Ridge final utilizando todos los datos de entrenamiento y este valor de $\alpha$.
 
 \item \textbf{Evaluación final}: Evaluamos el modelo final utilizando el conjunto de prueba reservado anteriormente para obtener una estimación imparcial de su rendimiento en datos no vistos.
 \end{enumerate}
