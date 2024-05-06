@@ -113,29 +113,29 @@
  \hrule
 
  \bigskip
- \centerline{\bf Práctica N$^\circ$ 5: Modelo lineal multivariado. Entrenamiento y testeo.}
+ \centerline{\bf Práctica N$^\circ$ 6: Operaciones con DataFrames y transformaciones de datos.}
  \bigskip
 
 
 % \textbf{\large Visualizaci\'on}
 
-Para estos ejercicios, usar el dataset \lstinline{penguins}.
+Para estos ejercicios, usar el dataset \lstinline{penguins}. En la mayoría de los ejercicios se pide realizar varias transformaciones en un DataFrame. En estos ejercicios, ver primero la forma de hacerlo ``de cualquier manera'', utilizando una o varias instrucciones. Luedo ver la forma de hacerlo mediante una sola instrucción, encadenando las operaciones.
 
 \begin{enumerate}
 
 \item Crear un subconjunto de datos que contenga sólo ping\"uinos de la isla Biscoe y que tengan un pico de 48 mm de largo o más.
 \item Crear otro dataset con la información de ping\"uinos Adelie machos que no hayan sido vistos en el año 2008.
 \item Del dataset \lstinline{penguins} quedarse con todas las variables excepto \lstinline{year}, \lstinline{sex} y \lstinline{body_mass_g}.
-\item Crear un subconjunto de los datos de penguins sólo con las obsevaciones de ping\"uinos machos con aletas (flipper) de más de 200 mm de largo y quedarse con todas las columnas que terminan con “mm”. (Ayuda: pueden utilizar el método \lstinline{endswith()} aplicado al string.)
+\item Crear un subconjunto de los datos de \lstinline{penguins} sólo con las obsevaciones de ping\"uinos machos con aletas (flipper) de más de 200 mm de largo y quedarse con todas las columnas que terminan con “mm”. (Ayuda: pueden utilizar el método \lstinline{endswith()} aplicado al string.)
 
 
-\item Empezando con \lstinline{penguins}, hacer un pipe (mediante el método \lstinline{pipe} de DataFrames) que:
+\item Empezando con \lstinline{penguins}, crear un dataframe con los siguientes dos requisitos:
 \begin{enumerate}
-\item se quede sólo con las observaciones de la isla Dream.
-\item se quede con las variables species y todas las que empiecen con bill.
+\item contenga sólo con las observaciones de la isla Dream.
+\item contenga solo las variables \lstinline{species} y todas las que empiecen con \lstinline{bill}.
 \end{enumerate}
 
-\item Convertir todas las variables que empiezan con bill a mayúsculas. (Ayuda: \lstinline{rename()} y \lstinline{upper()}.)
+\item Convertir todas las variables que empiezan con \lstinline{bill} a mayúsculas. (Ayuda: \lstinline{rename()} y \lstinline{upper()}.)
 
 \item Empezando con \lstinline{penguins} hacer las siguientes operaciones utilizando \lstinline{transform()}:
 \begin{enumerate}
@@ -143,21 +143,21 @@ Para estos ejercicios, usar el dataset \lstinline{penguins}.
 \item Convertir la variable island a minúscula.
 \end{enumerate}
 
-\item Empezando con \lstinline{penguins} crear una tabla resumen que contenga para el largo mínimo y máximo de las aletas de los ping\"uinos Adelie, agrupados por isla.
+\item Empezando con \lstinline{penguins} crear una tabla resumen que contenga el largo mínimo y máximo de las aletas de los ping\"uinos de la especie Adelie, agrupados por isla.
 
 \item Empezando con \lstinline{penguins}, agrupar los datos por especie y año, luego crear una tabla de resumen que contenga el ancho del pico (llamarla \lstinline{bill_depth_mean}) y el largo del pico (llamarla \lstinline{bill_length_mean}) para cada grupo
 
-\item Empezando con \lstinline{penguins}, hacer una secuencia de operaciones \lstinline{pipe} que:
+\item Empezando con \lstinline{penguins}, hacer una secuencia de operaciones que:
 \begin{enumerate}
 \item Agregue una nueva columna llamada \lstinline{bill_ratio} que sea el cociente entre el largo y el ancho del pico.
-\item Quedarse sólo con las columnas species y \lstinline{bill_ratio}.
+\item Quedarse sólo con las columnas \lstinline{species} y \lstinline{bill_ratio}.
 \item Agrupar los datos por especie.
-\item Crear una tabla de resumen que contenga el promedio de la variable \lstinline{bill_ratio} por especie y que el nombre de la columna en la tabla sea \lstinline{bill_ratio_mean}).
+\item Crear una tabla de resumen que contenga el promedio de la variable \lstinline{bill_ratio} por especie y que el nombre de la columna en la tabla sea \lstinline{bill_ratio_mean}.
 \end{enumerate}
 
 \item Usar el método \lstinline{rename()} de DataFrames para cambiarle el nombre a la variable \lstinline{body_mass_g} y llamarla \lstinline{masa_corporal_g}.
 
-\item Calcular la mediana de la masa corporal de los ping\"uinos de cada especie usando \lstinline{group_by()} y \lstinline{summarise()}.
+\item Calcular la mediana de la masa corporal de los ping\"uinos de cada especie usando \lstinline{group_by()} y \lstinline{agg()}.
 
 \item Empezando con \lstinline{penguins}, escribir una secuencia de operaciones \lstinline{pipe} que:
 \begin{enumerate}
@@ -184,7 +184,7 @@ Para estos ejercicios, usar el dataset \lstinline{penguins}.
 \item Quedarse sólo con las observaciones correspondientes a ping\"uinos Chinstrap.
 \item Luego, quedarse sólo con las variables \lstinline{flipper_length_mm} y \lstinline{body_mass_g}.
 \item Agregar una nueva columna llamada \lstinline{fm_ratio} que contenga el cociente entre el largo de la aleta y el peso del ping\"uino.
-\item Luego quedarse solo con las observaciones que no tienen NaN en ninguna columna (ayuda: \lstinline{drop_na()})
+\item Luego quedarse solo con las observaciones que no tienen NaN en ninguna columna (ayuda: \lstinline{dropna()})
 \item Agregar otra columna llamada \lstinline{ratio_bin} que contenga la palabra ``alto'' si \lstinline{fm_ratio} es mayor o igual que $0.05$ y ``bajo'' si el cociente es menor que $0.05$.
 \end{enumerate}
 
