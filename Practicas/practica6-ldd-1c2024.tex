@@ -119,15 +119,39 @@
 
 % \textbf{\large Visualizaci\'on}
 
-Para estos ejercicios, usar el dataset \lstinline{penguins}. En la mayoría de los ejercicios se pide realizar varias transformaciones en un DataFrame. En estos ejercicios, ver primero la forma de hacerlo ``de cualquier manera'', utilizando una o varias instrucciones. Luedo ver la forma de hacerlo mediante una sola instrucción, encadenando las operaciones.
+Para estos ejercicios, usar el dataset \lstinline{penguins}. En la mayoría de los ejercicios se pide realizar varias transformaciones en un DataFrame. En estos ejercicios, ver primero la forma de hacerlo ``de cualquier manera'', utilizando una o varias instrucciones. Luego ver la forma de hacerlo mediante una sola instrucción, encadenando las operaciones.
+
+En todos los ejercicios, cuando se pide alguna condición resolver el ejercicio implementando esa condición, no resolverlo a mano. Por ejemplo, si se pide una lista de los nombres de columnas de 10 caracteres, podemos hacer
+
+\lstinline{[col for col in penguins.columns if len(col) == 14]},
+
+no tenemos que ponernos a contar a mano cuantas letras tiene cada nombre.
+
 
 \begin{enumerate}
 
 \item Crear un subconjunto de datos que contenga sólo ping\"uinos de la isla Biscoe y que tengan un pico de 48 mm de largo o más.
-\item Crear otro dataset con la información de ping\"uinos Adelie machos que no hayan sido vistos en el año 2008.
-\item Del dataset \lstinline{penguins} quedarse con todas las variables excepto \lstinline{year}, \lstinline{sex} y \lstinline{body_mass_g}.
-\item Crear un subconjunto de los datos de \lstinline{penguins} sólo con las obsevaciones de ping\"uinos machos con aletas (flipper) de más de 200 mm de largo y quedarse con todas las columnas que terminan con “mm”. (Ayuda: pueden utilizar el método \lstinline{endswith()} aplicado al string.)
 
+Sugerencia: recordar que para realizar operaciones lógicas coordenada a coordenada con arrays de numpy podemos usar los símbolos $\&$ (and) y $\mid$ (or).
+
+\item Crear otro dataset con la información de ping\"uinos Adelie machos que no sean de isla Biscoe.
+
+\item Del dataset \lstinline{penguins} quedarse con todas las variables excepto \lstinline{year}, \lstinline{sex} y \lstinline{body_mass_g}. 
+    
+Sugerencia: utilizar el método \lstinline{.drop()} de DataFrames.
+    
+\item Crear un subconjunto de los datos de \lstinline{penguins} sólo con las obsevaciones de ping\"uinos machos con aletas (flipper) de más de 200 mm de largo y quedarse con todas las columnas que terminan con “mm”. 
+    
+Sugerencias: 
+\begin{itemize}
+\item \lstinline{penguins.columns} nos devuelve una lista con los nombres de las columnas.
+\item Si queremos quedarnos con los elementos de una lista que cumplan una cierta propiedad, podemos hacer
+
+\lstinline{[col for col in penguins.columns if ???]} 
+
+reemplazando \lstinline{???} por la condición. Esta forma de definir una lista se conoce como \emph{list comprehension} (definir una lista por comprensión).
+\item Pueden utilizar el método \lstinline{endswith()} aplicado al string.
+\end{itemize}
 
 \item Empezando con \lstinline{penguins}, crear un dataframe con los siguientes dos requisitos:
 \begin{enumerate}
@@ -135,12 +159,21 @@ Para estos ejercicios, usar el dataset \lstinline{penguins}. En la mayoría de l
 \item contenga solo las variables \lstinline{species} y todas las que empiecen con \lstinline{bill}.
 \end{enumerate}
 
-\item Convertir todas las variables que empiezan con \lstinline{bill} a mayúsculas. (Ayuda: \lstinline{rename()} y \lstinline{upper()}.)
+\item Convertir todas las variables que empiezan con \lstinline{bill} a mayúsculas. 
 
-\item Empezando con \lstinline{penguins} hacer las siguientes operaciones utilizando \lstinline{transform()}:
+Sugerencias:
+\begin{itemize}
+\item Para pasar a mayúscula utilizamos \lstinline{upper()}.
+\item Para renombrar columnas podemos utilizar el método \lstinline{rename()}, o asignar un nueva lista de nombres mediante \lstinline{penguins.columns = ???} (esto último resulta más sencillo en este ejercicio).
+\item Si queremos definir una lista for comprensión aplicando distintas funciones podemos usar \lstinline{if / else}. Por ejemplo, ¿cuál será la salida de la siguiente instrucción?
+
+\lstinline{[x * 10 if x % 2 == 0 else x for x in [1,2,3,4,5,6]]}
+\end{itemize}
+
+\item Empezando con \lstinline{penguins} realizar las siguientes operaciones:
 \begin{enumerate}
-\item Crear una nueva variable que tenga el peso en Kg.
-\item Convertir la variable island a minúscula.
+\item Crear una nueva variable que tenga el peso en kg.
+\item Convertir la variable island a minúscula. Sugerencia: aplicar \lstinline{.str.upper()} a la columna.
 \end{enumerate}
 
 \item Empezando con \lstinline{penguins} crear una tabla resumen que contenga el largo mínimo y máximo de las aletas de los ping\"uinos de la especie Adelie, agrupados por isla.
@@ -157,15 +190,15 @@ Para estos ejercicios, usar el dataset \lstinline{penguins}. En la mayoría de l
 
 \item Usar el método \lstinline{rename()} de DataFrames para cambiarle el nombre a la variable \lstinline{body_mass_g} y llamarla \lstinline{masa_corporal_g}.
 
-\item Calcular la mediana de la masa corporal de los ping\"uinos de cada especie usando \lstinline{group_by()} y \lstinline{agg()}.
+\item Agregar una columna a \lstinline{penguins} con la mediana de la masa corporal de los ping\"uinos de cada especie usando \lstinline{group_by()} y \lstinline{agg()}.
 
-\item Empezando con \lstinline{penguins}, escribir una secuencia de operaciones \lstinline{pipe} que:
+\item Empezando con \lstinline{penguins}, escribir una secuencia de operaciones que:
 \begin{enumerate}
 \item Excluya a los ping\"uinos observados en la isla Biscoe.
-\item Sólo se quede con las variables que están entre species y \lstinline{body_mass_g} inclusive.
-\item Renombrar la variable species a \lstinline{especie_pinguino}.
-\item Agrupar los datos por la variable \lstinline{especie_pinguino}.
-\item Encontrar el valor medio de las variables que contienen el string ``length'', separando por la especie del ping\"uino, y llamando a las columnas como las originales pero agregando ``\_mean'' al final.
+\item Sólo se quede con las variables que están entre \lstinline{species} y \lstinline{body_mass_g} inclusive.
+\item Renombre la variable species a \lstinline{especie_pinguino}.
+\item Agrupe los datos por la variable \lstinline{especie_pinguino}.
+\item Calcule el valor medio de las variables que contienen el string ``length'', separando por la especie del ping\"uino, y llamando a las columnas como las originales pero agregando ``\_mean'' al final.
 \end{enumerate}
 
 \item Empezando con \lstinline{penguins}, contar cuántas observaciones hay por especie, isla y año.
