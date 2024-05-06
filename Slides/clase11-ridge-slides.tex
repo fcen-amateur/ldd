@@ -1,0 +1,555 @@
+\documentclass[aspectratio=169,12pt]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish, es-nodecimaldot]{babel}
+%\usepackage{icomma} % Use dot as decimal separator
+\usepackage{booktabs} % For better-looking tables
+\usepackage{wrapfig}
+\usepackage{caption}
+%\usepackage{siunitx}
+
+\usepackage{refcount}
+
+\usepackage{multicol}
+\usepackage{mathtools}
+
+\usepackage[normalem]{ulem}
+
+\pagestyle{empty}
+
+\usepackage{pgf,tikz}
+\usepackage{pgfplots}
+\usetikzlibrary{matrix}
+\usetikzlibrary{arrows}
+
+%\usepackage{wrapfig}
+\mode<presentation>
+\usefonttheme{professionalfonts}
+\usetheme{Darmstadt}
+\usecolortheme{orchid}
+\useoutertheme{default}
+\setbeamertemplate{headline}{}
+
+\renewcommand{\baselinestretch}{1.1}
+
+%gets rid of bottom navigation bars
+\setbeamertemplate{footline}[page number]
+
+%gets rid of navigation symbols
+\setbeamertemplate{navigation symbols}{}
+
+%\frameframe{none} % No default frame
+
+%\setlength{\framewidth}{8.7in} \setlength{\frameheight}{7.2in}
+
+\parindent 0pt
+\setlength{\parskip} {1ex plus 0.5ex minus 0.2ex}
+
+
+%\usepackage[bbgreekl]{mathbbol}
+\usepackage{amsfonts}
+
+%\DeclareSymbolFontAlphabet{\mathbb}{AMSb}
+%\DeclareSymbolFontAlphabet{\mathbbl}{bbold}
+
+\newcommand{\Sym}{{\mathcal S}}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\trace}{Trace}
+\DeclareMathOperator{\range}{range}
+\DeclareMathOperator{\rank}{rank}
+
+\usepackage{breqn}
+\usepackage{multicol}
+\usepackage{colortbl}
+\usepackage{lmodern}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{stmaryrd}
+\usepackage{color}
+\usepackage{graphicx}
+\graphicspath{ {img/} }
+\usepackage{hyperref}
+
+\input{epsf}
+\title{Introducción}
+\author{}
+
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\sing}{sing}
+
+\DeclareMathOperator{\chara}{char}
+\DeclareMathOperator{\Jacob}{Jacob}
+\DeclareMathOperator{\Sing}{Sing}
+\newcommand{\fracNoLine}[2]{\genfrac{}{}{}{0pt}{#1}{#2}}
+
+%\beamerdefaultoverlayspecification{<+->}
+
+\usepackage{listings,xcolor,bm}
+
+
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+\lstset{
+  backgroundcolor=\color{white},   % choose the background color; you must add
+  basicstyle=\small\ttfamily,      % the size of the fonts that are used for the code
+  breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+  breaklines=true,                 % sets automatic line breaking
+  captionpos=b,                    % sets the caption-position to bottom
+  commentstyle=\color{mygreen},    % comment style
+  deletekeywords={...},            % if you want to delete keywords from the given language
+  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+  firstnumber=1,                % start line enumeration with line 1000
+  frame=single,	                   % adds a frame around the code
+  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+  keywordstyle=\color{blue},       % keyword style
+  language=Python,                 % the language of the code
+  morekeywords={*,...},            % if you want to add more keywords to the set
+  numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+  numbersep=5pt,                   % how far the line-numbers are from the code
+  numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
+  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+  showstringspaces=false,          % underline spaces within strings only
+  showtabs=false,                  % show tabs within strings adding particular underscores
+  stepnumber=5,                    % the step between two line-numbers. If it's 1, each line will be numbered
+  stringstyle=\color{mymauve},     % string literal style
+  tabsize=4,	                   % sets default tabsize to 2 spaces
+  title=\lstname                   % show the filename of files included with \lstinputlisting; also try caption instead of title
+}
+
+\begin{document}
+
+\newtheorem{prop}{Proposici\'on}
+\newtheorem{algo}[prop]{Algorithm}
+\newtheorem{teor}[prop]{Theorem}
+\newtheorem{lema}[prop]{Lemma}
+\newtheorem{coro}[prop]{Corollary}
+\newtheorem{defi}[prop]{Definition}
+
+\newcommand{\ideal}[1]{{\left\langle{#1}\right\rangle}}
+\newcommand{\demo}{\textbf {Demostraci\'on. }}
+\newcommand{\obse}{\textbf {Observaci\'on. }}
+\newcommand{\Input}{\textbf {Input: }}
+\newcommand{\Output}{\textbf {Output: }}
+\newcommand{\Examp}{\textbf {Ejemplo }}
+\newcommand{\Examps}{\textbf {Ejemplos }}
+
+\newcommand{\kk}{{\mathbbl k}}
+\newcommand{\V}{{\mathbf V}}
+\newcommand{\I}{{\mathbf I}}
+\newcommand{\PP}{{\tilde P}}
+\newcommand{\QQ}{{\tilde Q}}
+
+\newcommand{\F}{{\mathbb F}}
+\newcommand{\Q}{{\mathbb Q}}
+\newcommand{\N}{{\mathbb N}}
+\newcommand{\R}{{\mathbb R}}
+\newcommand{\Z}{{\mathbb Z}}
+\newcommand{\CC}{{\mathbb C}}
+\newcommand{\eLL}{{\mathcal L}}
+
+
+
+\newcommand{\MinAss}{\textrm {MinAss}}
+\newcommand{\Ass}{\textrm {Ass}}
+\newcommand{\mcm}{\textrm {mcm}}
+\newcommand{\mcd}{\textrm {mcd}}
+%\newcommand{\mod}{\textrm { mod }}
+\newcommand{\lt}{\textrm {lt}}
+\newcommand{\Lt}{\textrm {Lt}}
+\newcommand{\lp}{\textrm {lp}}
+\newcommand{\lc}{\textrm {lc}}
+\newcommand{\lm}{\textrm {lm}}
+\newcommand{\barra}{\ /\ }
+\newcommand{\multideg}{\textrm {multideg}}
+
+\newcommand{\sep}{\textrm {sep}}
+\newcommand{\Syz}{\textrm {Syz}}
+\newcommand{\n}{\~n}
+\newcommand{\cG}{\textrm {cG}}
+\newcommand{\dG}{\textrm {dG}}
+\newcommand{\nG}{\textrm {nG}}
+\newcommand{\CE}{\textrm {CE}}
+\newcommand{\CG}{\textrm {CG}}
+\newcommand{\CF}{\textrm {CF}}
+\newcommand{\DG}{\textrm {DG}}
+\renewcommand{\NG}{\textrm {NG}}
+
+\newcommand{\p}{{\boldsymbol{p}}}
+\newcommand{\q}{{\boldsymbol{q}}}
+
+\newcommand{\X}{{\boldsymbol{X}}}
+\newcommand{\x}{{\boldsymbol{x}}}
+\renewcommand{\u}{{\boldsymbol{u}}}
+\renewcommand{\t}{{\boldsymbol{t}}}
+\renewcommand{\a}{{\boldsymbol{a}}}
+\renewcommand{\b}{{\boldsymbol{b}}}
+\renewcommand{\c}{{\boldsymbol{c}}}
+
+%Titulos en espa�ol
+%\renewcommand{\chaptername}{Cap\'{\i}tulo}
+%\renewcommand{\bibname}{Bibliograf\'{\i}a}
+
+\newcommand{\kring}{\kk[\x]}
+\newcommand{\kRing}{\kk[X]}
+\newcommand{\qring}{\Q[\x]}
+
+%\renewcommand\itemindent{-10pt}
+%\renewcommand{\theenumi}{\arabic{enumi}}
+%\renewcommand{\labelenumi}{\Alph{enumi}}
+
+\definecolor{issac}{rgb}{1.00,0.00,0.00}
+%------------------------------------------------------------------
+
+\begin{frame}
+
+ \begin{center}
+
+\Large\textbf{Laboratorio de Datos} \\
+\large\textbf{Entrenamiento y testeo}
+%\vspace{0.5cm}
+
+% \textit{Santiago Laplagne} \\
+%slaplagn@dm.uba.ar \\
+
+
+%\vspace{0.5cm}
+%{\small Trabajo en progreso en conjunto con \emph{Jose Capco} (Universit\"at Innsbruck) y \emph{Claus Scheiderer} %(Universit\"at Konstanz).} \\
+
+\vspace{1cm}
+Primer Cuatrimestre 2024 \\ Turnos tarde y noche
+
+\vspace{1cm}
+
+
+ {\small Facultad de Ciencias Exactas y Naturales, UBA}
+ \end{center}
+
+
+\end{frame}
+
+%------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Regresión lineal y colinealidad}
+
+Decimos que un conjunto de datos presenta colinealidad si hay una relación de dependencia lineal entre las variables.
+
+\textbf{Ejemplo}
+En esta base de exportaciones de Argentina por año, ¿que variables presentan dependencia lineal?
+
+{\tiny
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+EXPO\_AGROP & EXPO\_PECUAR & EXPO\_AGRIC & EXPO\_CEREAL & EXPO\_OLEAGI & EXPO\_OTAGRIC \\ \hline
+5675922.71        & 2220807.38         & 3450986.58        & 2579153.98         & 763762.94          & 108069.65          \\ \hline
+5254582.56        & 2410845.43         & 2839752.13        & 1906466.84         & 794068.11          & 139217.18          \\ \hline
+3685459.82        & 2277316.06         & 1403969.22        & 847878.88          & 245962.74          & 310127.6           \\ \hline
+4350920.16        & 2755310.97         & 1592394.96        & 1080429.13         & 218880.92          & 293084.91          \\ \hline
+3341704.72        & 1441522.79         & 1888866.22        & 1260219.64         & 294294.64          & 334351.94          \\ \hline
+3394203.42        & 1621378.16         & 1758401.13        & 1170262.33         & 291286.07          & 296852.73          \\ \hline
+3289516.91        & 2033833.42         & 1232810.26        & 763813.07          & 157240.83          & 311756.35          \\ \hline
+3408794.66        & 1585888.12         & 1767175.1         & 1209749.33         & 238334.59          & 319091.18          \\ \hline
+2999981           & 935528.07          & 1984893.91        & 1310043.44         & 198589.52          & 476260.95          \\ \hline
+\end{tabular}
+\end{table}
+}
+\pause
+\begin{itemize}
+\item EXPO\_AGROP = EXPO\_PECUAR + EXPO\_AGRIC \pause
+\item EXPO\_AGRIC = EXPO\_CEREAL + EXPO\_OLEAGI + EXPO\_OTAGRIC
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Si hay colinealidad no hay unicidad}
+
+Cuando hay colinealidad, no podemos aplicar mínimos cuadrados directamente.
+El problema de mínimos cuadrados no tiene solución única.
+
+\textbf{Ejemplo:} si queremos modelar el PBI utilizando las variables de exportación, estás fórmulas son equivalentes.
+
+{\footnotesize
+\begin{itemize}
+\item PBI $\simeq$ EXPO\_PECUAR + EXPO\_AGRIC + ...
+\item PBI $\simeq$ EXPO\_AGROP + ...
+\item PBI $\simeq$ EXPO\_PECUAR + EXPO\_CEREAL + EXPO\_OLEAGI + EXPO\_OTAGRIC  + ...
+\end{itemize}
+}
+\end{frame}
+
+\begin{frame}
+\frametitle{Explosión de coeficientes}
+
+Peor aún, podemos obtener fórmulas con coeficientes enormes.
+
+Estas fórmulas también son equivalentes:
+{\small
+\begin{itemize}
+\item $\text{PBI} \simeq \text{EXPO\_AGROP} + \cdots$
+\item $\text{PBI} \simeq 1001 \cdot \text{EXPO\_AGROP} - 1000 \cdot \text{EXPO\_PECUAR} - 1000 \cdot \text{EXPO\_AGRIC} + \cdots$
+\end{itemize}
+}
+
+Fórmulas con coeficientes tan grandes (que se cancelan mutuamente) van a traer problemas numéricos  y afectan severamente el modelo.
+
+\end{frame}
+
+\begin{frame}
+\frametitle{¿Cómo tratamos la colinealidad?}
+
+Existen diversos métodos para lidiar con la colinealidad.
+
+En este ejemplo, la opción más simple sería eliminar variables redundantes (por ejemplo, EXPO\_AGROP y EXPO\_OTAGRIC).
+
+Existen también diversos métodos para detectar la colinealidad. Por ejemplo, podemos triangular la matriz por columnas.
+
+\end{frame}
+
+\begin{frame}
+\frametitle{¿Y cómo tratamos la ``casi colinealidad''?}
+
+Muchas veces la relación lineal no es exacta (por errores numéricos u otros motivos).
+Las variables pueden ser en teoría linealmente independientes pero en la práctica afectar igualmente el modelado.
+
+En estos casos, podemos usar métodos para reducción de dimensionalidad (disminuir la cantidad de variables sin perder mucha información).
+
+Alternativamente, podemos modificar el método de mínimos cuadrados para atacar la colinealidad.
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Solución única y explosión de coeficientes}
+
+Consideramos estos dos conjuntos de datos. Queremos explicar $y$ utilizando las variables $x$ como predictoras (sin intercept).
+
+\vspace{-0.3cm}
+
+\begin{table}[htbp]
+\centering
+\begin{minipage}{.5\textwidth}
+  \centering
+  \caption*{Modelo: $y = \beta_1 x_1$}
+  \begin{tabular}{cc}
+    \hline
+    \( y \) & \( x_1 \) \\
+    \hline
+    1 & 1.001 \\
+    0 & 0.001 \\
+    0 & 0.001 \\
+    \hline
+  \end{tabular}
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+  \centering
+  \caption*{Modelo: $y = \beta_1 x_1 + \beta_2 x_2$}
+  \begin{tabular}{ccc}
+    \hline
+    \( y \) & \( x_1 \) & \( x_2 \) \\
+    \hline
+    1 & 1.001 & 1.000 \\
+    0 & 0.001 & 0.001 \\
+    0 & 0.001 & 0.001 \\
+    \hline
+  \end{tabular}
+\end{minipage}
+\end{table}
+
+\begin{enumerate}
+\item En el primer caso, ¿hay solución exacta? ¿Cuál esperan que sea la solución de mínimos cuadrados?
+\item En el segundo caso, las variables $x_1$ y $x_2$ ¿son linealmente independientes?
+\item ¿Hay solución exacta en este caso? ¿Cuáles son los coeficientes de la solución?
+\end{enumerate}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Respuestas}
+
+\begin{enumerate}
+\item No hay solución exacta. La solución de mínimos cuadrados es $\beta_1 = 0.999998$.
+\item Las variables $x_1$ y $x_2$ son linealmente independientes.
+\item Este sistema tiene solución exacta: $y = 1000 x_1 - 1000 x_2$.
+\end{enumerate}
+
+Si bien en el segundo modelo el error en entrenamiento es menor (porque la solución es exacta), un modelo con coeficientes tan grandes generalmente va a funcionar mal, va a tener menor capacidad predictiva.
+
+Podemos pensar el segundo modelo como un caso de sobreajuste.
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Solución: mínimos cuadrados regularizados}
+
+Para evitar el problema del ejemplo anterior, queremos construir un modelo donde los coeficientes sean pequeños, o lo más chicos posibles.
+
+Es decir, queremos dos cosas:
+\begin{itemize}
+\item Que los errores del modelo sean lo más chicos posibles.
+\item Que los coeficientes del modelo sean lo más chicos posibles
+\end{itemize}
+
+Podemos pensar la segunda condición como \emph{buscar un modelo lo más simple posible}.
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Solución: penalizamos a los modelos complicados}
+
+Como el problema de mínimos cuadrados en general tiene solución única, podemos minimizar una de las dos cosas, pero no las dos a la vez.
+
+\textbf{Penalidades.} La solución común cuando queremos minimizar varias cosas a la vez es introducir penalidades.
+
+En este caso, queremos agregar al problema de mínimos cuadrados una penalidad cuando los errores son grandes.
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Función de pérdida}
+
+\textbf{Función de pérdida.} Queremos definir una función de pérdida del estilo
+$$L = \text{error cuadrático medio del ajuste} + \alpha \cdot \ \text{tamaño de los coeficientes}$$
+para algún parámetro $\alpha$ apropiado de penalidad. $\alpha$ es el \emph{peso} que le damos a la penalidad en el modelo.
+
+\textbf{Intuitivamente,} entre dos modelos que ajustan razonablemente bien, elegimos el que tiene coeficientes más chicos.
+\end{frame}
+
+\begin{frame}
+\frametitle{Formulación matemática}
+
+El error cuadrático del modelo se calcula por la fórmula:
+$$
+EC = (y_1 - \hat y_1)^2 + (y_2 - \hat y_2)^2 + \dots + (y_m - \hat y_m)^2,
+$$
+donde $y_i$ son los valores reales e $\hat y_i$ son las predicciones del modelo.
+
+Comparamos esta fórmula con la norma al cuadrado  de un vector:
+$$
+\|v\|^2 = \|(v_1, \dots, v_m)\|^2 = v_1^2 + v_2^2 + \dots + v_m^2
+$$
+
+Observamos que
+$$EC = \|(y_1 - \hat y_1, y_2 - \hat y_2, \dots, y_m - \hat y_m)\|^2 = \|y - \hat y\|^2.$$
+
+Por lo tanto:
+\begin{block}{}
+\centering
+Minimizar el error cuadrático es equivalente a minimizar $\|y - \hat y\|^2$.
+\end{block}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Formulación matemática}
+
+A la vez, podemos medir el tamaño de los coeficientes por la norma al cuadrado del vector de coeficientes:
+$$
+\beta_1^2 + \beta_2^2 + \dots + \beta_n^2 = \|(\beta_1, \beta_2, \dots, \beta_n)\|^2
+$$
+
+Si ahora juntamos las dos fórmulas, obtenemos una función de pérdida:
+\begin{align*}
+L &= \text{error cuadrático medio del modelo} + \alpha \cdot \text{ tamaños de los coeficientes} \\
+&= \|y - \hat y\|^2 + \alpha \|\beta\|^2
+\end{align*}
+
+Es decir, queremos que tanto la norma del vector de errores como la norma del vector de coeficientes sean pequeños.
+\end{frame}
+
+\begin{frame}
+\frametitle{Formulación matemática}
+
+Obtenemos así el método conocido como \emph{regresión Ridge} (o mínimos cuadrados regularizados o regulizarción $L_2$ o regularización de Tychonov).
+
+Es un método muy común y utilizado en diversas áreas, por eso los diversos nombres.
+
+La función de pérdida es
+$$
+L = \|y - \hat y\|_2^2 + \alpha \|\beta\|_2^2
+$$
+para un parámetro $\alpha$ a determinar.
+
+\end{frame}
+
+\begin{frame}
+\frametitle{El milagro de los mínimos cuadrados regularizados}
+
+Ya mencionamos que el problema de mínimos cuadrados puede resolverse fácilmente utilizando álgebra lineal.
+
+El problema de mínimos cuadrados regularizados parece mucho más complicado.
+
+Milagrosamente, este problema también puede resolverse fácilmente  utilizando álgebra lineal.
+
+Dado un sistema de ecuaciones $X \beta = y$, para hallar el vector $\beta$ que minimiza
+$$L = \|y - \hat y\|_2^2 + \alpha \|\beta\|_2^2$$
+resolvemos el sistema lineal
+$$
+\left(X^{\mathsf {T}}X+ \alpha I\right) \beta = X^{\mathsf {T}}{y}.
+$$
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Parámetros e hiperparámetros}
+
+\textbf{Parámetros.} En el modelo lineal, una vez que fijamos una fórmula $y = \beta_0 + \beta_1 x_1 + \dots + \beta_n x_n$, calculamos los valores óptimos de $\beta_0, \dots, \beta_n$ entrenando el modelo en los datos de entrenamiento.
+
+Los coeficientes $\beta_0, \dots, \beta_n$ se denominan \emph{parámetros} del modelo.
+
+\textbf{Hiperparámetros.} En el modelo lineal regularizado, debemos fijar primero un valor de $\alpha$ y luego podemos calcular los valores óptimos de $\beta_0, \dots, \beta_n$ entrenando el modelo en los datos de entrenamiento. En este caso $\alpha$ se denomina un \emph{hiperparámetro} del modelo.
+
+Los hiperparámetros no aprenden su valor de los datos, sino que debemos especificarlos ``manualmente''.
+\end{frame}
+
+\begin{frame}
+\frametitle{¿Cómo elegimos un valor apropiado para el hiperparámetro $\alpha$?}
+
+Una forma usual para elegir el valor del hiperparámetro es por validación cruzada en $k$ pliegos.
+
+Realizamos los siguientes pasos:
+
+\begin{enumerate}
+\item \textbf{Preparación de datos}: Dividimos los datos en conjunto de entrenamiento y conjunto de testeo.
+
+\item \textbf{Selección de parámetros}: Definimos un vector de posibles valores para el hiperparámetro $\alpha$.
+
+\item \textbf{Ajuste del modelo}: Para cada valor de $\alpha$, ajustamos un modelo Ridge utilizando los datos de entrenamiento y calculamos su rendimiento utilizando validación cruzada.
+\label{end-enumerate}% Save counter at end of enumerate
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{¿Cómo elegimos un valor apropiado para el hiperparámetro $\alpha$?}
+
+\begin{enumerate}
+\setcounterref{enumi}{end-enumerate}
+\item \textbf{Validación cruzada}: Los datos de entrenamiento se dividen en $k$ pliegues (folds), y el modelo se entrena $k$ veces, cada vez utilizando $k-1$ pliegues para el entrenamiento y el pliegue restante para la validación. Este proceso se repite $k$ veces, de manera que cada pliegue se utiliza una vez como conjunto de validación. El error del modelo se promedia sobre las $k$ iteraciones.
+
+\item \textbf{Selección del mejor valor de $\alpha$}: Seleccionamos el valor de $\alpha$ que minimiza el promedio de los errores en las $k$ iteraciones.
+
+\item \textbf{Entrenamiento final}: Una vez que seleccionamos el mejor valor de $\alpha$, ajustamos un modelo Ridge final utilizando todos los datos de entrenamiento y este valor de $\alpha$.
+
+\item \textbf{Evaluación final}: Evaluamos el modelo final utilizando el conjunto de prueba reservado anteriormente para obtener una estimación imparcial de su rendimiento en datos no vistos.
+\end{enumerate}
+\end{frame}
+
+
+
+
+
+
+
+
+\end{document}

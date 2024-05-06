@@ -203,7 +203,7 @@ En base a estos gr\'aficos, si quisiéramos predecir la ganancia mediante un mod
 \item Escribir (en lápiz y papel) la ecuación de un modelo lineal para este caso. ¿Qué unidades tienen las variables y cómo se codifica la variable “sexo del pinguino”?
 
 \item \textbf{Codificación de variables binarias.} Si utilizamos \lstinline{Formulaic} para generar la matriz de datos e incluimos la variable sexo en el modelo, automáticamente va a  crear una columna con el sexo codificado con 0's y 1's.
-    
+
     Alternativamente, podemos utilizar el siguiente c\'odigo:
 \begin{lstlisting}
 from sklearn.preprocessing import OrdinalEncoder
@@ -223,7 +223,7 @@ penguins["sex01"] = sex01
 \item Escribir (en lápiz y papel) la ecuación de un modelo lineal para este caso. ¿Cómo se codifica la variable “especie”?
 \item Explicar qué diferencia tiene este modelo respecto al propuesto en el ejercicio 1.
 \item \textbf{Codificación de variables categóricas.}  Si utilizamos \lstinline{Formulaic} para generar la matriz de datos e incluimos variables categóricas, automáticamente va a crear las columnas indicadoras con 0's y 1's necesarias (variables dummies).
-    
+
     Alternativamente podemos usar el siguiente código que utiliza la función \lstinline{OneHotEncoder}:
 \begin{lstlisting}
 from sklearn.preprocessing import OneHotEncoder
@@ -239,6 +239,50 @@ Si utilizan este código, verifiquen que los tama\~nos de \lstinline{species3} y
 
 \item Ajustar el modelo usando todos los datos disponibles. Reportar los coeficientes encontrados y calcular el error de predicción.
 \item Realizar una visualización apropiada para ver de los datos junto con las predicciones del modelo.
+\end{enumerate}
+
+\item En este ejercicio trabajaremos con el dataset de inmuebles (\verb|inmuebles.csv|). El objetivo de este ejercicio es comparar tres modelos lineales para predecir el precio de un inmueble:
+\[
+\begin{array}{rl}
+    \text{Modelo 1:} &  precio \sim superficie \\
+    \text{Modelo 2:} &  precio \sim superficie + zona \\
+    \text{Modelo 3:} &  \text{un modelo propuesto por usted}
+\end{array}
+\]
+Como medida de comparación utilizaremos la raíz cuadrada del ECM, que notaremos RECM. En cada ítem, indicar qué modelo tiene el mejor desempeño.
+
+\begin{enumerate}
+    \item \textit{Nivel 1}. Entrenar cada modelo sobre la totalidad de los datos disponibles. Graficar, en una misma figura, los datos y las predicciones del modelo 2 y del modelo 3. Las predicciones deben estar señaladas en la leyenda (recuerde el uso del argumento \verb|label|) y las lineas del modelo 3 deben estar punteadas (investigue agregar \verb|linestyle='--'| donde corresponda). Puede adaptar el siguiente c\'odigo:
+\begin{lstlisting}
+(
+    so.Plot(data=data, x='superficie', y='precio')
+    .add(so.Dot(), color='zona')
+    .add(so.Line(), y=modelo.predict(X).flatten(), color='zona')
+)
+\end{lstlisting}
+\item \textit{Nivel 2}. Separar los datos en conjuntos de entrenamiento (\textit{train}) y prueba (\textit{test}). Entrenar cada modelo sobre el \underline{mismo} conjunto de entrenamiento y comparar su desempeño sobre el conjunto de prueba.
+\item \textit{Nivel 3}. Separar los datos en dos conjuntos: entrenamiento y testeo. Luego, dividir el conjunto de entrenamiento en dos conjuntos: entrenamiento y validaci\'on. Entrenar cada modelo sobre el conjunto de entrenamiento y comparar su desempeño en el conjunto de validación. Elija el que usted considere el más apropiado, entrénelo sobre la unión de los datos de testeo y validación  y calcule la RECM y el $R^2$ sobre el conjunto de testeo.
+\item \textit{Nivel 4 - $k$-Fold Cross-Validation}. Aplicar validaci\'on cruzada en $k$ pliegos con $k=6$. Para esto, separar el conjunto de datos en entrenamiento y testeo. Aplicar la t\'ecnica de $k$-Fold CV para cada modelo con el conjunto de testeo. Elegir el modelo con menor promedio de RECM y calcular la RECM y el $R^2$ sobre el conjunto de testeo.
+\end{enumerate}
+
+\item \textbf{Regresión Ridge.} Queremos estimar los gastos en tarjeta de crédito de un conjunto de clientes a partir de información de los clientes. Utilizamos el dataset \lstinline{credit.csv}.
+    
+\begin{enumerate}
+\item Cargar el dataset con Pandas. En regresión Ridge variables en distintas escalas pueden afectar el modelo, por lo tanto es conveniente llevar todas las variables a una misma escala, por ejemplo, al intervalo $[0, 1]$. Para eso podemos utilizar el siguiente código.
+
+\begin{lstlisting}
+df = pd.read_csv("../data/Credit.csv")
+columns = ['Income', 'Limit', 'Rating', 'Cards', 'Age', 'Education']
+df[columns] /= df[columns].max()
+\end{lstlisting}
+
+La última divide los valores en las columnas indicadas por el máximo de la columna. Veremos más sobre procesamiento previo de datos en la próxima práctica.
+
+\item Separar los datos en entrenamiento y testeo, ajustar un modelo lineal en los datos de entranamiento y calcular el RMSE (raíz del error cuadrático medio) en los datos datos de testeo.
+\item Obtener por validación cruzada en los datos de entrenamiento el valor óptimo para el hiperparámetro $\alpha$ de regresión Ridge. Utilizar como vector de búsqueda \lstinline{alphas = np.array([0.001, 0.005, 0.01, 0.02, 0.1, 0.5, 1])}.
+\item Con el valor obtenido, ajustar el modelo de regresión Ridge a los datos de entreanamiento.
+\item Calcular el RMSE (raíz del error cuadrático medio) en los datos datos de testeo. 
+\item ¿En cuál de los dos modelos obtuvo mejor resultados?
 \end{enumerate}
 
 \end{enumerate}
