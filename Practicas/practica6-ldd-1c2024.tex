@@ -119,13 +119,13 @@
 
 % \textbf{\large Visualizaci\'on}
 
-Para estos ejercicios, usar el dataset \lstinline{penguins}. En la mayoría de los ejercicios se pide realizar varias transformaciones en un DataFrame. En estos ejercicios, ver primero la forma de hacerlo ``de cualquier manera'', utilizando una o varias instrucciones. Luego ver la forma de hacerlo mediante una sola instrucción, encadenando las operaciones.
+Para estos ejercicios, usar el dataset \lstinline{penguins}. En la mayoría de los ejercicios se pide realizar varias transformaciones en un DataFrame. En estos ejercicios, ver primero la forma de hacerlo ``de cualquier manera'', utilizando una o varias instrucciones. Luego, si es posible, hacerlo mediante una sola instrucción encadenando las operaciones.
 
-En todos los ejercicios, cuando se pide alguna condición resolver el ejercicio implementando esa condición, no resolverlo a mano. Por ejemplo, si se pide una lista de los nombres de columnas de 10 caracteres, podemos hacer
+En todos los ejercicios, cuando se pide alguna condición resolver el ejercicio implementando esa condición, no resolverlo a mano. Por ejemplo, si se pide una lista de los nombres de columnas de 14 caracteres, podemos hacer (ver \ref{ej:comprehension})
 
 \lstinline{[col for col in penguins.columns if len(col) == 14]},
 
-no tenemos que ponernos a contar a mano cuantas letras tiene cada nombre.
+no tenemos que ponernos a contar a mano cu\'antas letras tiene cada nombre.
 
 
 \begin{enumerate}
@@ -140,7 +140,8 @@ Sugerencia: recordar que para realizar operaciones lógicas coordenada a coorden
     
 Sugerencia: utilizar el método \lstinline{.drop()} de DataFrames.
     
-\item Crear un subconjunto de los datos de \lstinline{penguins} sólo con las obsevaciones de ping\"uinos machos con aletas (flipper) de más de 200 mm de largo y quedarse con todas las columnas que terminan con “mm”. 
+\item \label{ej:comprehension}
+Crear un subconjunto de los datos de \lstinline{penguins} sólo con las obsevaciones de ping\"uinos machos con aletas (flipper) de más de 200 mm de largo y quedarse con todas las columnas que terminan con “mm”.
     
 Sugerencias: 
 \begin{itemize}
