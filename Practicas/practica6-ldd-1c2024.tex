@@ -136,19 +136,19 @@ Sugerencia: recordar que para realizar operaciones lógicas coordenada a coorden
 
 \item Crear otro dataset con la información de ping\"uinos Adelie machos que no sean de isla Biscoe.
 
-\item Del dataset \lstinline{penguins} quedarse con todas las variables excepto \lstinline{year}, \lstinline{sex} y \lstinline{body_mass_g}. 
-    
+\item Del dataset \lstinline{penguins} quedarse con todas las variables excepto \lstinline{year}, \lstinline{sex} y \lstinline{body_mass_g}.
+
 Sugerencia: utilizar el método \lstinline{.drop()} de DataFrames.
-    
+
 \item \label{ej:comprehension}
 Crear un subconjunto de los datos de \lstinline{penguins} sólo con las obsevaciones de ping\"uinos machos con aletas (flipper) de más de 200 mm de largo y quedarse con todas las columnas que terminan con “mm”.
-    
-Sugerencias: 
+
+Sugerencias:
 \begin{itemize}
 \item \lstinline{penguins.columns} nos devuelve una lista con los nombres de las columnas.
 \item Si queremos quedarnos con los elementos de una lista que cumplan una cierta propiedad, podemos hacer
 
-\lstinline{[col for col in penguins.columns if ???]} 
+\lstinline{[col for col in penguins.columns if ???]}
 
 reemplazando \lstinline{???} por la condición. Esta forma de definir una lista se conoce como \emph{list comprehension} (definir una lista por comprensión).
 \item Pueden utilizar el método \lstinline{endswith()} aplicado al string.
@@ -160,16 +160,56 @@ reemplazando \lstinline{???} por la condición. Esta forma de definir una lista 
 \item contenga solo las variables \lstinline{species} y todas las que empiecen con \lstinline{bill}.
 \end{enumerate}
 
-\item Convertir todas las variables que empiezan con \lstinline{bill} a mayúsculas. 
+\item \textbf{Restablecer índices.} 
+\begin{enumerate}
+\item En el dataset \lstinline{penguins}, eliminar primero todas las filas con datos faltantes. ¿Qué sucede con los índices?
+\item En el dataset sin datos faltantes, restablecer los índices mediante el comando \lstinline{reset_index()}.
+\item ¿Cómo podemos hacer todo en un solo comando encadenando operaciones?
+\end{enumerate}
 
-Sugerencias:
-\begin{itemize}
-\item Para pasar a mayúscula utilizamos \lstinline{upper()}.
-\item Para renombrar columnas podemos utilizar el método \lstinline{rename()}, o asignar un nueva lista de nombres mediante \lstinline{penguins.columns = ???} (esto último resulta más sencillo en este ejercicio).
+    
+    
+\item \textbf{Renombrar columnas e \'indices.} Para renombrar columnas utilizamos 
+
+\lstinline{.rename(columns = ???)} 
+
+y para renombrar índices utilizamos 
+
+\lstinline{.rename(index = ???)}. 
+
+Realizar las siguientes operaciones en el dataset \lstinline{penguins}.
+\begin{enumerate}
+\item Renombrar la variable \lstinline{species} a \lstinline {especies}. En este caso debemos pasarle a columns un diccionario: \lstinline{{'variable_original' : 'variable nueva'}).
+\item Renombrar en un solo \lstinline{rename} la variable \lstinline{body_mass_g} a \lstinline{peso_g} y la variable \lstinline{flipper_length_mm} a \lstinline{aleta_mm}.
+\item Renombrar el \'indice 0 a 5000.
+\item Pasar todos los nombres de variables a mayúsculas. Sugerencia: en lugar de un diccionario, podemos pasarle a columnas una función. En este caso, podemos usar la función \lstinline{str.upper}.
+\item ¿Qué resultado esperan del siguiente comando?
+
+\lstinline{penguins.rename(index = np.sqrt)}
+
+\item ¿Cómo podemos sumarle uno a todos los índices de \lstinline{penguins}? Sugerencia: definir primero una función \lstinline{suma_uno} y utilizar esta función al hacer \lstinline{rename}.
+    
+\item En Python, al igual que en muchos lenguajes, podemos usar \emph{funciones lambda}, que nos permite crear funciones ``al vuelo''.
+¿Qué resultado esperan del siguiente comando?
+
+\lstinline{penguins.rename(index = lambda x : x * 2)}
+
+\item ¿Cómo podemos usar funciones lambda para renombrar todos los nombres de columnas a mayúsculas?
+\end{enumerate}
+
+
+\item \textbf{pd.columns.} También podemos renombrar columnas asignando una nueva lista de nombres mediante \lstinline{penguins.columns = ???}. En este caso, resulta útil definir listas por comprensión como vimos en el \ref{ej:comprehension}. En el dataset \lstinline{penguins}:
+    
+\begin{enumerate}
+\item Convertir todos los nombres de variables a mayúsculas.
+\item Convertir solo los nombres de variables que empiezan con \lstinline{bill} a mayúsculas.
+\end{enumerate}
+
+Sugerencias: 
 \item Si queremos definir una lista for comprensión aplicando distintas funciones podemos usar \lstinline{if / else}. Por ejemplo, ¿cuál será la salida de la siguiente instrucción?
 
 \lstinline{[x * 10 if x % 2 == 0 else x for x in [1,2,3,4,5,6]]}
-\end{itemize}
+
 
 \item Empezando con \lstinline{penguins} realizar las siguientes operaciones:
 \begin{enumerate}
