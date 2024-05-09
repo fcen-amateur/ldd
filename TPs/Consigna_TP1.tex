@@ -123,25 +123,35 @@
  \centerline{\bf Trabajo Práctico N$^\circ$ 1}
  \bigskip
 
-El Trabajo Práctico deberá ser resuelto en grupos de tres personas. La entrega se realizará a través de un \textit{pull request} al \href{https://www.youtube.com/watch?v=dQw4w9WgXcQ}{repositorio} del Trabajo Práctico. La fecha límite es el 28/05 a las 00:00. Deben entregar:
+El Trabajo Práctico deberá ser resuelto en grupos de tres personas. La entrega se realizará a través de un \textit{pull request} al \href{https://www.youtube.com/watch?v=dQw4w9WgXcQ}{repositorio} del Trabajo Práctico, con la misma modalidad que TP-cit0. La fecha límite es el 28/05 a las 00:00. Deben entregar:
 \begin{itemize}
     \item un Notebook con la resolución de la Consigna 1 y un informe correspondiente a la Consigna 2.
     \item un archivo de Python con el modelo propuesto para la Consigna 2 siguiendo la estructura del archivo \verb|plantilla.py|
+    \item un archivo \verb|integrantes.txt| con los nombres de quienes conforman el grupo
 \end{itemize}
+Se valorará que el Notebook y el código tengan un formato prolijo: ejercicios separados por títulos (Ejercicio 1, Ejercicio 2, etc.), nombres descriptivos para las variables, comentarios, etc.
+
+\vspace{1cm}
 
 \textbf{Consigna 1.}
-Trabajaremos con el dataset \verb|sube-2023|\footnote{Fuente: \url{https://datos.transporte.gob.ar/dataset/sube-cantidad-de-transacciones-usos-por-fecha}} que contiene datos sobre la utilización de la SUBE durante el año 2023 a nivel nacional. En este \href{https://datos.transporte.gob.ar/dataset/sube-cantidad-de-transacciones-usos-por-fecha/archivo/b5ad6c87-28ae-4893-92bd-79b115d8b6e3}{link} pueden consultar el tipo y la descripción de cada variable.
-\begin{enumerate}
-    \item Visualizar el tipo de datos de cada columna. Transformar la columna \verb|DIA_TRANSPORTE| para que sea reconocida como una fecha.
+Trabajaremos con el dataset \verb|sube-2023.csv|\footnote{Fuente: \url{https://datos.transporte.gob.ar/dataset/sube-cantidad-de-transacciones-usos-por-fecha}} que contiene datos sobre la utilización de la SUBE durante el año 2023 a nivel nacional. En este \href{https://datos.transporte.gob.ar/dataset/sube-cantidad-de-transacciones-usos-por-fecha/archivo/b5ad6c87-28ae-4893-92bd-79b115d8b6e3}{link} pueden consultar el tipo y la descripción de cada variable.
 
-    \textbf{Sugerencia:} investigar la función \verb|to_datetime| de \verb|pandas|. Para completar el argumento \verb|format|, revisar la \href{https://docs.python.org/es/3/library/datetime.html#strftime-and-strptime-format-codes}{documentación} de \verb|datetime|
-\item Agregar tres columnas al DataFrame:
 \begin{enumerate}
-    \item \verb|FECHA_DIA| : debe indicar el nombre del día de la semana correspondiente a \verb|DIA_TRANSPORTE|
-    \item \verb|FECHA_ORDINAL| : debe indicar el ordinal correspondiente a \verb|DIA_TRANSPORTE| (por ejemplo, a 2023-01-01 le corresponde 1, a 2023-01-02 le corresponde 2 y así sucesivamente).
-    \item \verb|FECHA_MES| : debe indicar el mes correspondiente a \verb|DIA_TRANSPORTE|
-\end{enumerate}
-% \textbf{Sugerencia:} puede basarse en el siguiente código:
+    \item
+        \begin{enumerate}
+            \item     Visualizar el tipo de datos de cada columna. Transformar la columna \verb|DIA_TRANSPORTE| para que sea reconocida como una fecha.
+        
+            \textbf{Sugerencia:} investigar la función \verb|to_datetime| de \verb|pandas|. Para completar el argumento \verb|format|, revisar la \href{https://docs.python.org/es/3/library/datetime.html#strftime-and-strptime-format-codes}{documentación} de \verb|datetime|
+        
+            \item Agregar tres columnas al DataFrame:
+            \begin{enumerate}
+                \item \verb|FECHA_DIA| : debe indicar el nombre del día de la semana correspondiente a \newline\verb|DIA_TRANSPORTE|
+                \item \verb|FECHA_ORDINAL| : debe indicar el ordinal correspondiente a \verb|DIA_TRANSPORTE| (por ejemplo, a 2023-01-01 le corresponde 1, a 2023-01-02 le corresponde 2 y así sucesivamente). Debe ser un entero (\verb|int|).
+                \item \verb|FECHA_MES| : debe indicar el mes correspondiente a \verb|DIA_TRANSPORTE|
+            \end{enumerate}
+    
+        \end{enumerate}
+    % \textbf{Sugerencia:} puede basarse en el siguiente código:
 % \begin{lstlisting}
 % ???.apply(lambda a: a.strftime(format=???))
 % \end{lstlisting}
@@ -154,16 +164,25 @@ Trabajaremos con el dataset \verb|sube-2023|\footnote{Fuente: \url{https://datos
 
 \item Utilizando \verb|datos_amba|, identificar:
 \begin{enumerate}
-    \item la cantidad total anual de pasajeros para cada medio de transporte
-    \item la línea de colectivos con la máxima cantidad de pasajeros para cada mes
-    \item la fecha de menor movilidad promedio entre los colectivos de jurisdicción municipal.
+    \item la proporción de la cantidad total anual de pasajeros que le corresponde a cada medio de transporte
+    \item la tupla (mes, línea de subte) donde viajó la mayor cantidad de pasajeros
+    \item la fecha del día hábil\footnote{Consideramos como día hábil a cualquier día, salvo Sábado y Domingo, sin importar si es feriado.} de menor cantidad de pasajeros promedio entre los colectivos de jurisdicción municipal.
+    \item el día hábil con menor variabilidad en cantidad de pasajeros
 \end{enumerate}
 
-\item Elaborar un gráfico que permita comparar la media y los cuartiles de la cantidad de gente que viajó anualmente en cada una de las nueve líneas de colectivo que llegan a Ciudad Universitaria.
+\item Elaborar un gráfico que permita comparar la media y los cuartiles de la cantidad anual de pasajeros en los días hábiles para cada una de las nueve líneas de colectivo que llegan a Ciudad Universitaria.
 
-\item 
+\item \textit{Análisis exploratorio.} La idea de este ítem es que realicen un análisis exploratorio de los datos, aplicando las herramientas de visualización (\verb|seaborn.objects|, \verb|seaborn| y/o \verb|matplotlib|) y de resumen de datos (media, mediana, desvío estándar, operaciones sobre el DataFrame, etc.). 
 
+El objetivo es entender, comparar y/o estudiar aspectos o patrones en la cantidad de pasajeros del transporte público. Algunas preguntas disparadoras pueden ser:
+\begin{itemize}
+    \item ¿Cómo varía el uso del transporte público a lo largo del año? ¿Se observa el mismo efecto en AMBA y en el interior del país? ¿Y en todos los medios de transporte por igual?
+    \item ¿Cómo difiere el uso del transporte público durante los días hábiles en comparación a los fines de semana?
+    \item ¿Hay algún día hábil que resulte un outlier? ¿Pueden explicarlo?
+\end{itemize}
+No es necesario que respondan a cada una de esas preguntas, pueden explorar por donde se les ocurra. Tampoco están limitades a usar sólo el dataset de 2023 (en el link hay datasets desde 2020 a 2024). Pueden hacer comparaciones interanuales, enfocarse en un solo tipo de transporte, etc.
 
+En el Notebook, las visualizaciones y resúmenes de datos que realicen deben estar acompañados por las conclusiones que obtengan a partir de ellos.
 \end{enumerate}
 
 \end{document}
