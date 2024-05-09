@@ -160,22 +160,22 @@ reemplazando \lstinline{???} por la condición. Esta forma de definir una lista 
 \item contenga solo las variables \lstinline{species} y todas las que empiecen con \lstinline{bill}.
 \end{enumerate}
 
-\item \textbf{Restablecer índices.} 
+\item \textbf{Restablecer índices.}
 \begin{enumerate}
 \item En el dataset \lstinline{penguins}, eliminar primero todas las filas con datos faltantes. ¿Qué sucede con los índices?
 \item En el dataset sin datos faltantes, restablecer los índices mediante el comando \lstinline{reset_index()}.
 \item ¿Cómo podemos hacer todo en un solo comando encadenando operaciones?
 \end{enumerate}
 
-    
-    
-\item \textbf{Renombrar columnas e \'indices.} Para renombrar columnas utilizamos 
 
-\lstinline{.rename(columns = ???)} 
 
-y para renombrar índices utilizamos 
+\item \textbf{Renombrar columnas e \'indices.} Para renombrar columnas utilizamos
 
-\lstinline{.rename(index = ???)}. 
+\lstinline{.rename(columns = ???)}
+
+y para renombrar índices utilizamos
+
+\lstinline{.rename(index = ???)}.
 
 Realizar las siguientes operaciones en el dataset \lstinline{penguins}.
 \begin{enumerate}
@@ -188,7 +188,7 @@ Realizar las siguientes operaciones en el dataset \lstinline{penguins}.
 \lstinline{penguins.rename(index = np.sqrt)}
 
 \item ¿Cómo podemos sumarle uno a todos los índices de \lstinline{penguins}? Sugerencia: definir primero una función \lstinline{suma_uno} y utilizar esta función al hacer \lstinline{rename}.
-    
+
 \item En Python, al igual que en muchos lenguajes, podemos usar \emph{funciones lambda}, que nos permite crear funciones ``al vuelo''.
 ¿Qué resultado esperan del siguiente comando?
 
@@ -199,13 +199,13 @@ Realizar las siguientes operaciones en el dataset \lstinline{penguins}.
 
 
 \item \textbf{pd.columns.} También podemos renombrar columnas asignando una nueva lista de nombres mediante \lstinline{penguins.columns = ???}. En este caso, resulta útil definir listas por comprensión como vimos en el \ref{ej:comprehension}. En el dataset \lstinline{penguins}:
-    
+
 \begin{enumerate}
 \item Convertir todos los nombres de variables a mayúsculas.
 \item Convertir solo los nombres de variables que empiezan con \lstinline{bill} a mayúsculas.
 \end{enumerate}
 
-Sugerencias: 
+Sugerencias:
 \item Si queremos definir una lista for comprensión aplicando distintas funciones podemos usar \lstinline{if / else}. Por ejemplo, ¿cuál será la salida de la siguiente instrucción?
 
 \lstinline{[x * 10 if x % 2 == 0 else x for x in [1,2,3,4,5,6]]}
@@ -260,6 +260,34 @@ Sugerencias:
 \item Agregar una nueva columna llamada \lstinline{fm_ratio} que contenga el cociente entre el largo de la aleta y el peso del ping\"uino.
 \item Luego quedarse solo con las observaciones que no tienen NaN en ninguna columna (ayuda: \lstinline{dropna()})
 \item Agregar otra columna llamada \lstinline{ratio_bin} que contenga la palabra ``alto'' si \lstinline{fm_ratio} es mayor o igual que $0.05$ y ``bajo'' si el cociente es menor que $0.05$.
+\end{enumerate}
+
+\end{enumerate}
+\textbf{Limpieza de datos.}
+En los siguientes ejercicios, utilizamos el dataset \lstinline{macro_full_columns.csv}.
+
+\begin{enumerate}[resume]
+\item Queremos arreglar los nombres de algunas columnas y eliminar columnas inútiles.
+\begin{enumerate}
+\item Cargar el archivo en un DataFrame \lstinline{macroFull} utilizando la columna \lstinline{anio} como index.
+\item Listar todos los nombres de columnas, y eliminar del DataFrame la columna \lstinline{Unnamed: 0}.
+\item Observamos que algunas columnas terminan con el prefijo \lstinline{vari_Porc} y otras con el prefijo \lstinline{variPorc}. Cambiar el final de todas las columnas terminadas en \lstinline{vari_Porc} a \lstinline{variPorc}.
+\item Modificar también todos los nombres de columnas terminados en \lstinline{_Per_Cap} a \lstinline{_perCap}.
+\end{enumerate}
+
+\item \textbf{Datos faltantes.} 
+\begin{enumerate} 
+\item ¿En qué columnas hay datos faltantes? Podemos usar \lstinline{df.isnull().any(axis = ???)}. ¿Cómo podemos generar una lista que tenga solamente los nombres de las columnas con datos faltantes?
+\item ¿En qué años hay datos faltantes? Listar todos los años con datos faltantes.
+\item Convertir todos los datos faltantes a 0.
+\end{enumerate}
+
+\item \textbf{Variables de oferta.}
+\begin{enumerate}
+\item Generar un DataFrame que contenga solo las variables que terminan con "oferta".
+\item Queremos explicar la variable \lstinline{PBI_a_precios_de_mercado.oferta} utilizando el resto de las variables de oferta. Crear un DataFrame X que contenga todas las variables de oferta excepto la de PBI y una Seris y que contenga solo esa variable.
+\item Ajustar un modelo de regresión lineal ordinaria o Ridge y definir el vector de predicciones.
+\item Graficar, en un mismo gráfico, la variable respuesta original y la predicha en función del año. Sugerencia: prestar atención a los índices de cada variable.
 \end{enumerate}
 
 \end{enumerate}
