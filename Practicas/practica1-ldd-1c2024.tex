@@ -126,7 +126,7 @@
 
 Como le dijo el Sr. Miyagi a Daniel, "\emph{\href{https://www.youtube.com/watch?v=tM-wKYKw0tI}{encerar... pulir}}". No se puede hacer ciencia de punta sin antes volver intuitivos los conceptos fundacionales de un lenguaje. Así que \emph{copien los comandos de esta guía a mano en una consola}, y traten de estimar qué van a devolver, antes de ejecutarlos.
 
-Si ya instalaron el entorno de trabajo que sugiere el \lstinline|README.md|, pueden lanzar una consola adecuada ejecutando \lstinline|source venv/bin/activate && python|.
+%Si ya instalaron el entorno de trabajo que sugiere el \lstinline|README.md|, pueden lanzar una consola adecuada ejecutando \lstinline|source venv/bin/activate && python|.
 
 \begin{enumerate}
 \item
@@ -137,8 +137,9 @@ Realizar las siguientes operaciones básicas en Python.
 a = 2
 b = 5
 a**3
-16 %% 5  # probar con otros numeros para entender que significa
+16 % 5  # probar con otros numeros para entender que significa
 2 * a**2 + 0.5 * b + (a + b) / 2
+\end{lstlisting}
 
 \item Interpretar las siguientes operaciones l\'ogicas entre variables booleanas y predecir el resultado antes de probar en la consola.
 \begin{lstlisting}
@@ -149,7 +150,7 @@ a | b
 a == (not b)
 \end{lstlisting}
 
-\item Antes de probar en la consola, piense que van a dar estas operaciones.
+\item Antes de probar en la consola, piense qué van a dar estas operaciones.
 \begin{lstlisting}
 a, b, c = 3, 4, 2
 a > b
@@ -190,7 +191,7 @@ np.set_printoptions(precision=2, suppress=True)
 v = np.array([1,2,np.e,7])
 w = np.array([1.2, np.pi, 4, 5])
 for expr in [
-    'v', 'w', 'v + w', 'v ** 2', 'v % 2', 'np.sum(v)', 'np.sqrt(w)', 'v > 3', 'w < 3.5'
+    "v", "w", "v + w", "v ** 2", "v % 2", "np.sum(v)", "np.sqrt(w)", "v > 3", "w < 3.5"
 ]:
     print(f"{expr:11s} == {eval(expr)}")
 \end{lstlisting}
@@ -213,7 +214,7 @@ w = np.array([1.2, np.pi, 4, 5])
 z = np.array([0,1])
 v * w
 v+2
-v+z
+v+z # Funcionara?
 \end{lstlisting}
 
 \item Explorar estas distintas formas de extraer información de un vector.
@@ -322,8 +323,8 @@ print(u)
 
 ¿Para qué sirve el parámetro \lstinline{replace=False}? Realicen otras pruebas para verificarlo. Comparen con `random.choices` y `random.sample` de la biblioteca estándar de Python.
 
-\item {\textbf{Ley de los grandes números.}} Esta ley asegura que si tiramos $n$ veces una moneda, el promedio de veces que sale cara tiende a $1/2$ cuando $n$ tiende a infinito.
-Simular 10 lanzamientos de una moneda y calcular el promedio de veces que sale cara. Repetir para $n = 1000$ y $n = 100.000$.
+\item {\textbf{Ley de los grandes números.}} Esta ley asegura que si tiramos $n$ veces una moneda, la proporción de veces que sale cara tiende a $1/2$ cuando $n$ tiende a infinito.
+Simular 10 lanzamientos de una moneda y calcular la proporción de veces que sale cara. Repetir para $n = 1000$ y $n = 100.000$.
 
 %\item Bonus: Plantee al menos tres formas distintas de hacerlo; al menos una de ellas usando sólo tipos de datos nativos (lista, tupla, diccionario, et cetera).
 
@@ -333,9 +334,8 @@ Simular 10 lanzamientos de una moneda y calcular el promedio de veces que sale c
 \item La cantidad de caras dividido por la cantidad de cecas.
 \item La cantidad de caras menos la cantidad de cecas.
 \item La cantidad de caras menos la cantidad de cecas, divido por la cantidad total de tiradas.
-\item Considerando las veces que salieron tres caras seguidas, el promedio de veces que en la siguiente tirada sale nuevamente cara.
+\item (difícil) Considerando las veces que salieron tres caras seguidas, la proporción de veces que en la siguiente tirada sale nuevamente cara.
 \end{enumerate}
-
 
 
 \end{enumerate}
@@ -376,8 +376,8 @@ cum_casos = casos_diarios.cumsum()
 plt.plot(cum_casos)
 plt.show()
 
-# Tomamos logaritmos para linealizar
-plt.plot(np.log(cum_casos))
+# Tomamos logaritmos para linealizar (convertimos los datos primero a float para poder tomar logaritmo)
+plt.plot(np.log(np.float64(cum_casos)))
 plt.show()
 
 # Alternativamente, podemos mantener los datos "al natural" y cambiar la _escala_ del eje y.

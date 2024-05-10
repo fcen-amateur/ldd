@@ -1,0 +1,12 @@
+# Básicos
+numpy
+pandas
+scipy
+formulaic
+scikit-learn
+# Gráficos y datasets
+matplotlib
+seaborn
+gapminder
+# Para usar el entorno como un "kernel" en Jupyter
+ipykernel
