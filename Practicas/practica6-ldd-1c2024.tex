@@ -121,7 +121,7 @@
 
 Para estos ejercicios, usar el dataset \lstinline{penguins}. En la mayoría de los ejercicios se pide realizar varias transformaciones en un DataFrame. En estos ejercicios, ver primero la forma de hacerlo ``de cualquier manera'', utilizando una o varias instrucciones. Luego, si es posible, hacerlo mediante una sola instrucción encadenando las operaciones.
 
-En todos los ejercicios, cuando se pide alguna condición resolver el ejercicio implementando esa condición, no resolverlo a mano. Por ejemplo, si se pide una lista de los nombres de columnas de 14 caracteres, podemos hacer (ver \ref{ej:comprehension})
+En todos los ejercicios, cuando se pide alguna condición, resolver el ejercicio implementando esa condición, no resolverlo a mano. Por ejemplo, si se pide una lista de los nombres de columnas de 14 caracteres, podemos hacer (ver \ref{ej:comprehension})
 
 \lstinline{[col for col in penguins.columns if len(col) == 14]},
 
@@ -130,7 +130,7 @@ no tenemos que ponernos a contar a mano cu\'antas letras tiene cada nombre.
 
 \begin{enumerate}
 
-\item Crear un subconjunto de datos que contenga sólo ping\"uinos de la isla Biscoe y que tengan un pico de 48 mm de largo o más.
+\item A partir del dataset \lstinline{penguins}, crear un subconjunto de datos que contenga sólo ping\"uinos de la isla Biscoe y que tengan un pico de 48 mm de largo o más.
 
 Sugerencia: recordar que para realizar operaciones lógicas coordenada a coordenada con arrays de numpy podemos usar los símbolos $\&$ (and) y $\mid$ (or).
 
@@ -140,34 +140,12 @@ Sugerencia: recordar que para realizar operaciones lógicas coordenada a coorden
 
 Sugerencia: utilizar el método \lstinline{.drop()} de DataFrames.
 
-\item \label{ej:comprehension}
-Crear un subconjunto de los datos de \lstinline{penguins} sólo con las obsevaciones de ping\"uinos machos con aletas (flipper) de más de 200 mm de largo y quedarse con todas las columnas que terminan con “mm”.
-
-Sugerencias:
-\begin{itemize}
-\item \lstinline{penguins.columns} nos devuelve una lista con los nombres de las columnas.
-\item Si queremos quedarnos con los elementos de una lista que cumplan una cierta propiedad, podemos hacer
-
-\lstinline{[col for col in penguins.columns if ???]}
-
-reemplazando \lstinline{???} por la condición. Esta forma de definir una lista se conoce como \emph{list comprehension} (definir una lista por comprensión).
-\item Pueden utilizar el método \lstinline{endswith()} aplicado al string.
-\end{itemize}
-
-\item Empezando con \lstinline{penguins}, crear un dataframe con los siguientes dos requisitos:
-\begin{enumerate}
-\item contenga sólo con las observaciones de la isla Dream.
-\item contenga solo las variables \lstinline{species} y todas las que empiecen con \lstinline{bill}.
-\end{enumerate}
-
 \item \textbf{Restablecer índices.}
 \begin{enumerate}
 \item En el dataset \lstinline{penguins}, eliminar primero todas las filas con datos faltantes. ¿Qué sucede con los índices?
 \item En el dataset sin datos faltantes, restablecer los índices mediante el comando \lstinline{reset_index()}.
 \item ¿Cómo podemos hacer todo en un solo comando encadenando operaciones?
 \end{enumerate}
-
-
 
 \item \textbf{Renombrar columnas e \'indices.} Para renombrar columnas utilizamos
 
@@ -179,10 +157,10 @@ y para renombrar índices utilizamos
 
 Realizar las siguientes operaciones en el dataset \lstinline{penguins}.
 \begin{enumerate}
-\item Renombrar la variable \lstinline{species} a \lstinline {especies}. En este caso debemos pasarle a columns un diccionario: \lstinline{{'variable_original' : 'variable nueva'}).
-\item Renombrar en un solo \lstinline{rename} la variable \lstinline{body_mass_g} a \lstinline{peso_g} y la variable \lstinline{flipper_length_mm} a \lstinline{aleta_mm}.
-\item Renombrar el \'indice 0 a 5000.
-\item Pasar todos los nombres de variables a mayúsculas. Sugerencia: en lugar de un diccionario, podemos pasarle a columnas una función. En este caso, podemos usar la función \lstinline{str.upper}.
+\item Renombrar la variable \lstinline{species} a \lstinline {especies}. En este caso debemos pasarle a \lstinline{columns} un diccionario: \lstinline|{'variable_original' : 'variable nueva'}|.
+\item Renombrar en un solo \lstinline{rename} la variable \lstinline{flipper_length_mm} a \lstinline{aleta_mm} y la variable \lstinline{body_mass_g} a \lstinline{peso_g}.
+\item Renombrar el \'indice 0 a ``cero''.
+\item Pasar todos los nombres de variables a mayúsculas. Sugerencia: en lugar de un diccionario, podemos pasarle a \lstinline{columns} una función. En este caso, podemos usar la función \lstinline{str.upper}.
 \item ¿Qué resultado esperan del siguiente comando?
 
 \lstinline{penguins.rename(index = np.sqrt)}
@@ -194,42 +172,58 @@ Realizar las siguientes operaciones en el dataset \lstinline{penguins}.
 
 \lstinline{penguins.rename(index = lambda x : x * 2)}
 
-\item ¿Cómo podemos usar funciones lambda para renombrar todos los nombres de columnas a mayúsculas?
+\item ¿Cómo podemos usar una función lambda para renombrar todos los nombres de columnas a mayúsculas?
 \end{enumerate}
 
-
-\item \textbf{pd.columns.} También podemos renombrar columnas asignando una nueva lista de nombres mediante \lstinline{penguins.columns = ???}. En este caso, resulta útil definir listas por comprensión como vimos en el \ref{ej:comprehension}. En el dataset \lstinline{penguins}:
+\item \label{ej:comprehension} \textbf{df.columns.} También podemos renombrar columnas asignando una nueva lista de nombres mediante \lstinline{penguins.columns = ???}. En este caso, resulta útil definir \emph{listas por comprensión}. La sintaxis es \lstinline{[f(x) for x in LIST]}.
 
 \begin{enumerate}
-\item Convertir todos los nombres de variables a mayúsculas.
-\item Convertir solo los nombres de variables que empiezan con \lstinline{bill} a mayúsculas.
+\item ?`Qué resultado esperan de ejecutar este comando?
+
+\lstinline{[saludo + '!' for saludo in ['hola', 'chau']]}
+
+\item En el dataset \lstinline{penguins}, convertir todos los nombres de variables a mayúsculas utilizando listas por comprensión.
 \end{enumerate}
 
-Sugerencias:
-\item Si queremos definir una lista for comprensión aplicando distintas funciones podemos usar \lstinline{if / else}. Por ejemplo, ¿cuál será la salida de la siguiente instrucción?
+\item En el dataset \lstinline{penguins}, convertir solo los nombres de variables que empiezan con \lstinline{bill} a mayúsculas.
+
+\textbf{Sugerencia:} Si queremos definir una lista for comprensión aplicando distintas funciones podemos crear una función partida utilizando \lstinline{if / else}. Por ejemplo, ¿cuál será la salida de la siguiente instrucción?
 
 \lstinline{[x * 10 if x % 2 == 0 else x for x in [1,2,3,4,5,6]]}
+
+\textbf{Nota:} la función que utilizamos para definir listas por comprensión es una función \emph{lambda} (pero no necesitamos escribir \lstinline{lambda}). Esta sintaxis para definir funciones partidas es parte de la sintaxis de las funciones lambda.
+
+\item Utilizando una función lambda, agregar una nueva columna a la base de datos llamada \lstinline{peso_bin} que contenga:
+\begin{itemize}
+\item ``chico'' si la masa corporal es menos que 4000 gramos.
+\item ``grande'' si la masa corporal es mayor que 4000 gramos.
+\end{itemize}
+
+\item
+Crear un subconjunto de los datos de \lstinline{penguins} sólo con las obsevaciones de ping\"uinos machos con aletas (flipper) de más de 200 mm de largo y quedarse con todas las columnas que terminan con \lstinline{_mm}.
+
+Sugerencias:
+\begin{itemize}
+\item Si queremos quedarnos con los elementos de una lista que cumplan una cierta propiedad, podemos hacer
+
+\lstinline{[col for col in penguins.columns if ???]}
+
+reemplazando \lstinline{???} por la condición.
+\item Pueden utilizar el método \lstinline{endswith()} aplicado al string.
+\end{itemize}
+
+\item Empezando con \lstinline{penguins}, crear un dataframe con los siguientes dos requisitos:
+\begin{enumerate}
+\item contenga sólo con las observaciones de la isla Dream.
+\item contenga solo las variables \lstinline{species} y todas las que empiecen con \lstinline{bill}.
+\end{enumerate}
 
 
 \item Empezando con \lstinline{penguins} realizar las siguientes operaciones:
 \begin{enumerate}
 \item Crear una nueva variable que tenga el peso en kg.
-\item Convertir la variable island a minúscula. Sugerencia: aplicar \lstinline{.str.upper()} a la columna.
+\item Convertir la variable \lstinline{island} a minúscula. Sugerencia: aplicar \lstinline{.str.upper()} a la columna.
 \end{enumerate}
-
-\item Empezando con \lstinline{penguins} crear una tabla resumen que contenga el largo mínimo y máximo de las aletas de los ping\"uinos de la especie Adelie, agrupados por isla.
-
-\item Empezando con \lstinline{penguins}, agrupar los datos por especie y año, luego crear una tabla de resumen que contenga el ancho del pico (llamarla \lstinline{bill_depth_mean}) y el largo del pico (llamarla \lstinline{bill_length_mean}) para cada grupo
-
-\item Empezando con \lstinline{penguins}, hacer una secuencia de operaciones que:
-\begin{enumerate}
-\item Agregue una nueva columna llamada \lstinline{bill_ratio} que sea el cociente entre el largo y el ancho del pico.
-\item Quedarse sólo con las columnas \lstinline{species} y \lstinline{bill_ratio}.
-\item Agrupar los datos por especie.
-\item Crear una tabla de resumen que contenga el promedio de la variable \lstinline{bill_ratio} por especie y que el nombre de la columna en la tabla sea \lstinline{bill_ratio_mean}.
-\end{enumerate}
-
-\item Usar el método \lstinline{rename()} de DataFrames para cambiarle el nombre a la variable \lstinline{body_mass_g} y llamarla \lstinline{masa_corporal_g}.
 
 \item Agregar una columna a \lstinline{penguins} con la mediana de la masa corporal de los ping\"uinos de cada especie usando \lstinline{group_by()} y \lstinline{agg()}.
 
@@ -242,25 +236,6 @@ Sugerencias:
 \item Calcule el valor medio de las variables que contienen el string ``length'', separando por la especie del ping\"uino, y llamando a las columnas como las originales pero agregando ``\_mean'' al final.
 \end{enumerate}
 
-\item Empezando con \lstinline{penguins}, contar cuántas observaciones hay por especie, isla y año.
-
-\item Empezando con \lstinline{penguins}, quedarse sólo con los ping\"uinos de las especies Adelie y Gentoo. Luego contar cuántos hay por cada especie y sexo.
-
-\item Agregar una nueva columna a la base de datos llamada \lstinline{peso_bin} que contenga:
-\begin{itemize}
-\item ``chico'' si la masa corporal es menos que 4000 gramos.
-\item ``grande'' si la masa corporal es mayor que 4000 gramos.
-\end{itemize}
-
-\item Empezando con \lstinline{penguins},
-
-\begin{enumerate}
-\item Quedarse sólo con las observaciones correspondientes a ping\"uinos Chinstrap.
-\item Luego, quedarse sólo con las variables \lstinline{flipper_length_mm} y \lstinline{body_mass_g}.
-\item Agregar una nueva columna llamada \lstinline{fm_ratio} que contenga el cociente entre el largo de la aleta y el peso del ping\"uino.
-\item Luego quedarse solo con las observaciones que no tienen NaN en ninguna columna (ayuda: \lstinline{dropna()})
-\item Agregar otra columna llamada \lstinline{ratio_bin} que contenga la palabra ``alto'' si \lstinline{fm_ratio} es mayor o igual que $0.05$ y ``bajo'' si el cociente es menor que $0.05$.
-\end{enumerate}
 
 \end{enumerate}
 \textbf{Limpieza de datos.}
@@ -275,8 +250,8 @@ En los siguientes ejercicios, utilizamos el dataset \lstinline{macro_full_column
 \item Modificar también todos los nombres de columnas terminados en \lstinline{_Per_Cap} a \lstinline{_perCap}.
 \end{enumerate}
 
-\item \textbf{Datos faltantes.} 
-\begin{enumerate} 
+\item \textbf{Datos faltantes.}
+\begin{enumerate}
 \item ¿En qué columnas hay datos faltantes? Podemos usar \lstinline{df.isnull().any(axis = ???)}. ¿Cómo podemos generar una lista que tenga solamente los nombres de las columnas con datos faltantes?
 \item ¿En qué años hay datos faltantes? Listar todos los años con datos faltantes.
 \item Convertir todos los datos faltantes a 0.
@@ -284,8 +259,8 @@ En los siguientes ejercicios, utilizamos el dataset \lstinline{macro_full_column
 
 \item \textbf{Variables de oferta.}
 \begin{enumerate}
-\item Generar un DataFrame que contenga solo las variables que terminan con "oferta".
-\item Queremos explicar la variable \lstinline{PBI_a_precios_de_mercado.oferta} utilizando el resto de las variables de oferta. Crear un DataFrame X que contenga todas las variables de oferta excepto la de PBI y una Seris y que contenga solo esa variable.
+\item Generar un DataFrame que contenga solo las variables que terminan con \lstinline{.oferta}. ¿Había datos faltantes en estas columnas?
+\item Queremos explicar la variable \lstinline{PBI_a_precios_de_mercado.oferta} utilizando el resto de las variables de oferta. Crear un DataFrame \lstinline{X} que contenga todas las variables de oferta excepto la de PBI y una Series \lstinline{y} que contenga solo la variable de PBI.
 \item Ajustar un modelo de regresión lineal ordinaria o Ridge y definir el vector de predicciones.
 \item Graficar, en un mismo gráfico, la variable respuesta original y la predicha en función del año. Sugerencia: prestar atención a los índices de cada variable.
 \end{enumerate}
@@ -294,3 +269,32 @@ En los siguientes ejercicios, utilizamos el dataset \lstinline{macro_full_column
 
 \end{document}
 
+\item Usar el método \lstinline{rename()} de DataFrames para cambiarle el nombre a la variable \lstinline{body_mass_g} y llamarla \lstinline{masa_corporal_g}.
+
+\item Empezando con \lstinline{penguins}, contar cuántas observaciones hay por especie, isla y año.
+
+\item Empezando con \lstinline{penguins}, quedarse sólo con los ping\"uinos de las especies Adelie y Gentoo. Luego contar cuántos hay por cada especie y sexo.
+
+
+\item Empezando con \lstinline{penguins} crear una tabla resumen que contenga el largo mínimo y máximo de las aletas de los ping\"uinos de la especie Adelie, agrupados por isla.
+
+\item Empezando con \lstinline{penguins}, agrupar los datos por especie y año, luego crear una tabla de resumen que contenga el ancho del pico (llamarla \lstinline{bill_depth_mean}) y el largo del pico (llamarla \lstinline{bill_length_mean}) para cada grupo
+
+\item Empezando con \lstinline{penguins}, hacer una secuencia de operaciones que:
+\begin{enumerate}
+\item Agregue una nueva columna llamada \lstinline{bill_ratio} que sea el cociente entre el largo y el ancho del pico.
+\item Quedarse sólo con las columnas \lstinline{species} y \lstinline{bill_ratio}.
+\item Agrupar los datos por especie.
+\item Crear una tabla de resumen que contenga el promedio de la variable \lstinline{bill_ratio} por especie y que el nombre de la columna en la tabla sea \lstinline{bill_ratio_mean}.
+\end{enumerate}
+
+
+\item Empezando con \lstinline{penguins},
+
+\begin{enumerate}
+\item Quedarse sólo con las observaciones correspondientes a ping\"uinos Chinstrap.
+\item Luego, quedarse sólo con las variables \lstinline{flipper_length_mm} y \lstinline{body_mass_g}.
+\item Agregar una nueva columna llamada \lstinline{fm_ratio} que contenga el cociente entre el largo de la aleta y el peso del ping\"uino.
+\item Luego quedarse solo con las observaciones que no tienen NaN en ninguna columna (ayuda: \lstinline{dropna()})
+\item Agregar otra columna llamada \lstinline{ratio_bin} que contenga la palabra ``alto'' si \lstinline{fm_ratio} es mayor o igual que $0.05$ y ``bajo'' si el cociente es menor que $0.05$.
+\end{enumerate}
