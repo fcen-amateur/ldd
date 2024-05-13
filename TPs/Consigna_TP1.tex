@@ -123,17 +123,12 @@
  \centerline{\bf Trabajo Práctico N$^\circ$ 1}
  \bigskip
 
-El Trabajo Práctico deberá ser resuelto en grupos de tres personas. La entrega se realizará a través de un \textit{pull request} al \href{https://www.youtube.com/watch?v=dQw4w9WgXcQ}{repositorio} del Trabajo Práctico, con la misma modalidad que TP-cit0. La fecha límite es el 28/05 a las 00:00. Deben entregar:
-\begin{itemize}
-    \item un Notebook con la resolución de la Consigna 1 y un informe correspondiente a la Consigna 2.
-    \item un archivo de Python con el modelo propuesto para la Consigna 2 siguiendo la estructura del archivo \verb|plantilla.py|
-    \item un archivo \verb|integrantes.txt| con los nombres de quienes conforman el grupo
-\end{itemize}
+El Trabajo Práctico deberá ser resuelto en grupos de dos o tres personas. No se aceptarán entregas individuales. La entrega se realizará a través del campus (pestaña Trabajos Prácticos). La fecha límite es el 28/05 a las 23:59. Deben entregar un Notebook con los nombres de les integrantes del equipo, la resolución de los ejercicios y los informes pertinentes.
+
 Se valorará que el Notebook y el código tengan un formato prolijo: ejercicios separados por títulos (Ejercicio 1, Ejercicio 2, etc.), nombres descriptivos para las variables, comentarios, etc.
 
-\vspace{1cm}
+\vspace{0.5cm}
 
-\textbf{Consigna 1.}
 Trabajaremos con el dataset \verb|sube-2023.csv|\footnote{Fuente: \url{https://datos.transporte.gob.ar/dataset/sube-cantidad-de-transacciones-usos-por-fecha}} que contiene datos sobre la utilización de la SUBE durante el año 2023 a nivel nacional. En este \href{https://datos.transporte.gob.ar/dataset/sube-cantidad-de-transacciones-usos-por-fecha/archivo/b5ad6c87-28ae-4893-92bd-79b115d8b6e3}{link} pueden consultar el tipo y la descripción de cada variable.
 
 \begin{enumerate}
@@ -149,6 +144,7 @@ Trabajaremos con el dataset \verb|sube-2023.csv|\footnote{Fuente: \url{https://d
                 \item \verb|FECHA_ORDINAL| : debe indicar el ordinal correspondiente a \verb|DIA_TRANSPORTE| (por ejemplo, a 2023-01-01 le corresponde 1, a 2023-01-02 le corresponde 2 y así sucesivamente). Debe ser un entero (\verb|int|).
                 \item \verb|FECHA_MES| : debe indicar el mes correspondiente a \verb|DIA_TRANSPORTE|
             \end{enumerate}
+            \textbf{Sugerencia:} investigar el método \verb|apply| de \verb|DataFrame|.
 
         \end{enumerate}
     % \textbf{Sugerencia:} puede basarse en el siguiente código:
@@ -157,7 +153,7 @@ Trabajaremos con el dataset \verb|sube-2023.csv|\footnote{Fuente: \url{https://d
 % \end{lstlisting}
 
 
-\item Crear el DataFrame \verb|datos_amba|, el cual sólo debe tener datos de AMBA y debe excluir datos preliminares. Además, al ejecutar \verb|datos_amba.head()| debe observarse el siguiente formato:
+\item Crear el DataFrame \verb|datos_amba|, el cual sólo debe tener datos de AMBA y debe excluir datos preliminares. Además, al ejecutar \verb|datos_amba.head()| debe observarse el siguiente orden y formato de columnas:
 
 \includegraphics[width=\textwidth]{head.png}
 
@@ -166,11 +162,11 @@ Trabajaremos con el dataset \verb|sube-2023.csv|\footnote{Fuente: \url{https://d
 \begin{enumerate}
     \item la proporción de la cantidad total anual de pasajeros que le corresponde a cada medio de transporte
     \item la tupla (mes, línea de subte) donde viajó la mayor cantidad de pasajeros
-    \item la fecha del día hábil\footnote{Consideramos como día hábil a cualquier día, salvo Sábado y Domingo, sin importar si es feriado.} de menor cantidad de pasajeros promedio entre los colectivos de jurisdicción municipal.
-    \item el día hábil con menor variabilidad en cantidad de pasajeros
+    % \item la fecha del día hábil de menor cantidad de pasajeros promedio entre los colectivos de jurisdicción municipal.
+    \item el día hábil\footnote{Consideramos como día hábil a cualquier día, salvo Sábado y Domingo, sin importar si es feriado.} con menor desvío estándar en cantidad de pasajeros
 \end{enumerate}
 
-\item Elaborar un gráfico que permita comparar la media y los cuartiles de la cantidad anual de pasajeros en los días hábiles para cada una de las nueve líneas de colectivo que llegan a Ciudad Universitaria.
+% \item Elaborar un gráfico que permita comparar la media y los cuartiles de la cantidad anual de pasajeros en los días hábiles para cada una de las nueve líneas de colectivo que llegan a Ciudad Universitaria.
 
 \item \textit{Análisis exploratorio.} La idea de este ítem es que realicen un análisis exploratorio de los datos, aplicando las herramientas de visualización (\verb|seaborn.objects|, \verb|seaborn| y/o \verb|matplotlib|) y de resumen de datos (media, mediana, desvío estándar, operaciones sobre el DataFrame, etc.).
 
@@ -185,7 +181,7 @@ No es necesario que respondan a cada una de esas preguntas, pueden explorar por 
 En el Notebook, las visualizaciones y resúmenes de datos que realicen deben estar acompañados por las conclusiones que obtengan a partir de ellos.
 
 \item \textit{Modelo de regresión.}
-En este \'item, intentaremos ajustar la cantidad de pasajeros que viajan por día en una línea de colectivos utilizando la información de pasajeros por día de otras líneas. 
+En este \'item, intentaremos ajustar la cantidad de pasajeros que viajan por día en una línea de colectivos utilizando la información de pasajeros por día de otras líneas. Para esto, utilizaremos el dataset \verb|sube-2023-regresion.csv|
 
 \begin{enumerate}
 \item Generar un DataFrame en el que las columnas sean las líneas de colectivo (\lstinline{TIPO_TRANSPORTE == "COLECTIVO"}) de AMBA de jurisdicción nacional (\lstinline{PROVINCIA == "JN"}) y las observaciones sean los días del año. Es decir, cada fila del DataFrame corresponde a un día del año, y en esa fila deben figurar la cantidad de pasajeros que viajaron en cada línea de colectivo en el día correspondiente.
