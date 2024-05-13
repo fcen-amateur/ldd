@@ -131,6 +131,8 @@ Se valorará que el Notebook y el código tengan un formato prolijo: ejercicios 
 
 Trabajaremos con el dataset \verb|sube-2023.csv|\footnote{Fuente: \url{https://datos.transporte.gob.ar/dataset/sube-cantidad-de-transacciones-usos-por-fecha}} que contiene datos sobre la utilización de la SUBE durante el año 2023 a nivel nacional. En este \href{https://datos.transporte.gob.ar/dataset/sube-cantidad-de-transacciones-usos-por-fecha/archivo/b5ad6c87-28ae-4893-92bd-79b115d8b6e3}{link} pueden consultar el tipo y la descripción de cada variable.
 
+\subsection*{Procesamiento de datos [2 pts.]}
+
 \begin{enumerate}
     \item
         \begin{enumerate}
@@ -168,6 +170,11 @@ Trabajaremos con el dataset \verb|sube-2023.csv|\footnote{Fuente: \url{https://d
 
 % \item Elaborar un gráfico que permita comparar la media y los cuartiles de la cantidad anual de pasajeros en los días hábiles para cada una de las nueve líneas de colectivo que llegan a Ciudad Universitaria.
 
+\end{enumerate}
+
+\subsection*{Análisis Exploratorio [5 pts.]}
+
+\begin{enumerate}\addtocounter{enumi}{3}
 \item \textit{Análisis exploratorio.} La idea de este ítem es que realicen un análisis exploratorio de los datos, aplicando las herramientas de visualización (\verb|seaborn.objects|, \verb|seaborn| y/o \verb|matplotlib|) y de resumen de datos (media, mediana, desvío estándar, operaciones sobre el DataFrame, etc.).
 
 El objetivo es entender, comparar y/o estudiar aspectos o patrones en la cantidad de pasajeros del transporte público. Algunas preguntas disparadoras pueden ser:
@@ -180,14 +187,18 @@ No es necesario que respondan a cada una de esas preguntas, pueden explorar por 
 
 En el Notebook, las visualizaciones y resúmenes de datos que realicen deben estar acompañados por las conclusiones que obtengan a partir de ellos.
 
+\end{enumerate}
+
+\subsection*{Modelado [3 pts.]}
+\begin{enumerate}\addtocounter{enumi}{4}
 \item \textit{Modelo de regresión.}
 En este \'item, intentaremos ajustar la cantidad de pasajeros que viajan por día en una línea de colectivos utilizando la información de pasajeros por día de otras líneas. Para esto, utilizaremos el dataset \verb|sube-2023-regresion.csv|
 
 \begin{enumerate}
 \item Generar un DataFrame en el que las columnas sean las líneas de colectivo (\lstinline{TIPO_TRANSPORTE == "COLECTIVO"}) de AMBA de jurisdicción nacional (\lstinline{PROVINCIA == "JN"}) y las observaciones sean los días del año. Es decir, cada fila del DataFrame corresponde a un día del año, y en esa fila deben figurar la cantidad de pasajeros que viajaron en cada línea de colectivo en el día correspondiente.
     
-    Para generar el DataFrame pueden completar el siguiente código.
-    
+    Para generar el DataFrame pueden completar el siguiente código:
+    \newpage
 \begin{lstlisting}
 datos_ColectivoJN = datos_AMBA[???]
 cols = datos_ColectivoJN.LINEA.unique()  # Los nombres de las lineas de colectivo
