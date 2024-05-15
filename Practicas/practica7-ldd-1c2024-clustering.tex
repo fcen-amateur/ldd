@@ -1,0 +1,271 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage{amssymb, enumitem}
+\setlist[enumerate,1]{label={\bfseries\arabic*.},ref={\bfseries{Ejercicio \arabic*}}}
+\setlist[enumerate,2]{label={\bfseries(\alph*)},ref={\bfseries(\alph*)}}
+
+\usepackage{tikz}
+
+\parindent 0cm
+\usepackage{amssymb,amsmath,amsthm,latexsym,epsfig,euscript,multicol}
+\usepackage{graphbox}
+
+\usepackage[utf8x]{inputenc}
+\usepackage{listings,xcolor,bm}
+
+
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+\lstset{
+  backgroundcolor=\color{white},   % choose the background color; you must add
+  basicstyle=\ttfamily,      % the size of the fonts that are used for the code
+  breakatwhitespace=true,         % sets if automatic breaks should only happen at whitespace
+  breaklines=true,                 % sets automatic line breaking
+  captionpos=b,                    % sets the caption-position to bottom
+  commentstyle=\color{mygreen},    % comment style
+  deletekeywords={...},            % if you want to delete keywords from the given language
+  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+  firstnumber=1,                % start line enumeration with line 1000
+  frame=single,	                   % adds a frame around the code
+  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+  keywordstyle=\color{blue},       % keyword style
+  language=Python,                 % the language of the code
+  morekeywords={*,...},            % if you want to add more keywords to the set
+  numbers=none,                    % where to put the line-numbers; possible values are (none, left, right)
+  numbersep=5pt,                   % how far the line-numbers are from the code
+  numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
+  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+  showstringspaces=false,          % underline spaces within strings only
+  showtabs=false,                  % show tabs within strings adding particular underscores
+  stepnumber=5,                    % the step between two line-numbers. If it's 1, each line will be numbered
+  stringstyle=\color{mymauve},     % string literal style
+  tabsize=4,	                   % sets default tabsize to 2 spaces
+  title=\lstname,                  % show the filename of files included with \lstinputlisting; also try caption instead of title
+  belowskip=0em
+}
+% Caracteres especiales
+\def\A{\mathbb{A}}
+\def\C{\mathbb{C}}
+\def \N{\mathbb{N}}
+\def \P{\mathbb{P}}
+\def \Q{\mathbb{Q}}
+\def \R{\mathbb{R}}
+\def \Z{\mathbb{Z}}
+\def \sen{\textrm{sen}}
+
+\def\Np{$\N$}
+\def\Zp{$\Z$}
+\def\Qp{$\Q$}
+\def\Rp{$\R$}
+\def\Cp{$\C$}
+
+\def\bb{\bm{b}}
+\def\bu{\bm{u}}
+\def\bv{\bm{v}}
+\def\bx{\bm{x}}
+\def\bA{\bm{A}}
+\def\bB{\bm{B}}
+\def\bD{\bm{D}}
+\def\bE{\bm{E}}
+\def\bM{\bm{M}}
+\def\bT{\bm{T}}
+
+
+\def\K{\textrm{K}}
+\def\V{\textrm{V}}
+\def\S{\textrm{S}}
+
+\def\degres{$^\circ$}
+
+\newcount\todno
+\def\no{\global\advance\todno by 1 \the\todno}
+
+\topmargin-2cm \vsize 29.5cm \hsize 21cm
+\setlength{\textwidth}{16.75cm}\setlength{\textheight}{23.5cm}
+\setlength{\oddsidemargin}{0.0cm}
+\setlength{\evensidemargin}{0.0cm}
+
+
+\theoremstyle{definition}
+\newtheorem{ejer}{Ejercicio}
+\newcommand{\bej}{\begin{ejer}}
+\newcommand{\fej}{\end{ejer}}
+
+\begin{document}
+
+\centerline{{\small Universidad de Buenos Aires - Facultad de Ciencias Exactas y Naturales - Ciencias de Datos}}
+
+\vskip 0.2cm
+
+\hrule
+
+\vskip 0.2cm
+
+ \centerline{{\bf\Large{\sc Laboratorio de Datos}}}
+
+ \vskip 0.2cm
+
+ \centerline{\ttfamily Primer Cuatrimestre 2024}
+
+\vskip 0.2cm
+
+ \hrule
+
+ \bigskip
+ \centerline{\bf Práctica N$^\circ$ 7: Clustering.}
+ \bigskip
+
+%-----------------------------------------------------------
+\begin{enumerate}
+\item Dada la siguiente tabla de datos
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|c|}
+\hline
+x & -1 & 0 & 1 & 8/5 & 2 & 3 & 4  \\
+y  & 2 & 1& 2& 2& 1& 2 & 1 \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+Utilizar ``a mano'' el m\'etodo de $k$-medias para agrupar los datos en 2 clusters.
+\begin{enumerate}
+\item Comenzando con $b_1 =(1,2)  $ y $b_2=(3,2)  $
+\item Comenzando con $b_1=(0,1)   $ y $b_2= (3,2) $
+\end{enumerate}
+
+?`Se obtiene la misma clasificaci\'on? ?`Alguna de las clasificaciones obtenidas le parece m\'as apropiada?
+
+\item Considere los datasetets \texttt{p7-data1.csv} y \texttt{p7-data2.csv} de datos artificialmente generados.
+
+\begin{enumerate}
+	\item Abra cada dataset en Python y genere un diagrama de dispersi\'on para cada uno.
+	\item Analizando los gr\'aficos, ``a mano'' considere cu\'antos clusters est\'an presentes.
+	\item Pruebe ejecutar el comando \texttt{KMeans} con la cantidad de clusters que detect\'o. Analizar el comportamiento del procedimiento en cada caso.
+	
+\end{enumerate}
+
+%-----------------------------------------------------------
+
+
+\item Considerar el dataset \texttt{p7-iris.txt} (para leer el archivo, observar que los datos est\'an separados por tabulaciones). En este ejercicio trataremos de identificar las distintas subespecies.
+\begin{enumerate}
+	\item Cargue el archivo \texttt{p7-iris.txt}.
+	\item Grafique en un diagrama de dispersi\'on la longitud del p\'etalo vs el ancho del p\'etalo.
+	\item Efect\'ue un \textit{clustering} k-medias con el comando \texttt{KMeans} de los datos basados en las cuatro columnas de datos, considere $k=3$ clusters.
+	\item Repita el inciso b) coloreando en funci\'on del \'indice de cluster obtenido.
+	\item Eval\'ue el error de clustering en funci\'on de la siguiente f\'ormula (within-cluster sum of squares, WCSS):
+	$$
+	WCSS = \sum_{i=}^k \sum_{x \in C_i} \| x - \mu_i\|^2
+	$$
+	donde $C_i$ representa el cluster i-\'esimo y $\mu_i$ es el centroide de dicho cluster, definido como
+	$$
+	\mu_i = \frac{1}{\#C_i}\sum_{x \in C_i} x.
+	$$
+	%Octave ofrece una forma de calcular esto de forma m\'as directa, lea la documentaci\'on del comando \textbf{KMeans}
+	\textit{Python ofrece una forma de calcular esto de forma directa.}
+	
+	 \textit{(Mirar el archivo \texttt{p7-ejercicioPetalos.ipynb}.)}
+	\item Repita el ensayo para distintos valores de $k$, entre 1 y 10, graficando el $WCSS$ para cada valor de $k$. Analizar el mejor valor de $k$ posible teniendo en cuenta
+	un compromiso entre ``complejidad'' (es decir, cantidad de clusters) y nivel de error (es decir, el WCSS).
+	
+\end{enumerate}
+
+%-----------------------------------------------------------
+
+
+
+\item Consideremos el dataset de datos artificiales \texttt{p7-dataSinEscalar.csv}.
+\begin{enumerate}
+	\item Cargar los datos  y graf\'icarlos.
+	\item A priori y mirando el gr\'afico, determine la cantidad de clusters que puede detectar en los mismos e imagine inicialmente c\'omo debieran ser esos clusters.
+	\item Realizar un clustering k-medias con el valor de $k$ antes determinado.
+	\item ?`Considera satisfactorio el clustering obtenido? ?`Representa lo que usted esperaba?
+	\item Uno de los problemas que tenemos es que el m\'etodo de k-medias es muy sensible a las diferencias de escala entre las dimensiones. Una forma de corregir eso es re-escalando las variables de
+	forma tal que todas se muevan en el mismo rango. Por ejemplo, podemos conseguir eso efectuando una normalizaci\'on como sigue:
+	
+	$$
+	X_{ij} = \frac{X_{ij} - min(X_{\cdot j}) }{max(X_{\cdot j}) - min(X_{\cdot j})}.
+	$$
+	
+	De esta manera, logramos que los datos de cada columna caigan entre 0 y 1. Normalice los datos siguiendo este criterio.
+	
+	\textit{(Mirar en Python el comando \texttt{MinMaxScaler})}
+	\item Vuelva a correr el procedimiento de clustering, tome las etiquetas de clustering obtenidos y grafique los datos originales con un color que dependa del clustering obtenido con los datos escalados.
+	
+\end{enumerate}
+
+%-----------------------------------------------------------
+
+\item (opcional) Implementar el algoritmo DBSCAN para analizar los sets de datos anteriores. Comparar los resultados con los obtenidos usando k-medias.
+
+%-----------------------------------------------------------
+
+
+\item Considerando los datos de la tabla
+\begin{enumerate}
+	\item Cargar los siguientes datos en Python y graficarlos mediante un diagrama de dispersi\'on. Procurar que cada punto aparezca etiquetado con su \'indice.
+	\begin{center}
+		\begin{tabular}{lllllllllll}
+			\'indice & 1 & 2  & 3  & 4  & 5  & 6  & 7  & 8  & 9  & 10 \\ \hline
+			x        & 5 & 10 & 15 & 24 & 30 & 85 & 71 & 60 & 70 & 80\\
+			y        & 3 & 15 & 12 & 10 & 30 & 70 & 80 & 78 & 55 & 91  \\
+		\end{tabular}
+	\end{center}
+	\item ``A mano'' e informalmente, identificar agrupaciones jer\'arquicas en el gr\'afico.
+	\item Mediante un clustering jer\'arquico, basado en la distancia eucl\'idea y usando como criterio de agregaci\'on el esquema ``single'', graficar un dendrograma de los datos.
+	\item Marcar los puntos que tomar\'ian en caso de querer considerar dos clusters.
+	\item \'idem inciso anterior pero ahora con 4 clusters.
+\end{enumerate}
+
+
+%%-----------------------------------------------------------
+
+\item Utilice clustering jer\'arquico para poder obtener un clustering del dataset \texttt{p7-data1.csv} con dos clusters, compararlo con aquel obtenido usando k-medias. Hacer lo mismo para el dataset \texttt{p7-data2.csv}
+
+%%-----------------------------------------------------------
+
+
+%NOTA: OCTAVE solamente produce una salida gr\'afica, no encuentro manera de obtener los puntos que realmente conforman cada cluster.
+%
+%INCOMPLETO TODAVIA.
+
+
+
+
+\end{enumerate}
+
+\end{document}
+
+\item Usar el método \lstinline{rename()} de DataFrames para cambiarle el nombre a la variable \lstinline{body_mass_g} y llamarla \lstinline{masa_corporal_g}.
+
+\item Empezando con \lstinline{penguins}, contar cuántas observaciones hay por especie, isla y año.
+
+\item Empezando con \lstinline{penguins}, quedarse sólo con los ping\"uinos de las especies Adelie y Gentoo. Luego contar cuántos hay por cada especie y sexo.
+
+
+\item Empezando con \lstinline{penguins} crear una tabla resumen que contenga el largo mínimo y máximo de las aletas de los ping\"uinos de la especie Adelie, agrupados por isla.
+
+\item Empezando con \lstinline{penguins}, agrupar los datos por especie y año, luego crear una tabla de resumen que contenga el ancho del pico (llamarla \lstinline{bill_depth_mean}) y el largo del pico (llamarla \lstinline{bill_length_mean}) para cada grupo
+
+\item Empezando con \lstinline{penguins}, hacer una secuencia de operaciones que:
+\begin{enumerate}
+\item Agregue una nueva columna llamada \lstinline{bill_ratio} que sea el cociente entre el largo y el ancho del pico.
+\item Quedarse sólo con las columnas \lstinline{species} y \lstinline{bill_ratio}.
+\item Agrupar los datos por especie.
+\item Crear una tabla de resumen que contenga el promedio de la variable \lstinline{bill_ratio} por especie y que el nombre de la columna en la tabla sea \lstinline{bill_ratio_mean}.
+\end{enumerate}
+
+
+\item Empezando con \lstinline{penguins},
+
+\begin{enumerate}
+\item Quedarse sólo con las observaciones correspondientes a ping\"uinos Chinstrap.
+\item Luego, quedarse sólo con las variables \lstinline{flipper_length_mm} y \lstinline{body_mass_g}.
+\item Agregar una nueva columna llamada \lstinline{fm_ratio} que contenga el cociente entre el largo de la aleta y el peso del ping\"uino.
+\item Luego quedarse solo con las observaciones que no tienen NaN en ninguna columna (ayuda: \lstinline{dropna()})
+\item Agregar otra columna llamada \lstinline{ratio_bin} que contenga la palabra ``alto'' si \lstinline{fm_ratio} es mayor o igual que $0.05$ y ``bajo'' si el cociente es menor que $0.05$.
+\end{enumerate}
