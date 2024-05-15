@@ -3,6 +3,7 @@
 \setlist[enumerate,1]{label={\bfseries\arabic*.},ref={\bfseries{Ejercicio \arabic*}}}
 \setlist[enumerate,2]{label={\bfseries(\alph*)},ref={\bfseries(\alph*)}}
 
+\usepackage{tikz}
 
 \parindent 0cm
 \usepackage{amssymb,amsmath,amsthm,latexsym,epsfig,euscript,multicol}
@@ -264,6 +265,30 @@ En los siguientes ejercicios, utilizamos el dataset \lstinline{macro_full_column
 \item Ajustar un modelo de regresión lineal ordinaria o Ridge y generar el vector de predicciones (hacerlo sobre el conjunto de todos los datos, no es necesario separar en entrenamiento y testeo).
 \item Graficar, en un mismo gráfico, la variable respuesta original y la predicha en función del año. Sugerencia: prestar atención a los índices de cada variable.
 \end{enumerate}
+
+
+\item Hallar un escalamiento lineal $f(x)$ que transforme los valores en el intervalo $[2,5]$ a valores en el intevalo $[0,1]$.
+
+\begin{tikzpicture}
+  % Axis
+  \draw[->] (-1,0) -- (11,0) node[right] {$x$};
+  %\draw[->] (0,-0.5) -- (0,1.5) node[above] {$$};
+  % Interval of length 10
+  \draw[blue, thick] (0,0) node[below] {$0$} -- (2,0) node[below] {$1$};
+  % Interval of length 1
+  \draw[red, thick] (4,1)  node[above] {$2$} -- (10,1) node[above] {$5$};
+  % Mapping arrow
+  \draw[->, dashed] (4,1) -- (0,0) node[midway, left] {$f$};
+  \draw[->, dashed] (10,1) -- (2,0) node[midway, left] {$f$};
+\end{tikzpicture}
+
+\item Para este ejercicio utilizar los datos \lstinline{CollegeBasketballPlayers2009-2021.csv}.
+\begin{enumerate}
+\item Ajustar un modelo de regresión Ridge para predecir los puntos promedio (\lstinline{pts}) en función de las demás variables. 
+Para ellos, escalar previamente las variables utilizando escalamiento MinMax.
+\item A partir de los resultados, según los coeficientes obtenidos, ¿cuáles son las 5 variables de mayor peso en el modelo?
+\end{enumerate}
+
 
 \end{enumerate}
 
