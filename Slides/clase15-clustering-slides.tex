@@ -304,13 +304,38 @@ Estudiamos ahora métodos de agrupamiento(clustering).
 \begin{frame}
 \frametitle{Clustering por $K$-medias ($K$-means)}
 
-Existen diversos algoritmos de clustering. 
+Existen diversos algoritmos de clustering. El algoritmo $k$-medias comenzó a utilizarse en los alrededor de 1960.
 
 \begin{itemize}
     \item K-means es un algoritmo de agrupación que particiona los datos en $k$ clústeres.
     \item Se definen $k$ centros para los clusters.
-    \item Para determinar el cluster al que corresponde cada elemento, se busca cuál es el centro más cercano.
+    \item Se supone que cada cluster es un conjunto de datos que están razonablemente bien aproximados por el centro del cluster (el promedio de los valores del cluster).
 \end{itemize}
+
+\begin{center}
+\includegraphics[scale=0.15]{clase15-kmeans-centroid.png}
+\end{center}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Ejemplo}
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Algoritmo}
+\begin{itemize}
+
+Comenzamos con un conjunto arbitrario de centros (por ejemplo $k$ puntos al azar).
+
+Ahora repetimos los siguientes dos pasos:
+\begin{enumerate}
+\item Actualizamos las etiquetas: para cada punto, buscamos cuál es el centro más cercano a ese punto y lo asignamos a ese cluster.
+\item Actualizamos los centros: para cada cluster, recalculamos el centro del cluster como el promedio de todo los datos del cluster (si los puntos tienen varias coordenadas, calculamos el promedio de cada coordenada).
+\end{enumerate}
+
 \end{frame}
 
 
