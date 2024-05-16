@@ -211,7 +211,7 @@
  \begin{center}
 
 \Large\textbf{Laboratorio de Datos} \\
-\large\textbf{Entrenamiento y testeo}
+\large\textbf{Clustering: $k$-medias}
 %\vspace{0.5cm}
 
 % \textit{Santiago Laplagne} \\
@@ -259,7 +259,7 @@ Primer Cuatrimestre 2024 \\ Turnos tarde y noche
 %------------------------------------------------------------------
 
 \begin{frame}
-\frametitle{Introducción a la Agrupación}
+\frametitle{Clustering}
 
 En las últimas clases estudiamos modelos de regresión (aprendizaje supervisado).
 
@@ -267,7 +267,7 @@ Estudiamos ahora métodos de agrupamiento(clustering).
 
 \begin{minipage}{.5\textwidth}
 \begin{itemize}
-    \item La agrupación es una técnica de aprendizaje no supervisado.
+    \item Clustering es una técnica de aprendizaje no supervisado.
     \item El objetivo es agrupar datos similares en conjuntos llamados clústeres.
     \item Aplicaciones: segmentación de mercado, análisis de redes sociales, imagenes médica, etc.
 \end{itemize}
@@ -306,12 +306,27 @@ Estudiamos ahora métodos de agrupamiento(clustering).
 %------------------------------------------------------------------
 
 \begin{frame}
+\frametitle{Clustering y datos cercanos}
+
+Si tenemos un conjunto de datos (por ejemplo, un DataFrame), consideramos a cada observación (fila) como un punto en un espacio de dimensión $n$, donde $n$ es la cantidad de variables (columnas).
+
+La cantidad de variables puede ser arbitrariamente grande, pero en general vamos a trabajar con 2 variables para poder visualizar los datos en el plano.
+
+\begin{center}
+\includegraphics[scale=0.35]{clase15-penguins-clusters.png}
+\end{center}
+
+\end{frame}
+
+%------------------------------------------------------------------
+
+\begin{frame}
 \frametitle{Clustering por $K$-medias ($K$-means)}
 
-Existen diversos algoritmos de clustering. El algoritmo $k$-medias comenzó a utilizarse en los alrededor de 1960.
+Existen diversos algoritmos de clustering. El algoritmo $k$-medias comenzó a utilizarse alrededor de 1960.
 
 \begin{itemize}
-    \item K-means es un algoritmo de agrupación que particiona los datos en $k$ clústeres.
+    \item $K$-medias es un algoritmo de agrupación que particiona los datos en $k$ clústeres.
     \item Se definen $k$ centros para los clusters.
     \item Se supone que cada cluster es un conjunto de datos que están razonablemente bien aproximados por el centro del cluster (el promedio de los valores del cluster).
 \end{itemize}
@@ -325,13 +340,32 @@ Existen diversos algoritmos de clustering. El algoritmo $k$-medias comenzó a ut
 %------------------------------------------------------------------
 
 \begin{frame}
-\frametitle{Algoritmo $k$-means (ingenuo)}
+\frametitle{Idea del funcionamiento de $k$-medias}
 
-Comenzamos con un conjunto arbitrario de centros (por ejemplo $k$ puntos al azar).
+\begin{itemize}
+\item Si fijamos unos centros para los clusters, podemos determinar los clusters tomando los puntos más cercanos a cada centro.
+\item Si fijamos los clusters, podemos determinar los centros tomando el promedio de todos los puntos del cluster.
+\end{itemize}
 
-Ahora repetimos los siguientes dos pasos hasta "alcanzar convergencia":
+Repitiendo estos pasos alternativamente obtenemos un algoritmo conocido como algoritmo $k$-medias naive.
+
+
+\begin{center}
+\includegraphics[scale=0.15]{clase15-kmeans-centroid.png}
+\end{center}
+
+\end{frame}
+
+%------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Algoritmo $k$-medias (naive)}
+
+Comenzamos con un conjunto arbitrario de centros (por ejemplo $k$ datos seleccionados al azar).
+
+Ahora repetimos los siguientes dos pasos hasta ``alcanzar convergencia'':
 \begin{enumerate}
-\item Actualizamos las etiquetas: para cada punto, buscamos cuál es el centro más cercano a ese punto y lo asignamos a ese cluster.
+\item Actualizamos las etiquetas: para cada punto (dato), buscamos cuál es el centro más cercano a ese punto y lo asignamos a ese cluster.
 \item Actualizamos los centros: para cada cluster, recalculamos el centro del cluster como el promedio de todo los datos del cluster (si los puntos tienen varias coordenadas, calculamos el promedio de cada coordenada).
 \end{enumerate}
 
@@ -408,17 +442,47 @@ Que las etiquetas no cambien de un paso al siguiente.
 
 \end{frame}
 
+
 %------------------------------------------------------------------
 
 \begin{frame}
-\frametitle{Procedimiento de K-means}
+\frametitle{$K$-medias como problema de optimización}
 
-\begin{enumerate}
-    \item Elegir $k$ centroides iniciales aleatoriamente.
-    \item Asignar cada punto de datos al clúster más cercano (basado en la distancia euclidiana).
-    \item Calcular nuevos centroides como la media de los puntos asignados a cada clúster.
-    \item Repetir los pasos 2 y 3 hasta que los centroides no cambien significativamente.
-\end{enumerate}
+Podemos plantear el problema de clustering por $k$-medias como un problema de optimización (y el algoritmo $k$-medias naive es una método simple de optimización).
+
+\begin{itemize}
+\item Buscamos minimizar la "suma de los errores".
+\item Consideramos que los errores son las distancias de cada punto al centro de su cluster.
+\item Es decir, queremos minimizar la suma de los cuadrados dentro de cada cluster (WCSS o within cluster sum of squares).
+\item Formalmente queremos elegir clusters $S_1, \dots, S_k$ y centros ${\boldsymbol {\mu }}_1, \dots, {\boldsymbol {\mu }}_k$ que minimicen:
+$$
+%\mathop {\operatorname {arg\,min} } _{\mathbf {S} }
+WCSS = \sum _{i=1}^{k}\sum _{\mathbf {x} \in S_{i}}\left\|\mathbf {x} -{\boldsymbol {\mu }}_{i}\right\|^{2}
+%(\{(S_1, {\boldsymbol {\mu }}_1), \dots, (S_k, {\boldsymbol {\mu }}_k)\})
+$$
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Ventajas y Desventajas del algoritmo $k$-medias naive}
+\begin{columns}
+    \column{0.5\textwidth}
+    \textbf{Ventajas:}
+    \begin{itemize}
+        \item Simple y fácil de implementar.
+        \item Escalable para grandes conjuntos de datos.
+    \end{itemize}
+    \column{0.5\textwidth}
+    \textbf{Desventajas:}
+    \begin{itemize}
+        \item Requiere especificar el número de clústeres ($k$) de antemano.
+        \item Sensible a la elección de los centroides iniciales.
+        \item Puede converger a mínimos locales.
+    \end{itemize}
+\end{columns}
 \end{frame}
 
 %------------------------------------------------------------------
@@ -446,47 +510,29 @@ Que las etiquetas no cambien de un paso al siguiente.
 
 \end{frame}
 
-
 %------------------------------------------------------------------
 
 \begin{frame}
-\frametitle{Ventajas y Desventajas de K-means}
-\begin{columns}
-    \column{0.5\textwidth}
-    \textbf{Ventajas:}
-    \begin{itemize}
-        \item Simple y fácil de implementar.
-        \item Escalable para grandes conjuntos de datos.
-    \end{itemize}
-    \column{0.5\textwidth}
-    \textbf{Desventajas:}
-    \begin{itemize}
-        \item Requiere especificar el número de clústeres ($k$) de antemano.
-        \item Sensible a la elección de los centroides iniciales.
-        \item Puede converger a mínimos locales.
-    \end{itemize}
-\end{columns}
-\end{frame}
+\frametitle{Requerimientos para poder aplicar $k$-medias}
 
-%------------------------------------------------------------------
+\begin{minipage}{.4\textwidth}
+$k$-medias supone las siguientes propiedades de los datos, y puede fallar si estas propiedades no se cumplen:
 
-
-\begin{frame}
-\frametitle{K-medias como problema de optimización}
-
-Podemos plantear el problema de clustering por $k$-medias como un problema de optimización.
-
-\begin{itemize}
-\item Buscamos minimizar la "suma de los errores".
-\item Consideramos que los errores son las distancias de cada punto al centro de su cluster.
-\item Es decir, queremos minimizar la suma de los cuadrados dentro de cada cluster (WCSS o within cluster sum of squares).
-\item Formalmente queremos elegir centros $S_i$ y etiquetas $\mu_i$ que minimicen:
-$$
-\mathop {\operatorname {arg\,min} } _{\mathbf {S} }\sum _{i=1}^{k}\sum _{\mathbf {x} \in S_{i}}\left\|\mathbf {x} -{\boldsymbol {\mu }}_{i}\right\|^{2}
-$$
-\end{itemize}
+\begin{enumerate}
+\item Los clusters son esféricos e isotrópicos (el mismo radio en todas las direcciones).
+\item Los clusters tienen la misma varianza.
+\item Todos los clusters tienen aproximadamente la misma cantidad de puntos.
+\end{enumerate}
+\end{minipage}%
+\begin{minipage}{.6\textwidth}
+    \begin{center}
+    \includegraphics[scale=0.25]{clase15-unexpected.png}
+    \end{center}
+\end{minipage}
 
 \end{frame}
+
+
 
 %------------------------------------------------------------------
 
