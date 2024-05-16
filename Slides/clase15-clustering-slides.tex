@@ -256,6 +256,7 @@ Primer Cuatrimestre 2024 \\ Turnos tarde y noche
 \end{columns}
 \end{frame}
 
+%------------------------------------------------------------------
 
 \begin{frame}
 \frametitle{Introducción a la Agrupación}
@@ -277,8 +278,9 @@ Estudiamos ahora métodos de agrupamiento(clustering).
 \end{center}
 \end{minipage}%
 
-
 \end{frame}
+
+%------------------------------------------------------------------
 
 \begin{frame}
 \frametitle{Aplicaciones: segmentación de mercado}
@@ -287,8 +289,9 @@ Estudiamos ahora métodos de agrupamiento(clustering).
 \includegraphics[scale=0.5]{clase15-Customer_Segmentation.png}
 \end{center}
 
-
 \end{frame}
+
+%------------------------------------------------------------------
 
 \begin{frame}
 \frametitle{Aplicaciones: imágenes médicas}
@@ -300,6 +303,7 @@ Estudiamos ahora métodos de agrupamiento(clustering).
 
 \end{frame}
 
+%------------------------------------------------------------------
 
 \begin{frame}
 \frametitle{Clustering por $K$-medias ($K$-means)}
@@ -318,29 +322,97 @@ Existen diversos algoritmos de clustering. El algoritmo $k$-medias comenzó a ut
 
 \end{frame}
 
-\begin{frame}
-\frametitle{Ejemplo}
-
-
-\end{frame}
+%------------------------------------------------------------------
 
 \begin{frame}
-\frametitle{Algoritmo}
-\begin{itemize}
+\frametitle{Algoritmo $k$-means (ingenuo)}
 
 Comenzamos con un conjunto arbitrario de centros (por ejemplo $k$ puntos al azar).
 
-Ahora repetimos los siguientes dos pasos:
+Ahora repetimos los siguientes dos pasos hasta "alcanzar convergencia":
 \begin{enumerate}
 \item Actualizamos las etiquetas: para cada punto, buscamos cuál es el centro más cercano a ese punto y lo asignamos a ese cluster.
 \item Actualizamos los centros: para cada cluster, recalculamos el centro del cluster como el promedio de todo los datos del cluster (si los puntos tienen varias coordenadas, calculamos el promedio de cada coordenada).
 \end{enumerate}
 
+¿Qué significa en este caso alcanzar convergencia? 
+
+Que las etiquetas no cambien de un paso al siguiente.
+
+\end{frame}
+
+%------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Ejemplos}
+
+¿En cuál de estos casos, los clusters quedarán bien definidos a partir de sus centros?
+
+\begin{minipage}{.5\textwidth}
+    \begin{center}
+    \includegraphics[scale=0.35]{clase15-convexblobs.png}
+    \end{center}
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+    \begin{center}
+    \includegraphics[scale=0.35]{clase15-nonconvexblobs.png}
+    \end{center}
+\end{minipage}
+
 \end{frame}
 
 
+%------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Ejemplos}
+
+¿En cuál de estos casos, los clusters quedarán bien definidos a partir de sus centros?
+
+\begin{minipage}{.5\textwidth}
+    \begin{center}
+    \includegraphics[scale=0.35]{clase15-convexblobs-etiquetado.png}
+    \end{center}
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+    \begin{center}
+    \includegraphics[scale=0.35]{clase15-nonconvexblobs-etiquetado.png}
+    \end{center}
+\end{minipage}
+
+\end{frame}
+
+
+%------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Aplicaciones de $k$-means}
+
+¿En cuáles de estas aplicaciones el método de $k$-means puede resultar apropiado?
+
+\begin{enumerate}
+\item Clasificar especies animales según características (peso, largo, longitud de la cola, ...).
+\item Identificar distintas componentes de una imagen.
+\end{enumerate}
+
+\begin{minipage}{.4\textwidth}
+    \begin{center}
+    \includegraphics[scale=0.2]{clase15-cluster-animales.jpg}
+    \end{center}
+\end{minipage}%
+\begin{minipage}{.6\textwidth}
+    \begin{center}
+    \includegraphics[scale=0.35]{clase15-imageSegmentation.png}
+    \end{center}
+\end{minipage}
+
+\end{frame}
+
+%------------------------------------------------------------------
+
 \begin{frame}
 \frametitle{Procedimiento de K-means}
+
 \begin{enumerate}
     \item Elegir $k$ centroides iniciales aleatoriamente.
     \item Asignar cada punto de datos al clúster más cercano (basado en la distancia euclidiana).
@@ -349,6 +421,33 @@ Ahora repetimos los siguientes dos pasos:
 \end{enumerate}
 \end{frame}
 
+%------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{¿Número óptimo de clusters?}
+
+\begin{itemize}
+\item A medida que aumentamos la cantidad de clusters, el error WSS disminuye.
+\item Por lo tanto no hay un número óptimo de clusters.
+\item Podemos mirar la curva y ver cuándo aumentar la cantidad de clusters no reduce significativamente el error WSS.
+\item Este proceso suele llamarse ``método del codo''.
+\end{itemize}
+
+\begin{minipage}{.5\textwidth}
+    \begin{center}
+    \includegraphics[scale=0.27]{clase15-WSS-1.png}
+    \end{center}
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+    \begin{center}
+    \includegraphics[scale=0.27]{clase15-WSS-2.png}
+    \end{center}
+\end{minipage}
+
+\end{frame}
+
+
+%------------------------------------------------------------------
 
 \begin{frame}
 \frametitle{Ventajas y Desventajas de K-means}
@@ -369,6 +468,27 @@ Ahora repetimos los siguientes dos pasos:
 \end{columns}
 \end{frame}
 
+%------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{K-medias como problema de optimización}
+
+Podemos plantear el problema de clustering por $k$-medias como un problema de optimización.
+
+\begin{itemize}
+\item Buscamos minimizar la "suma de los errores".
+\item Consideramos que los errores son las distancias de cada punto al centro de su cluster.
+\item Es decir, queremos minimizar la suma de los cuadrados dentro de cada cluster (WCSS o within cluster sum of squares).
+\item Formalmente queremos elegir centros $S_i$ y etiquetas $\mu_i$ que minimicen:
+$$
+\mathop {\operatorname {arg\,min} } _{\mathbf {S} }\sum _{i=1}^{k}\sum _{\mathbf {x} \in S_{i}}\left\|\mathbf {x} -{\boldsymbol {\mu }}_{i}\right\|^{2}
+$$
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------------------------
 
 \begin{frame}[fragile]
 \frametitle{Aplicación de K-means en Python}
