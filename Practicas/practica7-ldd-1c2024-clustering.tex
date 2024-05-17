@@ -142,8 +142,8 @@ Utilizar ``a mano'' el m\'etodo de $k$-medias para agrupar los datos en 2 cluste
 \item Considere los datasetets \texttt{p7-data1.csv} y \texttt{p7-data2.csv} de datos artificialmente generados.
 
 \begin{enumerate}
-	\item Abra cada dataset en Python y genere un diagrama de dispersi\'on para cada uno.
-	\item Analizando los gr\'aficos, ``a mano'' considere cu\'antos clusters est\'an presentes.
+	\item Abra cada dataset en Python y genere un diagrama de dispersi\'on (scatter plot) para cada uno.
+	\item Analizando los gr\'aficos ``a mano'' considere cu\'antos clusters est\'an presentes.
 	\item Pruebe ejecutar el comando \texttt{KMeans} con la cantidad de clusters que detect\'o. Analizar el comportamiento del procedimiento en cada caso.
 	
 \end{enumerate}
@@ -205,6 +205,13 @@ Utilizar ``a mano'' el m\'etodo de $k$-medias para agrupar los datos en 2 cluste
 %-----------------------------------------------------------
 
 
+
+
+\end{enumerate}
+
+\end{document}
+
+
 \item Considerando los datos de la tabla
 \begin{enumerate}
 	\item Cargar los siguientes datos en Python y graficarlos mediante un diagrama de dispersi\'on. Procurar que cada punto aparezca etiquetado con su \'indice.
@@ -228,44 +235,3 @@ Utilizar ``a mano'' el m\'etodo de $k$-medias para agrupar los datos en 2 cluste
 
 %%-----------------------------------------------------------
 
-
-%NOTA: OCTAVE solamente produce una salida gr\'afica, no encuentro manera de obtener los puntos que realmente conforman cada cluster.
-%
-%INCOMPLETO TODAVIA.
-
-
-
-
-\end{enumerate}
-
-\end{document}
-
-\item Usar el método \lstinline{rename()} de DataFrames para cambiarle el nombre a la variable \lstinline{body_mass_g} y llamarla \lstinline{masa_corporal_g}.
-
-\item Empezando con \lstinline{penguins}, contar cuántas observaciones hay por especie, isla y año.
-
-\item Empezando con \lstinline{penguins}, quedarse sólo con los ping\"uinos de las especies Adelie y Gentoo. Luego contar cuántos hay por cada especie y sexo.
-
-
-\item Empezando con \lstinline{penguins} crear una tabla resumen que contenga el largo mínimo y máximo de las aletas de los ping\"uinos de la especie Adelie, agrupados por isla.
-
-\item Empezando con \lstinline{penguins}, agrupar los datos por especie y año, luego crear una tabla de resumen que contenga el ancho del pico (llamarla \lstinline{bill_depth_mean}) y el largo del pico (llamarla \lstinline{bill_length_mean}) para cada grupo
-
-\item Empezando con \lstinline{penguins}, hacer una secuencia de operaciones que:
-\begin{enumerate}
-\item Agregue una nueva columna llamada \lstinline{bill_ratio} que sea el cociente entre el largo y el ancho del pico.
-\item Quedarse sólo con las columnas \lstinline{species} y \lstinline{bill_ratio}.
-\item Agrupar los datos por especie.
-\item Crear una tabla de resumen que contenga el promedio de la variable \lstinline{bill_ratio} por especie y que el nombre de la columna en la tabla sea \lstinline{bill_ratio_mean}.
-\end{enumerate}
-
-
-\item Empezando con \lstinline{penguins},
-
-\begin{enumerate}
-\item Quedarse sólo con las observaciones correspondientes a ping\"uinos Chinstrap.
-\item Luego, quedarse sólo con las variables \lstinline{flipper_length_mm} y \lstinline{body_mass_g}.
-\item Agregar una nueva columna llamada \lstinline{fm_ratio} que contenga el cociente entre el largo de la aleta y el peso del ping\"uino.
-\item Luego quedarse solo con las observaciones que no tienen NaN en ninguna columna (ayuda: \lstinline{dropna()})
-\item Agregar otra columna llamada \lstinline{ratio_bin} que contenga la palabra ``alto'' si \lstinline{fm_ratio} es mayor o igual que $0.05$ y ``bajo'' si el cociente es menor que $0.05$.
-\end{enumerate}
