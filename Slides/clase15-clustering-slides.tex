@@ -286,7 +286,7 @@ Estudiamos ahora métodos de agrupamiento(clustering).
 \frametitle{Aplicaciones: segmentación de mercado}
 
 \begin{center}
-\includegraphics[scale=0.5]{clase15-Customer_Segmentation.png}
+\includegraphics[scale=0.3]{clase15-customer-segmentation.png}
 \end{center}
 
 \end{frame}
@@ -369,7 +369,7 @@ Ahora repetimos los siguientes dos pasos hasta ``alcanzar convergencia'':
 \item Actualizamos los centros: para cada cluster, recalculamos el centro del cluster como el promedio de todo los datos del cluster (si los puntos tienen varias coordenadas, calculamos el promedio de cada coordenada).
 \end{enumerate}
 
-¿Qué significa en este caso alcanzar convergencia? 
+¿Qué significa en este caso alcanzar convergencia? \pause
 
 Que las etiquetas no cambien de un paso al siguiente.
 
@@ -405,11 +405,15 @@ Que las etiquetas no cambien de un paso al siguiente.
 
 \begin{minipage}{.5\textwidth}
     \begin{center}
+    \includegraphics[scale=0.08]{clash-fingerUp.png}
+    
     \includegraphics[scale=0.35]{clase15-convexblobs-etiquetado.png}
     \end{center}
 \end{minipage}%
 \begin{minipage}{.5\textwidth}
     \begin{center}
+    \includegraphics[scale=0.08]{clash-sad.png}
+    
     \includegraphics[scale=0.35]{clase15-nonconvexblobs-etiquetado.png}
     \end{center}
 \end{minipage}
@@ -429,13 +433,19 @@ Que las etiquetas no cambien de un paso al siguiente.
 \item Identificar distintas componentes de una imagen.
 \end{enumerate}
 
-\begin{minipage}{.4\textwidth}
+\pause
+
+\begin{minipage}[t]{.4\textwidth}
     \begin{center}
+    \includegraphics[scale=0.05]{clash-fingerUp.png}
+    
     \includegraphics[scale=0.2]{clase15-cluster-animales.jpg}
     \end{center}
 \end{minipage}%
-\begin{minipage}{.6\textwidth}
+\begin{minipage}[t]{.6\textwidth}
     \begin{center}
+    \includegraphics[scale=0.05]{clash-sad.png}
+    
     \includegraphics[scale=0.35]{clase15-imageSegmentation.png}
     \end{center}
 \end{minipage}
@@ -448,11 +458,18 @@ Que las etiquetas no cambien de un paso al siguiente.
 \begin{frame}
 \frametitle{$K$-medias como problema de optimización}
 
-Podemos plantear el problema de clustering por $k$-medias como un problema de optimización (y el algoritmo $k$-medias naive es una método simple de optimización).
+\begin{minipage}{.7\textwidth}
+Podemos plantear el problema de clustering por $k$-medias como un problema de optimización (y el algoritmo $k$-medias naive es un método simple de optimización).
+\end{minipage}%
+\begin{minipage}{.3\textwidth}
+    \begin{center}
+    \includegraphics[scale=0.6]{clase15-wcss.png}
+    \end{center}
+\end{minipage}
 
 \begin{itemize}
 \item Buscamos minimizar la "suma de los errores".
-\item Consideramos que los errores son las distancias de cada punto al centro de su cluster.
+\item Consideramos que los errores son las distancias (al cuadrado) de cada punto al centro de su cluster: $\left\|\mathbf {x} -{\boldsymbol {\mu }}_{i}\right\|^{2}$.
 \item Es decir, queremos minimizar la suma de los cuadrados dentro de cada cluster (WCSS o within cluster sum of squares).
 \item Formalmente queremos elegir clusters $S_1, \dots, S_k$ y centros ${\boldsymbol {\mu }}_1, \dots, {\boldsymbol {\mu }}_k$ que minimicen:
 $$
@@ -491,9 +508,9 @@ $$
 \frametitle{¿Número óptimo de clusters?}
 
 \begin{itemize}
-\item A medida que aumentamos la cantidad de clusters, el error WSS disminuye.
+\item A medida que aumentamos la cantidad de clusters, el error WCSS disminuye.
 \item Por lo tanto no hay un número óptimo de clusters.
-\item Podemos mirar la curva y ver cuándo aumentar la cantidad de clusters no reduce significativamente el error WSS.
+\item Podemos mirar la curva y ver cuándo aumentar la cantidad de clusters no reduce significativamente el error WCSS.
 \item Este proceso suele llamarse ``método del codo''.
 \end{itemize}
 
@@ -532,7 +549,7 @@ $k$-medias supone las siguientes propiedades de los datos, y puede fallar si est
 
 \end{frame}
 
-
+\end{document}
 
 %------------------------------------------------------------------
 
@@ -559,5 +576,3 @@ print(kmeans.cluster_centers_)
 \end{lstlisting}
 
 \end{frame}
-
-\end{document}
