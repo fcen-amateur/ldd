@@ -287,7 +287,55 @@ Primer Cuatrimestre 2024 \\ Turnos tarde y noche
 \end{frame}
 
 \begin{frame}
-\frametitle{Introducción a la Regresión Logística}
+\frametitle{Regresión Logística en 1 minutos}
+
+
+\begin{minipage}{.5\textwidth}
+¿Cómo podemos predecir una variable binaria ($0/1$)?
+
+Ajustar una función lineal $y = \beta_0 + \beta_1 x$ no va a ser apropiado
+
+Queremos una función que para valores grandes positivos de $x$ la función se acerque a 1 y para valores grandes negativos la función se acerque a 0. 
+
+Le aplicamos una transformación a la función lineal. Tomamos
+$$
+y = \frac{1}{1 + e^{\beta_0 + \beta_1 x}}
+$$
+
+
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+    \begin{center}
+    \includegraphics[scale=0.24]{clase17-variable_binaria.png}
+    
+    \includegraphics[scale=0.24]{clase17-variable_binaria_logit.png}
+    \end{center}
+\end{minipage}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Regresión Logística en 1 minuto}
+
+\begin{minipage}{.5\textwidth}
+
+Podemos usar la curva para clasificar.
+
+
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+    \begin{center}
+
+    \includegraphics[scale=0.24]{clase17-variable_binaria_predict.png}
+    \end{center}
+\end{minipage}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Regresión Logística en 1 minuto}
+
+
 \begin{itemize}
     \item \textbf{Definición:}
     \begin{itemize}
@@ -307,25 +355,55 @@ Primer Cuatrimestre 2024 \\ Turnos tarde y noche
 \end{frame}
 
 \begin{frame}
-\frametitle{Características de la Regresión Logística}
+\frametitle{Regresión Logística en 1 minuto}
+
+
 \begin{itemize}
-    \item \textbf{Interpretación de Coeficientes:}
+    \item \textbf{Definición:}
     \begin{itemize}
-        \item Los coeficientes ($\beta_i$) representan el cambio en el logaritmo de las probabilidades (log-odds) por unidad de cambio en el predictor.
+        \item Técnica de aprendizaje supervisado utilizada para predecir la probabilidad de una variable binaria (0 o 1).
     \end{itemize}
-    \item \textbf{Bondad del Ajuste:}
+    \item \textbf{Aplicaciones:}
     \begin{itemize}
-        \item Se utiliza el valor de \textit{p-value} y pruebas como la devianza para evaluar el modelo.
+        \item Diagnóstico médico (ej. presencia o ausencia de enfermedad)
+        \item Marketing (ej. probabilidad de compra de un producto)
+        \item Finanzas (ej. riesgo de crédito)
     \end{itemize}
+    \item \textbf{Función Logística:}
+    \[
+    P(y=1|X) = \frac{1}{1 + e^{-(\beta_0 + \beta_1X_1 + \beta_2X_2 + \ldots + \beta_nX_n)}}
+    \]
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{¿Qué es el Algoritmo K-Vecinos Más Cercanos (K-NN)?}
+\begin{itemize}
+    \item \textbf{Definición:}
+    \begin{itemize}
+        \item K-NN es un algoritmo de aprendizaje supervisado utilizado para clasificación y regresión.
+        \item Se basa en la idea de que objetos similares están cerca unos de otros.
+    \end{itemize}
+    \item \textbf{Funcionamiento:}
+    \begin{itemize}
+        \item Para clasificar un nuevo punto, el algoritmo busca los $K$ puntos más cercanos en el conjunto de entrenamiento.
+        \item La categoría más común entre estos $K$ vecinos se asigna al nuevo punto.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Características y Aplicaciones del Algoritmo K-NN}
+\begin{itemize}
     \item \textbf{Ventajas:}
     \begin{itemize}
-        \item Fácil de implementar e interpretar
-        \item Escalabilidad para grandes conjuntos de datos
+        \item Fácil de entender e implementar.
+        \item No requiere un modelo paramétrico, lo que lo hace flexible.
     \end{itemize}
-    \item \textbf{Limitaciones:}
+    \item \textbf{Desventajas:}
     \begin{itemize}
-        \item Asume una relación lineal entre los predictores y el log-odds
-        \item No funciona bien con datos altamente correlacionados (multicolinealidad)
+        \item Computacionalmente costoso para grandes conjuntos de datos debido a la necesidad de calcular distancias.
+        \item El rendimiento puede verse afectado por la elección del valor de K y la escala de las características.
     \end{itemize}
 \end{itemize}
 \end{frame}
