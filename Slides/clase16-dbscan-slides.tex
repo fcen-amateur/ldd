@@ -294,10 +294,10 @@ $K$-medias no funciona bien si los clusters tienen formas irregulares.
 \frametitle{DBSCAN}
 
 \begin{minipage}{.6\textwidth}
-DBSSCAN es ``Density-based spatial clustering of applications with noise'' (agrupamiento espacial de aplicaciones con ruido basado en densidad)
+DBSCAN es ``Density-based spatial clustering of applications with noise'' (lo importante es ``agrupamiento espacial basado en densidad``)
 
 \begin{itemize}
-\item Dado un conjunto de puntos en el espacio, se agrupan puntos que están muy juntos (puntos con muchos puntos vecinos).
+\item Dado un conjunto de puntos en algún espacio, se agrupan puntos que están muy juntos (puntos con muchos puntos vecinos).
 \item Se marcan como valores atípicos (outliers) puntos que se encuentran solos en regiones de baja densidad.
 \end{itemize}
 
@@ -332,7 +332,7 @@ Utilizando esos parámetros, los datos se clasifican en
 \end{minipage}%
 \begin{minipage}{.3\textwidth}
     \begin{center}
-    \includegraphics[scale=0.22]{clase16-DBSCAN-illustration.png}
+    \includegraphics[scale=0.26]{clase16-DBSCAN-illustration.png}
     \end{center}
 \end{minipage}
 
@@ -348,15 +348,15 @@ Utilizando esos parámetros, los datos se clasifican en
 Concretamente, a partir de $\varepsilon$ y $minPts$ definimos:
 
 \begin{enumerate}
-\item Puntos \emph{centrales} $p$, si al menos $minPts$ puntos están a una distancia $\varepsilon$ de $p$ (incluido $p$).
-\item Puntos \emph{directamente alcanzables} $q$ desde un punto central $p$, si $q$ está a distancia menor o igual que $\varepsilon$ de un punto central $p$.
-\item Puntos $q$ \emph{alcanzables} desde $p$ si hay un camino $p_1, \dots, p_n$ con $p_1 = p$ y $p_n = q$, donde cada $p_{i+1}$ es directamente alcanzable desde $p_i$.
+\item Punto \emph{central} $p$, si al menos $minPts$ puntos están a una distancia $\varepsilon$ de $p$ (incluido $p$).
+\item Punto \emph{directamente alcanzable} $q$ desde un punto central $p$, si $q$ está a distancia menor o igual que $\varepsilon$ de un punto central $p$.
+\item Punto $q$ \emph{alcanzable} desde $p$ si hay un camino $p_1, \dots, p_n$ con $p_1 = p$ y $p_n = q$, donde cada $p_{i+1}$ es directamente alcanzable desde $p_i$.
 \item Puntos \emph{atípicos}, todos los puntos que no son alcanzables desde ningún punto central.
 \end{enumerate}
 \end{minipage}%
 \begin{minipage}{.3\textwidth}
     \begin{center}
-    \includegraphics[scale=0.22]{clase16-DBSCAN-illustration.png}
+    \includegraphics[scale=0.26]{clase16-DBSCAN-illustration.png}
     \end{center}
 \end{minipage}
 
@@ -369,7 +369,7 @@ Concretamente, a partir de $\varepsilon$ y $minPts$ definimos:
 \frametitle{Puntos centrales y puntos bordes}
 
 \begin{minipage}{.6\textwidth}
-Cada cluster queda compuesto por 
+Cada cluster queda compuesto por
 \begin{itemize}
 \item puntos centrales
 \item puntos alcanzables desde un punto central que no son centrales, estos puntos se denominan puntos frontera.
@@ -398,7 +398,7 @@ Obtenemos el siguiente algoritmo para construir un cluster a partir de un punto 
 \item Identificamos un punto central $p$ (que no pertenezca a ningún cluster ya construido).
 \item Agregamos al cluster a todos los puntos $q$ directamente alcanzables desde $p$.
 \item Si agregamos puntos centrales nuevos al cluster, agregamos al cluster a todos los puntos alcanzables desde los nuevos puntos centrales.
-\item Repetimos el Paso 3 hasta que no hayamos agregado ningún nuevo punto al cluster.
+\item Repetimos el Paso 3 hasta que no hayamos agregado ningún nuevo punto central al cluster.
 \end{enumerate}
 
 \end{frame}
@@ -412,13 +412,13 @@ Tomamos $\varepsilon = 1$ (radios utilizados en el gráfico) y minPts = 4.
 
 \begin{enumerate}
 \item $p$ es un punto central
-\item Añadimos al cluster los 3 puntos directamente alcanzables desde $p$.
-\item Solo uno de esos 3 puntos es un punto central.
-\item Añadimos al cluster los 2 puntos alcanzables desde ese nuevo punto central.
-\item No añadimos ningún nuevo punto central, por lo tanto finalizamos.
+\item \visible<2-> {Añadimos al cluster los 3 puntos directamente alcanzables desde $p$.}
+\item \visible<2-> {De estos 3 puntos, solo $q$ es un punto central.}
+\item \visible<3-> {Añadimos al cluster los 2 puntos alcanzables desde ese nuevo punto central.}
+\item \visible<4-> {No añadimos ningún nuevo punto central, por lo tanto finalizamos.}
 \end{enumerate}
 
-
+\begin{center}
 \begin{tikzpicture}
     \fill[red] (8,8) circle (2pt);
     \draw[black, thin] (8,8) circle (.5);
@@ -437,8 +437,52 @@ Tomamos $\varepsilon = 1$ (radios utilizados en el gráfico) y minPts = 4.
     \draw[black, thin] (7,7.5) circle (.5);
     \fill[red] (7,8.2) circle (2pt);
     \draw[black, thin] (7,8.2) circle (.5);
+\end{tikzpicture} \pause
+$\rightarrow$
+\begin{tikzpicture}
+    \fill[blue] (8,8) circle (2pt);
+    \draw[black, thin] (8,8) circle (.5);
+    \node[anchor=south] at (8,8) {{\tiny $p$}};
+    \fill[blue] (8.2,8.4) circle (2pt);
+    \draw[black, thin] (8.2,8.4) circle (.5);
+    \fill[blue] (7.8,7.6) circle (2pt);
+    \draw[black, thin] (7.8,7.6) circle (.5);
+    \node[anchor=south] at (7.8,7.6) {{\tiny $q$}};
+    \fill[blue] (8.4,7.8) circle (2pt);
+    \draw[black, thin] (8.4,7.8) circle (.5);
+    \fill[red] (7.4,7.5) circle (2pt);
+    \draw[black, thin] (7.4,7.5) circle (.5);
+    \fill[red] (7.9,7.2) circle (2pt);
+    \draw[black, thin] (7.9,7.2) circle (.5);
+    \fill[red] (7,7.5) circle (2pt);
+    \draw[black, thin] (7,7.5) circle (.5);
+    \fill[red] (7,8.2) circle (2pt);
+    \draw[black, thin] (7,8.2) circle (.5);
+\end{tikzpicture} \pause
+$\rightarrow$
+\begin{tikzpicture}
+    \fill[blue] (8,8) circle (2pt);
+    \draw[black, thin] (8,8) circle (.5);
+    \node[anchor=south] at (8,8) {{\tiny $p$}};
+    \fill[blue] (8.2,8.4) circle (2pt);
+    \draw[black, thin] (8.2,8.4) circle (.5);
+    \fill[blue] (7.8,7.6) circle (2pt);
+    \draw[black, thin] (7.8,7.6) circle (.5);
+    \node[anchor=south] at (7.8,7.6) {{\tiny $q$}};
+    \fill[blue] (8.4,7.8) circle (2pt);
+    \draw[black, thin] (8.4,7.8) circle (.5);
+    \fill[blue] (7.4,7.5) circle (2pt);
+    \draw[black, thin] (7.4,7.5) circle (.5);
+    \fill[blue] (7.9,7.2) circle (2pt);
+    \draw[black, thin] (7.9,7.2) circle (.5);
+    \fill[red] (7,7.5) circle (2pt);
+    \draw[black, thin] (7,7.5) circle (.5);
+    \fill[red] (7,8.2) circle (2pt);
+    \draw[black, thin] (7,8.2) circle (.5);
 \end{tikzpicture}
 
+
+\end{center}
 \end{frame}
 
 %------------------------------------------------------------------
@@ -461,11 +505,11 @@ Nota: los puntos frontera pueden quedar asignados a clusters distintos según el
 \end{frame}
 
 \begin{frame}{Comparación de K-means y DBSCAN}
-    \begin{columns}
+    \begin{columns}[t]
         \column{0.5\textwidth}
         \begin{block}{K-means}
 {\footnotesize
-                Método de Clustering: Basado en particiones
+                Basado en particiones
 
                 Supuestos:
                     \begin{itemize}[noitemsep,nolistsep]
@@ -483,7 +527,7 @@ Nota: los puntos frontera pueden quedar asignados a clusters distintos según el
                     \begin{itemize}[noitemsep,nolistsep]
                         \item Requiere pre-especificar K
                         \item Sensible a la inicialización
-                        \item Desempeño pobre con clusters no globulares
+                        \item Desempeño pobre en presencia de outliers
                     \end{itemize}
 }
         \end{block}
@@ -491,7 +535,7 @@ Nota: los puntos frontera pueden quedar asignados a clusters distintos según el
         \column{0.5\textwidth}
         \begin{block}{DBSCAN}
         {\footnotesize
-                Método de Clustering: Basado en densidad
+                Basado en densidad
 
                 Supuestos:
                     \begin{itemize}[noitemsep,nolistsep]
@@ -501,7 +545,7 @@ Nota: los puntos frontera pueden quedar asignados a clusters distintos según el
                 Fortalezas:
                     \begin{itemize}[noitemsep,nolistsep]
                         \item Puede encontrar clusters de formas arbitrarias
-                        \item No necesita especificar el número de clusters
+                        \item No es necesario especificar el número de clusters
                         \item Robusto a valores atípicos (outliers)
                     \end{itemize}
 
