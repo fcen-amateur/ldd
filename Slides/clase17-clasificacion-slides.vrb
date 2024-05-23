@@ -1,0 +1,31 @@
+\frametitle{Árboles de decisión: ejemplo}
+
+\begin{tikzpicture}[edge from parent/.style={draw, -latex}, sibling distance=10em, level distance=4em]
+\tikzset{
+        level 1/.style={level distance=15mm,sibling distance=80mm},
+        level 2/.style={level distance=15mm,sibling distance=30mm},
+        level 3/.style={level distance=15mm,sibling distance=30mm},
+        level 4/.style={level distance=15mm,sibling distance=30mm},
+    }
+  \node {¿Salario mayor a $1.000.000$?}
+    child { node {Sí}
+      child { node {¿Bienes totales mayor a $10.000.000$?}
+        child { node {Sí}
+          child { node {Dar crédito} }
+        }
+        child { node {No}
+          child { node {No dar crédito} }
+        }
+      }
+    }
+    child { node {No}
+      child { node {¿Bienes totales mayor a $20.000.000$?}
+        child { node {Sí}
+          child { node {Dar crédito} }
+        }
+        child { node {No}
+          child { node {No dar crédito} }
+        }
+      }
+    };
+\end{tikzpicture}

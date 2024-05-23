@@ -1,5 +1,8 @@
 \documentclass[aspectratio=169,12pt]{beamer}
-\usepackage[utf8]{inputenc}
+%\usepackage{forest}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
 \usepackage[spanish, es-nodecimaldot]{babel}
 %\usepackage{icomma} % Use dot as decimal separator
 \usepackage{booktabs} % For better-looking tables
@@ -218,9 +221,6 @@
 %slaplagn@dm.uba.ar \\
 
 
-%\vspace{0.5cm}
-%{\small Trabajo en progreso en conjunto con \emph{Jose Capco} (Universit\"at Innsbruck) y \emph{Claus Scheiderer} %(Universit\"at Konstanz).} \\
-
 \vspace{1cm}
 Primer Cuatrimestre 2024 \\ Turnos tarde y noche
 
@@ -287,15 +287,75 @@ Primer Cuatrimestre 2024 \\ Turnos tarde y noche
 \end{frame}
 
 \begin{frame}
-\frametitle{Regresión Logística en 1 minutos}
+\frametitle{Support vector machine: ejemplo}
 
+\begin{tikzpicture}[edge from parent/.style={draw, -latex}, sibling distance=10em, level distance=4em]
+\tikzset{
+        level 1/.style={level distance=15mm,sibling distance=80mm},
+        level 2/.style={level distance=15mm,sibling distance=30mm},
+        level 3/.style={level distance=15mm,sibling distance=30mm},
+        level 4/.style={level distance=15mm,sibling distance=30mm},
+    }
+  \node {¿Salario $\ge 1.000.000$?}
+    child { node {Sí}
+      child { node {¿Bienes totales $\ge 10.000.000$?}
+        child { node {Sí}
+          child { node {Dar crédito} }
+        }
+        child { node {No}
+          child { node {No dar crédito} }
+        }
+      }
+    }
+    child { node {No}
+      child { node {¿Bienes totales $\ge 20.000.000$?}
+        child { node {Sí}
+          child { node {Dar crédito} }
+        }
+        child { node {No}
+          child { node {No dar crédito} }
+        }
+      }
+    };
+\end{tikzpicture}
+\end{frame}
+
+\begin{frame}
+\frametitle{Support vector machine: ejemplo}
+
+\begin{minipage}[t]{.4\textwidth}
+\textbf{Caso lineal}
+
+Separamos los puntos por rectas o planos.
+
+\begin{center}
+\includegraphics[scale=0.4]{clase17_SVM_margin_lineal.png}
+\end{center}
+
+\end{minipage} \hspace{.4cm} %
+\begin{minipage}[t]{.4\textwidth}
+\textbf{Caso no lineal}
+
+Antes de separar por un plano, aplicamos una transformación de los datos.
+
+\begin{center}
+\includegraphics[scale=0.22]{clase17_SVM_margin_nolineal.png}
+\end{center}
+
+\end{minipage}
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Regresión Logística en 1 minutos}
 
 \begin{minipage}{.5\textwidth}
 ¿Cómo podemos predecir una variable binaria ($0/1$)?
 
 Ajustar una función lineal $y = \beta_0 + \beta_1 x$ no va a ser apropiado
 
-Queremos una función que para valores grandes positivos de $x$ la función se acerque a 1 y para valores grandes negativos la función se acerque a 0. 
+Queremos una función que para valores grandes positivos de $x$ la función se acerque a 1 y para valores grandes negativos la función se acerque a 0.
 
 Le aplicamos una transformación a la función lineal. Tomamos
 $$
@@ -307,7 +367,7 @@ $$
 \begin{minipage}{.5\textwidth}
     \begin{center}
     \includegraphics[scale=0.24]{clase17-variable_binaria.png}
-    
+
     \includegraphics[scale=0.24]{clase17-variable_binaria_logit.png}
     \end{center}
 \end{minipage}
