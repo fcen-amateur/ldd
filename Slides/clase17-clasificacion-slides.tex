@@ -1,7 +1,7 @@
 \documentclass[aspectratio=169,12pt]{beamer}
 %\usepackage{forest}
 \usepackage[T1]{fontenc}
-\usepackage{lmodern}
+%\usepackage{lmodern}
 
 \usepackage[spanish, es-nodecimaldot]{babel}
 %\usepackage{icomma} % Use dot as decimal separator
@@ -287,7 +287,7 @@ Primer Cuatrimestre 2024 \\ Turnos tarde y noche
 \end{frame}
 
 \begin{frame}
-\frametitle{Support vector machine: ejemplo}
+\frametitle{Árboles de decisión: ejemplo}
 
 \begin{tikzpicture}[edge from parent/.style={draw, -latex}, sibling distance=10em, level distance=4em]
 \tikzset{
@@ -348,26 +348,51 @@ Antes de separar por un plano, aplicamos una transformación de los datos.
 \end{frame}
 
 \begin{frame}
-\frametitle{Regresión Logística en 1 minutos}
+\frametitle{Regresión Logística en 1 minuto}
 
 \begin{minipage}{.5\textwidth}
-¿Cómo podemos predecir una variable binaria ($0/1$)?
+¿Cómo podemos predecir una variable respuesta binaria ($0/1$)?
 
-Ajustar una función lineal $y = \beta_0 + \beta_1 x$ no va a ser apropiado
+Considerar a $y$ como una variable numérica y ajustar una función lineal $y = \beta_0 + \beta_1 x$ no va a ser apropiado.
+
+\vspace{1cm}
 
 Queremos una función que para valores grandes positivos de $x$ la función se acerque a 1 y para valores grandes negativos la función se acerque a 0.
 
-Le aplicamos una transformación a la función lineal. Tomamos
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+    \begin{center}
+    \includegraphics[scale=0.24]{clase17-variable_binaria.png}
+    \end{center}
+\end{minipage}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Regresión Logística en 1 minuto}
+
+\begin{minipage}{.5\textwidth}
+
+Le aplicamos una transformación a la función lineal. 
+
+En regresión logística tomamos
 $$
-y = \frac{1}{1 + e^{\beta_0 + \beta_1 x}}
+y = \frac{1}{1 + e^{-(\beta_0 + \beta_1 x)}}.
+$$
+
+Si $\beta_1$\textgreater$0$, cuanto mas grande es $x$, más cercano a 1 es $y$.
+
+\vspace{.5cm}
+
+Si tenemos varias variables explicativas, usamos
+$$
+y = \frac{1}{1 + e^{-(\beta_0 + \beta_1 x_1 + \beta_2 x_2 + \dots + \beta_n x_n)}}.
 $$
 
 
 \end{minipage}%
 \begin{minipage}{.5\textwidth}
     \begin{center}
-    \includegraphics[scale=0.24]{clase17-variable_binaria.png}
-
     \includegraphics[scale=0.24]{clase17-variable_binaria_logit.png}
     \end{center}
 \end{minipage}
@@ -379,13 +404,15 @@ $$
 
 \begin{minipage}{.5\textwidth}
 
-Podemos usar la curva para clasificar.
+Finalmente usamos la curva para clasificar.
 
+$$
+y = \frac{1}{1 + e^{-(\beta_0 + \beta_1 x)}}.
+$$
 
 \end{minipage}%
 \begin{minipage}{.5\textwidth}
     \begin{center}
-
     \includegraphics[scale=0.24]{clase17-variable_binaria_predict.png}
     \end{center}
 \end{minipage}
@@ -393,47 +420,31 @@ Podemos usar la curva para clasificar.
 
 
 \begin{frame}
-\frametitle{Regresión Logística en 1 minuto}
-
+\frametitle{Métodos paramétricos vs. no paramétricos}
 
 \begin{itemize}
-    \item \textbf{Definición:}
-    \begin{itemize}
-        \item Técnica de aprendizaje supervisado utilizada para predecir la probabilidad de una variable binaria (0 o 1).
-    \end{itemize}
-    \item \textbf{Aplicaciones:}
-    \begin{itemize}
-        \item Diagnóstico médico (ej. presencia o ausencia de enfermedad)
-        \item Marketing (ej. probabilidad de compra de un producto)
-        \item Finanzas (ej. riesgo de crédito)
-    \end{itemize}
-    \item \textbf{Función Logística:}
-    \[
-    P(y=1|X) = \frac{1}{1 + e^{-(\beta_0 + \beta_1X_1 + \beta_2X_2 + \ldots + \beta_nX_n)}}
-    \]
+\item Los modelos de regresión lineal o regresión logística son modelos paramétricos.
+\item Asumen una forma específica para la relación entre las variables independientes y la variable dependiente.
+\item Es decir, se define una ecuación paramétrica con un número fijo de parámetros (coeficientes) que determinan esta relación, por ejemplo $y = \frac{1}{1 + e^{-(\beta_0 + \beta_1 x)}}$.
+\item Los métodos paramétricos hacen suposiciones sobre la distribución de los datos y la estructura del modelo, lo que puede proporcionar predicciones más eficientes y precisas si estas suposiciones son correctas.
 \end{itemize}
+
+¿Cómo sería un método no-paramétrico?
 \end{frame}
 
 \begin{frame}
-\frametitle{Regresión Logística en 1 minuto}
+\frametitle{Modelo no paramétrico para clasificación}
 
+Tenemos un conjunto de pingüinos para los que sabemos su especie, y queremos saber la especie de un nuevo pingüino.
 
-\begin{itemize}
-    \item \textbf{Definición:}
-    \begin{itemize}
-        \item Técnica de aprendizaje supervisado utilizada para predecir la probabilidad de una variable binaria (0 o 1).
-    \end{itemize}
-    \item \textbf{Aplicaciones:}
-    \begin{itemize}
-        \item Diagnóstico médico (ej. presencia o ausencia de enfermedad)
-        \item Marketing (ej. probabilidad de compra de un producto)
-        \item Finanzas (ej. riesgo de crédito)
-    \end{itemize}
-    \item \textbf{Función Logística:}
-    \[
-    P(y=1|X) = \frac{1}{1 + e^{-(\beta_0 + \beta_1X_1 + \beta_2X_2 + \ldots + \beta_nX_n)}}
-    \]
-\end{itemize}
+¿A qué especie pertenece el pingüino rojo?
+
+\begin{center}
+\includegraphics[scale=0.24]{clase17-pinguino1.png}
+\includegraphics[scale=0.24]{clase17-pinguino2.png}
+\includegraphics[scale=0.24]{clase17-pinguino3.png}
+\end{center}
+
 \end{frame}
 
 \begin{frame}
@@ -464,8 +475,55 @@ Podemos usar la curva para clasificar.
     \begin{itemize}
         \item Computacionalmente costoso para grandes conjuntos de datos debido a la necesidad de calcular distancias.
         \item El rendimiento puede verse afectado por la elección del valor de K y la escala de las características.
+        \item Si tenemos muchas variables explicativas, sufriremos la maldición de la dimensionalidad.
     \end{itemize}
 \end{itemize}
+\end{frame}
+
+%------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Selección del $K$-óptimo}
+
+Como es un modelo de aprendizaje supervisado, podemos elegir el $K$ óptimo con alguna estrategia de validación.
+
+Esquema posible de validación:
+
+\begin{enumerate}
+\item Separamos el conjunto de todos los datos en 80\% entrenamiento y 20\% testeo
+\item Elegimos el valor de $K$ por validación cruzada en la muestra de entrenamiento.
+\item Probamos la perfomance de nuestro modelo en la muestra testeo.
+\end{enumerate}
+
+Preguntas:
+\begin{itemize}
+\item ¿Cuál es el valor a optimizar en la validación? Elegimos el valor de $K$ que nos de el mayor porcentaje de aciertos.
+\item ¿Qué significa entrenar nuestro modelo? Como es un modelo no-paramétrico, no hay que aprender ningún parámetro. Entrenar es simplemente guardar los datos.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Validación "leave-one-out"}
+
+Podemos hacer validación cruzada en pliegos:
+
+\begin{itemize}
+\item Dividimos nuestra muestra en 5 pliegos (o cualquier otra cantidad).
+\item Seleccionamos 4 pliegos para entrenamiento y 1 pliego para validación.
+\item Para cada uno de los datos de validación, buscamos los $K$ vecinos más cercanos en los pliegos de entrenamiento.
+\item Elegimos el valor más votado entre los vecinos.
+\end{itemize}
+
+Validación leave-one-out.
+\begin{itemize}
+\item Es el caso extremo de validación en pliegos, donde cada observación es un pliego.
+\item Para cada observación, buscamos los $K$ vecinos más cercanos entre todos los demás puntos.
+\item Elegimos el valor más votado entre los vecinos.
+\end{itemize}
+
+En modelos de regresión, validación leave-one-out puede ser costoso porque debemos entrenar nuevamente el modelo para cada observación. En KNN, como no hay que ajustar parámetros, este método no tiene costo adicional comparado con usar pocos pliegos.
+
 \end{frame}
 
 \end{document}
