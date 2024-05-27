@@ -83,6 +83,10 @@
 \DeclareMathOperator{\Hom}{Hom}
 \DeclareMathOperator{\sing}{sing}
 
+\DeclareMathOperator{\var}{var}
+\DeclareMathOperator{\cov}{cov}
+\DeclareMathOperator{\corr}{corr}
+
 \DeclareMathOperator{\chara}{char}
 \DeclareMathOperator{\Jacob}{Jacob}
 \DeclareMathOperator{\Sing}{Sing}
@@ -235,9 +239,112 @@ Primer Cuatrimestre 2024 \\ Turnos tarde y noche
 
 %------------------------------------------------------------------
 
+\begin{frame}
+    \frametitle{Análisis de Componentes Principales (PCA)}
+    \begin{itemize}
+        \item PCA es una técnica para reducir la dimensionalidad de un conjunto de datos.
+        \item Identifica las direcciones (componentes principales) que explican la mayor parte de la variabilidad en los datos.
+        \item Los componentes principales son combinaciones lineales de las variables originales.
+    \end{itemize}
+    
+\begin{center}
+\includegraphics[scale=0.4]{clase18-dosComponentes.jpg}
+\end{center}
+    
+\end{frame}
+
+%------------------------------------------------------------------
 
 \begin{frame}
-    \frametitle{Covarianza entre dos variables}
+    \frametitle{Componentes Principales - Ejemplo}
+    \begin{itemize}
+    \item Si tenemos un conjunto de datos con 3 variables pero hay dependencia lineal entre las variables (es decir, $a x_1 + b x_2 + c x_3 \approx 0$), al representar a los puntos en el espacio, todos los puntos quedaran ubicados cerca de un plano (el plano $a x_1 + b x_2 + c x_3 = 0$)
+    \item Si proyectamos los puntos sobre ese plano, y consideramos nuevas variables definidas por las coordenadas de las proyecciones en ese plano, estaremos representando las 3 variables originales utilizando solo 2 variables, sin perder mucha información.
+    \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Primero: varianza y covarianza}
+    
+\textbf{Varianza.} Ya vimos la f\'ormula de varianza para una variable $x = (x_1, x_2, \dots, x_n)$:
+$$
+\var(x) = \frac{\sum_{i=1}^n(x_i - \bar x)^2}{n},
+$$
+donde $\bar x = \sum_{i = 1}^n x_i$ es el promedio o la media de los valores de $x$.
+
+\textbf{Covarianza.} Definimos ahora la covarianza entre dos variables $x = (x_1, x_2, \dots, x_n)$ e $y = (y_1, y_2, \dots, y_n)$ que mide la relaci\'on entre ellas:
+$$
+\cov(x,y) = \frac{\sum_{i = 1}^n (x_i - \bar x)(y_i - \bar y)}{n}
+$$
+
+Interpretaci\'on: si $(y_i - \bar y)$ es siempre positivo cuando $(y_i - \bar y)$ es positivo, la covarianza será grande. Si uno es siempre positivo cuando el otro es negativo, la covarianza será grande negativa.
+\end{frame}
+
+\begin{frame}
+    \frametitle{Correlación}
+
+\textbf{Correlaci\'on.} Dividiendo la fórmula de covarianza por los desvíos de cada variable obtenemos la fórmula de correlación:
+$$
+\corr(x,y) = \frac{\cov(x, y)}{\sqrt{\var(x)}\sqrt{\var(y)}} = \frac{\cov(x, y)}{\sigma(x)\sigma(y)}
+$$
+
+Podemos reescribir esta fórmula:
+$$
+\corr(x,y) = \frac{\sum_{i = 1}^n (x_i - \bar x)(y_i - \bar y)}{\|x\|\|y\|} = \frac{\langle (x_1 - \bar x, \dots, x_n - \bar x), (y_1 - \bar y, \dots, y_n - \bar y)\rangle}{\|x\|\|y\|},
+$$
+donde $\langle x, y\rangle$ es el producto interno entre vectores.
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{\'Angulos y correlación}
+
+\begin{minipage}{.45\textwidth}
+Recordemos la fórmula para el ángulo entre dos vectores:
+$$
+\cos(\theta) = \frac{\langle x, y \rangle}{\|x\|\|y\|}
+$$
+\end{minipage} \hspace{.4cm} %
+\begin{minipage}{.45\textwidth}
+\begin{tikzpicture}[scale = 0.7]
+
+% Draw the origin
+\coordinate (O) at (0,0);
+
+% Define the vectors x and y
+\coordinate (X) at (4,0);
+\coordinate (Y) at (3,3);
+
+% Draw the vectors
+\draw[->, thick] (O) -- (X) node[anchor=north east] {$x$};
+\draw[->, thick] (O) -- (Y) node[anchor=south west] {$y$};
+
+% Draw the angle theta
+\draw (1,0) arc (0:45:1) node[midway, anchor=east] {$\theta$};
+
+% Optional: Draw the axes
+\draw[->] (-1,0) -- (5,0) node[anchor=north west] {};
+\draw[->] (0,-1) -- (0,4) node[anchor=south east] {};
+\end{tikzpicture}    
+\end{minipage}
+
+La correlación $\corr(x, y) = \frac{\langle x - \bar x, y - \bar y \rangle}{\|x\|\|y\|}$ es el coseno del ángulo entre $x$ e $y$.
+
+\begin{itemize}
+\item Si la correlación es 1, el ángulo es $0^\circ$.
+\item Si la correlación es -1, el ángulo es $180^\circ$.
+\item Si la correlación es 0, el ángulo es $90^\circ$.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Primero: varianza y covarianza}
+
+    
+    
     \begin{itemize}
         \item Supongamos que tenemos dos variables \( X \) y \( Y \) con las siguientes observaciones:
         \[
@@ -257,30 +364,25 @@ Primer Cuatrimestre 2024 \\ Turnos tarde y noche
         \item La matriz de covarianza mide la relación lineal entre dos o más variables.
         \item Dada una matriz de datos \( X \) de \( n \) observaciones y \( p \) variables, la matriz de covarianza \( \Sigma \) se define como:
         \[
-        \Sigma = \frac{1}{n-1} X^T X
+        A = \frac{(X - \bar X)^T (X - \bar X)}{n}
         \]
-        \item Cada elemento \( \sigma_{ij} \) en la matriz de covarianza representa la covarianza entre las variables \( X_i \) y \( X_j \).
+        \item Si llamamos $X^\star$ a la matriz con datos normalizados $X^\star = X - \bar X$, $A = \frac{(X^\star)^T X^\star}{n}$.
+        \item Cada elemento $A_{ij}$ en la matriz de covarianza representa la covarianza entre las variables $x_i$ y $x_j$.
     \end{itemize}
 \end{frame}
 
 
-\begin{frame}
-    \frametitle{Análisis de Componentes Principales (PCA)}
-    \begin{itemize}
-        \item PCA es una técnica para reducir la dimensionalidad de un conjunto de datos.
-        \item Identifica las direcciones (componentes principales) que explican la mayor parte de la variabilidad en los datos.
-        \item Los componentes principales son combinaciones lineales de las variables originales.
-    \end{itemize}
-\end{frame}
 
 \begin{frame}
     \frametitle{Cálculo de PCA}
+    
+A partir de la matriz de covarianza, podemos calcular las componentes principales de la siguiente forma.
+
     \begin{enumerate}
-        \item Estandarizar los datos.
-        \item Calcular la matriz de covarianza.
-        \item Obtener los eigenvalores y eigenvectores de la matriz de covarianza.
-        \item Ordenar los eigenvectores según los eigenvalores decrecientes.
-        \item Proyectar los datos originales sobre los eigenvectores seleccionados.
+        \item Calcular la matriz $X^\star = X - \bar X$ de datos normalizados.
+        \item Calcular la matriz de covarianza $A = \frac{(X^\star)^T X^\star}{n}$.
+        \item Hallar matrices $U$ ortogonal y $D$ diagonal (con los autovalores ordenados de mayor a menor) tales que $A = U D U^T$.
+        \item Definir el nuevo conjunto de datos $Z = X^\star U$ y las nuevas variables $z_1, \dots, z_p$ (las columnas de $Z$), con $z_i = X^\star u_i$. 
     \end{enumerate}
 \end{frame}
 
