@@ -17,3 +17,5 @@ venv
 *.snm
 *.toc
 **/.ipynb_checkpoints
+Slides/prueba.pdf
+Slides/prueba.tex

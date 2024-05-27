@@ -1,0 +1,159 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage{amssymb, enumitem}
+\setlist[enumerate,1]{label={\bfseries\arabic*.},ref={\bfseries{Ejercicio \arabic*}}}
+\setlist[enumerate,2]{label={\bfseries(\alph*)},ref={\bfseries(\alph*)}}
+
+\usepackage{tikz}
+
+\parindent 0cm
+\usepackage{amssymb,amsmath,amsthm,latexsym,epsfig,euscript,multicol}
+\usepackage{graphbox}
+
+\usepackage[utf8x]{inputenc}
+\usepackage{listings,xcolor,bm}
+
+
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+\lstset{
+  backgroundcolor=\color{white},   % choose the background color; you must add
+  basicstyle=\ttfamily,      % the size of the fonts that are used for the code
+  breakatwhitespace=true,         % sets if automatic breaks should only happen at whitespace
+  breaklines=true,                 % sets automatic line breaking
+  captionpos=b,                    % sets the caption-position to bottom
+  commentstyle=\color{mygreen},    % comment style
+  deletekeywords={...},            % if you want to delete keywords from the given language
+  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+  firstnumber=1,                % start line enumeration with line 1000
+  frame=single,	                   % adds a frame around the code
+  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+  keywordstyle=\color{blue},       % keyword style
+  language=Python,                 % the language of the code
+  morekeywords={*,...},            % if you want to add more keywords to the set
+  numbers=none,                    % where to put the line-numbers; possible values are (none, left, right)
+  numbersep=5pt,                   % how far the line-numbers are from the code
+  numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
+  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+  showstringspaces=false,          % underline spaces within strings only
+  showtabs=false,                  % show tabs within strings adding particular underscores
+  stepnumber=5,                    % the step between two line-numbers. If it's 1, each line will be numbered
+  stringstyle=\color{mymauve},     % string literal style
+  tabsize=4,	                   % sets default tabsize to 2 spaces
+  title=\lstname,                  % show the filename of files included with \lstinputlisting; also try caption instead of title
+  belowskip=0em
+}
+% Caracteres especiales
+\def\A{\mathbb{A}}
+\def\C{\mathbb{C}}
+\def \N{\mathbb{N}}
+\def \P{\mathbb{P}}
+\def \Q{\mathbb{Q}}
+\def \R{\mathbb{R}}
+\def \Z{\mathbb{Z}}
+\def \sen{\textrm{sen}}
+
+\def\Np{$\N$}
+\def\Zp{$\Z$}
+\def\Qp{$\Q$}
+\def\Rp{$\R$}
+\def\Cp{$\C$}
+
+\def\bb{\bm{b}}
+\def\bu{\bm{u}}
+\def\bv{\bm{v}}
+\def\bx{\bm{x}}
+\def\bA{\bm{A}}
+\def\bB{\bm{B}}
+\def\bD{\bm{D}}
+\def\bE{\bm{E}}
+\def\bM{\bm{M}}
+\def\bT{\bm{T}}
+
+
+\def\K{\textrm{K}}
+\def\V{\textrm{V}}
+\def\S{\textrm{S}}
+
+\def\degres{$^\circ$}
+
+\newcount\todno
+\def\no{\global\advance\todno by 1 \the\todno}
+
+\topmargin-2cm \vsize 29.5cm \hsize 21cm
+\setlength{\textwidth}{16.75cm}\setlength{\textheight}{23.5cm}
+\setlength{\oddsidemargin}{0.0cm}
+\setlength{\evensidemargin}{0.0cm}
+
+
+\theoremstyle{definition}
+\newtheorem{ejer}{Ejercicio}
+\newcommand{\bej}{\begin{ejer}}
+\newcommand{\fej}{\end{ejer}}
+
+\begin{document}
+
+\centerline{{\small Universidad de Buenos Aires - Facultad de Ciencias Exactas y Naturales - Ciencias de Datos}}
+
+\vskip 0.2cm
+
+\hrule
+
+\vskip 0.2cm
+
+ \centerline{{\bf\Large{\sc Laboratorio de Datos}}}
+
+ \vskip 0.2cm
+
+ \centerline{\ttfamily Primer Cuatrimestre 2024}
+
+\vskip 0.2cm
+
+ \hrule
+
+ \bigskip
+ \centerline{\bf Práctica N$^\circ$ 8: Clasificación.}
+ \bigskip
+
+%-----------------------------------------------------------
+\begin{enumerate}
+\item 
+Implementar un clasificador de k-NN que prediga el sexo de los pinguinos utilizando como variables a el largo del pico y el largo de la aleta. Hacerlo para diferentes valores de k (impares) y evaluar el error de predicción en cada caso. ¿Cómo elegiría el valor de k óptimo? 
+
+\item 
+Implementar un clasificador de k-NN que prediga la especie de los pinguinos. Pueden elegir las variables. ¿Con cuáles variables obtienen mejores resultados?
+
+Reportar los resultados con visualizaciones adecuadas.
+    
+
+
+\end{enumerate}
+
+\end{document}
+
+
+\item Considerando los datos de la tabla
+\begin{enumerate}
+	\item Cargar los siguientes datos en Python y graficarlos mediante un diagrama de dispersi\'on. Procurar que cada punto aparezca etiquetado con su \'indice.
+	\begin{center}
+		\begin{tabular}{lllllllllll}
+			\'indice & 1 & 2  & 3  & 4  & 5  & 6  & 7  & 8  & 9  & 10 \\ \hline
+			x        & 5 & 10 & 15 & 24 & 30 & 85 & 71 & 60 & 70 & 80\\
+			y        & 3 & 15 & 12 & 10 & 30 & 70 & 80 & 78 & 55 & 91  \\
+		\end{tabular}
+	\end{center}
+	\item ``A mano'' e informalmente, identificar agrupaciones jer\'arquicas en el gr\'afico.
+	\item Mediante un clustering jer\'arquico, basado en la distancia eucl\'idea y usando como criterio de agregaci\'on el esquema ``single'', graficar un dendrograma de los datos.
+	\item Marcar los puntos que tomar\'ian en caso de querer considerar dos clusters.
+	\item \'idem inciso anterior pero ahora con 4 clusters.
+\end{enumerate}
+
+
+%%-----------------------------------------------------------
+
+\item Utilice clustering jer\'arquico para poder obtener un clustering del dataset \texttt{p7-data1.csv} con dos clusters, compararlo con aquel obtenido usando k-medias. Hacer lo mismo para el dataset \texttt{p7-data2.csv}
+
+%%-----------------------------------------------------------
+
