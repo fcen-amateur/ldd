@@ -1,0 +1,415 @@
+\documentclass[aspectratio=169,12pt]{beamer}
+%\usepackage{forest}
+\usepackage[T1]{fontenc}
+%\usepackage{lmodern}
+
+\usepackage[spanish, es-nodecimaldot]{babel}
+%\usepackage{icomma} % Use dot as decimal separator
+\usepackage{booktabs} % For better-looking tables
+\usepackage{wrapfig}
+\usepackage{caption}
+%\usepackage{siunitx}
+
+
+\usepackage{refcount}
+
+\usepackage{multicol}
+\usepackage{mathtools}
+
+\usepackage[normalem]{ulem}
+
+\pagestyle{empty}
+
+\usepackage{pgf,tikz}
+\usepackage{pgfplots}
+\usetikzlibrary{matrix}
+\usetikzlibrary{arrows}
+
+%\usepackage{wrapfig}
+\mode<presentation>
+\usefonttheme{professionalfonts}
+\usetheme{Darmstadt}
+\usecolortheme{orchid}
+\useoutertheme{default}
+\setbeamertemplate{headline}{}
+
+\renewcommand{\baselinestretch}{1.1}
+
+%gets rid of bottom navigation bars
+\setbeamertemplate{footline}[page number]
+
+%gets rid of navigation symbols
+\setbeamertemplate{navigation symbols}{}
+
+%\frameframe{none} % No default frame
+
+%\setlength{\framewidth}{8.7in} \setlength{\frameheight}{7.2in}
+
+\parindent 0pt
+\setlength{\parskip} {1ex plus 0.5ex minus 0.2ex}
+
+
+%\usepackage[bbgreekl]{mathbbol}
+\usepackage{amsfonts}
+
+%\DeclareSymbolFontAlphabet{\mathbb}{AMSb}
+%\DeclareSymbolFontAlphabet{\mathbbl}{bbold}
+
+\newcommand{\Sym}{{\mathcal S}}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\trace}{Trace}
+\DeclareMathOperator{\range}{range}
+\DeclareMathOperator{\rank}{rank}
+
+\usepackage{breqn}
+\usepackage{multicol}
+\usepackage{colortbl}
+\usepackage{lmodern}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{stmaryrd}
+\usepackage{color}
+\usepackage{graphicx}
+\graphicspath{ {img/} }
+\usepackage{hyperref}
+
+\input{epsf}
+\title{Introducción}
+\author{}
+
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\sing}{sing}
+
+\DeclareMathOperator{\chara}{char}
+\DeclareMathOperator{\Jacob}{Jacob}
+\DeclareMathOperator{\Sing}{Sing}
+\newcommand{\fracNoLine}[2]{\genfrac{}{}{}{0pt}{#1}{#2}}
+
+%\beamerdefaultoverlayspecification{<+->}
+
+\usepackage{listings,xcolor,bm}
+
+
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+\lstset{
+  backgroundcolor=\color{white},   % choose the background color; you must add
+  basicstyle=\small\ttfamily,      % the size of the fonts that are used for the code
+  breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+  breaklines=true,                 % sets automatic line breaking
+  captionpos=b,                    % sets the caption-position to bottom
+  commentstyle=\color{mygreen},    % comment style
+  deletekeywords={...},            % if you want to delete keywords from the given language
+  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+  firstnumber=1,                % start line enumeration with line 1000
+  frame=single,	                   % adds a frame around the code
+  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+  keywordstyle=\color{blue},       % keyword style
+  language=Python,                 % the language of the code
+  morekeywords={*,...},            % if you want to add more keywords to the set
+  numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+  numbersep=5pt,                   % how far the line-numbers are from the code
+  numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
+  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+  showstringspaces=false,          % underline spaces within strings only
+  showtabs=false,                  % show tabs within strings adding particular underscores
+  stepnumber=5,                    % the step between two line-numbers. If it's 1, each line will be numbered
+  stringstyle=\color{mymauve},     % string literal style
+  tabsize=4,	                   % sets default tabsize to 2 spaces
+  title=\lstname                   % show the filename of files included with \lstinputlisting; also try caption instead of title
+}
+
+\begin{document}
+
+\newtheorem{prop}{Proposici\'on}
+\newtheorem{algo}[prop]{Algorithm}
+\newtheorem{teor}[prop]{Theorem}
+\newtheorem{lema}[prop]{Lemma}
+\newtheorem{coro}[prop]{Corollary}
+\newtheorem{defi}[prop]{Definition}
+
+\newcommand{\ideal}[1]{{\left\langle{#1}\right\rangle}}
+\newcommand{\demo}{\textbf {Demostraci\'on. }}
+\newcommand{\obse}{\textbf {Observaci\'on. }}
+\newcommand{\Input}{\textbf {Input: }}
+\newcommand{\Output}{\textbf {Output: }}
+\newcommand{\Examp}{\textbf {Ejemplo }}
+\newcommand{\Examps}{\textbf {Ejemplos }}
+
+\newcommand{\kk}{{\mathbbl k}}
+\newcommand{\V}{{\mathbf V}}
+\newcommand{\I}{{\mathbf I}}
+\newcommand{\PP}{{\tilde P}}
+\newcommand{\QQ}{{\tilde Q}}
+
+\newcommand{\F}{{\mathbb F}}
+\newcommand{\Q}{{\mathbb Q}}
+\newcommand{\N}{{\mathbb N}}
+\newcommand{\R}{{\mathbb R}}
+\newcommand{\Z}{{\mathbb Z}}
+\newcommand{\CC}{{\mathbb C}}
+\newcommand{\eLL}{{\mathcal L}}
+
+
+
+\newcommand{\MinAss}{\textrm {MinAss}}
+\newcommand{\Ass}{\textrm {Ass}}
+\newcommand{\mcm}{\textrm {mcm}}
+\newcommand{\mcd}{\textrm {mcd}}
+%\newcommand{\mod}{\textrm { mod }}
+\newcommand{\lt}{\textrm {lt}}
+\newcommand{\Lt}{\textrm {Lt}}
+\newcommand{\lp}{\textrm {lp}}
+\newcommand{\lc}{\textrm {lc}}
+\newcommand{\lm}{\textrm {lm}}
+\newcommand{\barra}{\ /\ }
+\newcommand{\multideg}{\textrm {multideg}}
+
+\newcommand{\sep}{\textrm {sep}}
+\newcommand{\Syz}{\textrm {Syz}}
+\newcommand{\n}{\~n}
+\newcommand{\cG}{\textrm {cG}}
+\newcommand{\dG}{\textrm {dG}}
+\newcommand{\nG}{\textrm {nG}}
+\newcommand{\CE}{\textrm {CE}}
+\newcommand{\CG}{\textrm {CG}}
+\newcommand{\CF}{\textrm {CF}}
+\newcommand{\DG}{\textrm {DG}}
+\renewcommand{\NG}{\textrm {NG}}
+
+\newcommand{\p}{{\boldsymbol{p}}}
+\newcommand{\q}{{\boldsymbol{q}}}
+
+\newcommand{\X}{{\boldsymbol{X}}}
+\newcommand{\x}{{\boldsymbol{x}}}
+\renewcommand{\u}{{\boldsymbol{u}}}
+\renewcommand{\t}{{\boldsymbol{t}}}
+\renewcommand{\a}{{\boldsymbol{a}}}
+\renewcommand{\b}{{\boldsymbol{b}}}
+\renewcommand{\c}{{\boldsymbol{c}}}
+
+%Titulos en espa�ol
+%\renewcommand{\chaptername}{Cap\'{\i}tulo}
+%\renewcommand{\bibname}{Bibliograf\'{\i}a}
+
+\newcommand{\kring}{\kk[\x]}
+\newcommand{\kRing}{\kk[X]}
+\newcommand{\qring}{\Q[\x]}
+
+%\renewcommand\itemindent{-10pt}
+%\renewcommand{\theenumi}{\arabic{enumi}}
+%\renewcommand{\labelenumi}{\Alph{enumi}}
+
+\definecolor{issac}{rgb}{1.00,0.00,0.00}
+%------------------------------------------------------------------
+
+\begin{frame}
+
+ \begin{center}
+
+\Large\textbf{Laboratorio de Datos} \\
+\large\textbf{Clustering: $k$-medias}
+%\vspace{0.5cm}
+
+% \textit{Santiago Laplagne} \\
+%slaplagn@dm.uba.ar \\
+
+
+\vspace{1cm}
+Primer Cuatrimestre 2024 \\ Turnos tarde y noche
+
+\vspace{1cm}
+
+
+ {\small Facultad de Ciencias Exactas y Naturales, UBA}
+ \end{center}
+
+
+\end{frame}
+
+%------------------------------------------------------------------
+
+
+\begin{frame}
+    \frametitle{Covarianza entre dos variables}
+    \begin{itemize}
+        \item Supongamos que tenemos dos variables \( X \) y \( Y \) con las siguientes observaciones:
+        \[
+        X = [x_1, x_2, \ldots, x_n], \quad Y = [y_1, y_2, \ldots, y_n]
+        \]
+        \item La covarianza entre \( X \) y \( Y \) se calcula como:
+        \[
+        \text{Cov}(X, Y) = \frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})(y_i - \bar{y})
+        \]
+        donde \( \bar{x} \) y \( \bar{y} \) son las medias de \( X \) y \( Y \).
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Matriz de Covarianza}
+    \begin{itemize}
+        \item La matriz de covarianza mide la relación lineal entre dos o más variables.
+        \item Dada una matriz de datos \( X \) de \( n \) observaciones y \( p \) variables, la matriz de covarianza \( \Sigma \) se define como:
+        \[
+        \Sigma = \frac{1}{n-1} X^T X
+        \]
+        \item Cada elemento \( \sigma_{ij} \) en la matriz de covarianza representa la covarianza entre las variables \( X_i \) y \( X_j \).
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Análisis de Componentes Principales (PCA)}
+    \begin{itemize}
+        \item PCA es una técnica para reducir la dimensionalidad de un conjunto de datos.
+        \item Identifica las direcciones (componentes principales) que explican la mayor parte de la variabilidad en los datos.
+        \item Los componentes principales son combinaciones lineales de las variables originales.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Cálculo de PCA}
+    \begin{enumerate}
+        \item Estandarizar los datos.
+        \item Calcular la matriz de covarianza.
+        \item Obtener los eigenvalores y eigenvectores de la matriz de covarianza.
+        \item Ordenar los eigenvectores según los eigenvalores decrecientes.
+        \item Proyectar los datos originales sobre los eigenvectores seleccionados.
+    \end{enumerate}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Relación entre Eigenvectores y Componentes Principales}
+    \begin{itemize}
+        \item Los eigenvectores de la matriz de covarianza definen las direcciones de los componentes principales.
+        \item Los eigenvalores indican la cantidad de varianza explicada por cada componente principal.
+        \item Los componentes principales se obtienen proyectando los datos sobre estos eigenvectores.
+    \end{itemize}
+    \[
+    \mathbf{Z} = \mathbf{X} \mathbf{V}
+    \]
+    donde \( \mathbf{Z} \) son los componentes principales, \( \mathbf{X} \) es la matriz de datos y \( \mathbf{V} \) es la matriz de eigenvectores.
+\end{frame}
+
+\begin{frame}
+    \frametitle{Ventajas de PCA}
+    \begin{itemize}
+        \item Reducción de dimensionalidad: Permite trabajar con menos variables sin perder mucha información.
+        \item Eliminación de redundancia: Los componentes principales son ortogonales entre sí, eliminando la multicolinealidad.
+        \item Mejora del rendimiento de los algoritmos: Menos variables pueden resultar en tiempos de computación más rápidos.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Ejemplo Práctico}
+    \begin{itemize}
+        \item Consideremos un conjunto de datos de flores con cuatro variables: longitud del sépalo, ancho del sépalo, longitud del pétalo, ancho del pétalo.
+        \item Usamos PCA para reducir estas cuatro variables a dos componentes principales.
+        \item Los dos primeros componentes principales pueden capturar la mayor parte de la variabilidad en los datos.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Conclusión}
+    \begin{itemize}
+        \item La matriz de covarianza es esencial para entender las relaciones entre variables.
+        \item PCA es una herramienta poderosa para simplificar datos complejos.
+        \item La relación entre los eigenvectores de la matriz de covarianza y los componentes principales es clave para la transformación de los datos.
+    \end{itemize}
+\end{frame}
+
+\end{document}
+
+%------------------------------------------------------------------
+
+\begin{frame}[fragile]
+\frametitle{Aplicación de K-means en Python}
+\begin{itemize}
+    \item Ejemplo de implementación en Python usando \texttt{scikit-learn}:
+\end{itemize}
+
+\begin{lstlisting}
+from sklearn.cluster import KMeans
+import numpy as np
+
+# Datos de ejemplo
+X = np.array([[1, 2], [1, 4], [1, 0],
+              [10, 2], [10, 4], [10, 0]])
+
+# Inicializar K-means
+kmeans = KMeans(n_clusters=2, random_state=0).fit(X)
+
+# Resultados
+print(kmeans.labels_)
+print(kmeans.cluster_centers_)
+\end{lstlisting}
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Interpretabilidad de los modelos de clasifición}
+
+¿Por qué no me dan el crédito?
+
+\begin{minipage}[t]{.3\textwidth}
+\begin{tikzpicture}[scale = 0.2, edge from parent/.style={draw, -latex}, sibling distance=10em, level distance=4em]
+\tikzset{
+        level 1/.style={level distance=15mm,sibling distance=80mm},
+        level 2/.style={level distance=15mm,sibling distance=30mm},
+        level 3/.style={level distance=15mm,sibling distance=30mm},
+        level 4/.style={level distance=15mm,sibling distance=30mm},
+    }
+  \node {¿Salario $\ge 1.000.000$?}
+    child { node {Sí}
+      child { node {¿Bienes totales $\ge 10.000.000$?}
+        child { node {Sí}
+          child { node {Dar crédito} }
+        }
+        child { node {No}
+          child { node {No dar crédito} }
+        }
+      }
+    }
+    child { node {No}
+      child { node {¿Bienes totales $\ge 20.000.000$?}
+        child { node {Sí}
+          child { node {Dar crédito} }
+        }
+        child { node {No}
+          child { node {No dar crédito} }
+        }
+      }
+    };
+\end{tikzpicture}
+\pause
+Tu salario es muy bajo...
+\end{minipage} \hspace{1cm}%
+\begin{minipage}[t]{.3\textwidth}
+\pause
+$$
+y = \frac{1}{1 + e^{-(\beta_0 + \beta_1 x)}}
+$$
+
+\pause Es lo que me tira el modelo...
+\end{minipage}
+\begin{minipage}[t]{.3\textwidth}
+\pause
+\begin{center}
+\includegraphics[scale=0.24]{clase17-knn-simple.png}
+\end{center}
+\pause
+Las personas como vos nunca pagan...
+
+
+\end{minipage} \hspace{1cm}%
+
+
+\end{frame}
