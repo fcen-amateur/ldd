@@ -272,10 +272,10 @@ Primer Cuatrimestre 2024 \\ Turnos tarde y noche
 $$
 \var(x) = \frac{\sum_{i=1}^n(x_i - \bar x)^2}{n},
 $$
-donde $\bar x = \sum_{i = 1}^n x_i$ es el promedio o la media de los valores de $x$.
+donde $\bar x = \frac{\sum_{i = 1}^n x_i}{n}$ es el promedio o la media de los valores de $x$.
 
 Recordemos la definición de producto interno entre vectores:
-{\small
+{\scriptsize
 $$\langle x, y\rangle = x_1 y_1 + x_2 y_2 + \dots + x_n y_n = \begin{pmatrix} x_1 & x_2 & \cdots & x_n \end{pmatrix} \begin{pmatrix} y_1 \\ y_2 \\ \vdots \\ y_n \end{pmatrix} = x^T y.$$}
 
 Usando productos internos podemos escribir
@@ -367,12 +367,23 @@ La correlación $\corr(x, y) = \frac{\langle x - \bar x, y - \bar y \rangle}{\|x
         \item La matriz de covarianza mide la relación lineal entre dos o más variables.
         \item Dada una matriz de datos \( X \) de \( n \) observaciones y \( p \) variables, la matriz de covarianza \( \Sigma \) se define como:
         \[
-        \Sigma = \frac{(X - \bar X)^T (X - \bar X)}{n} \in \R^{p \times p}
+        \Sigma = \frac{(X - \bar X)^T (X - \bar X)}{n} \in \R^{p \times p},
         \]
+        donde la matriz $\bar X$ tiene en cada columna el valor medio de la columna correspondiente de $X$.
         \item Si llamamos $X^\star$ a la matriz con datos normalizados $X^\star = X - \bar X$,
         $$\boxed{\Sigma = \frac{(X^\star)^T X^\star}{n}}$$
-        \item Cada elemento $\Sigma_{ij}$ en la matriz de covarianza representa la covarianza entre las variables $x_i$ y $x_j$,
-        $$\cov(x_i, x_j) = \frac{\sum_{i = 1}^n (x_i - \bar x_i)(x_j - \bar x_j)}{n}  = \frac{\langle x_i - \bar x_i, x_j - \bar x_j \rangle}{n} = {\Sigma}_{ij}.$$
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Matriz de Covarianza}
+    \begin{itemize}
+        \item Definiendo $X^\star = X - \bar X$,
+        $$\boxed{\Sigma = \frac{(X^\star)^T X^\star}{n}}$$
+        \item Las columnas de $X^\star$ son las columnas originales de $X$ normalizadas a media $0$.
+        \item Cada elemento $\Sigma_{ij}$ en la matriz de covarianza representa la covarianza entre las variables $x^i$ y $x^j$,
+        $$\cov(x^i, x^j) = \frac{\sum_{k = 1}^n (x_k^i - \overline{x^i})(x_k^j - \overline{x^j})}{n}  = \frac{\langle x^i - \overline{x^i}, x^j - \overline{x^j} \rangle}{n} = {\Sigma}_{ij}.$$
     \end{itemize}
 \end{frame}
 
@@ -499,11 +510,12 @@ A partir de la matriz de covarianza, podemos calcular las componentes principale
         \item Los autovectores de la matriz de covarianza definen las direcciones de las componentes principales.
         \item Los autovalores indican la cantidad de varianza explicada por cada componente principal.
         \item Las componentes principales se obtienen proyectando los datos sobre estos autovectores:
-    \end{itemize}
     \[
-    \mathbf{Z} = \mathbf{X} \mathbf{U}
+    Z = X^\star U
     \]
-    donde \( \mathbf{Z} \) son las componentes principales, \( \mathbf{X} \) es la matriz de datos y \( \mathbf{U} \) es la matriz de autovectores.
+    donde $Z$ son las componentes principales, \( {X} \) es la matriz de datos y \( {U} \) es la matriz de autovectores.
+    \end{itemize}
+    
 \end{frame}
 
 
