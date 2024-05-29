@@ -1,0 +1,224 @@
+\documentclass[12pt]{article}
+
+\usepackage{geometry}
+\geometry{top=1.5cm,bottom=3cm,left=1.2cm,right=2cm}
+
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{t1enc}
+\usepackage{fontsmpl}
+%\usepackage{titlesec}
+\usepackage{enumerate}
+\usepackage{enumitem}
+
+
+\usepackage{listings,xcolor,bm}
+
+
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+\lstset{
+  backgroundcolor=\color{white},   % choose the background color; you must add
+  basicstyle=\ttfamily,      % the size of the fonts that are used for the code
+  breakatwhitespace=true,         % sets if automatic breaks should only happen at whitespace
+  breaklines=true,                 % sets automatic line breaking
+  captionpos=b,                    % sets the caption-position to bottom
+  commentstyle=\color{mygreen},    % comment style
+  deletekeywords={...},            % if you want to delete keywords from the given language
+  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+  firstnumber=1,                % start line enumeration with line 1000
+  frame=single,	                   % adds a frame around the code
+  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+  keywordstyle=\color{blue},       % keyword style
+  language=Python,                 % the language of the code
+  morekeywords={*,...},            % if you want to add more keywords to the set
+  numbers=none,                    % where to put the line-numbers; possible values are (none, left, right)
+  numbersep=5pt,                   % how far the line-numbers are from the code
+  numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
+  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+  showstringspaces=false,          % underline spaces within strings only
+  showtabs=false,                  % show tabs within strings adding particular underscores
+  stepnumber=5,                    % the step between two line-numbers. If it's 1, each line will be numbered
+  stringstyle=\color{mymauve},     % string literal style
+  tabsize=4,	                   % sets default tabsize to 2 spaces
+  title=\lstname,                  % show the filename of files included with \lstinputlisting; also try caption instead of title
+  belowskip=0em
+}
+
+\usepackage{multicol}
+\def\RR{{\rm I}\!\!{\rm R}}
+\def\NN{{\rm I}\!{\rm N}}
+\def\ZZ{{\rm Z}\!\!{\rm Z}}
+\def\di{\displaystyle}
+
+\def\sen{\mbox{sen\,}}
+
+\newcommand{\encabezado}[1]
+{
+
+\noindent\usefont{T1}{phv}{m}{n}
+{Matem\'atica 2 (B)\\
+Segundo Cuatrimestre - 2020}\\
+\smallskip
+
+\noindent{\large Pr\'actica 6: An\'alisis de datos}\\[-0.2cm]
+\hrule
+\normalfont}
+
+%\setlength{\parskip}{\baselineskip}
+
+\setlength{\parindent}{0pt}
+\renewcommand{\labelenumiii}{\roman{enumiii}) }
+
+
+\begin{document}
+
+\centerline{{\small Universidad de Buenos Aires - Facultad de Ciencias Exactas y Naturales - Ciencias de Datos}}
+
+\vskip 0.2cm
+
+\hrule
+
+\vskip 0.2cm
+
+ \centerline{{\bf\Large{\sc Laboratorio de Datos}}}
+
+ \vskip 0.2cm
+
+ \centerline{\ttfamily Primer Cuatrimestre 2024}
+
+\vskip 0.2cm
+
+ \hrule
+
+ \bigskip
+ \centerline{\bf Pr\'actica N$^\circ$ 8: Componentes principales}
+ \bigskip
+
+
+\thispagestyle{plain}
+
+
+%\renewcommand{\labelenumi}{\textbf{Ejercicio} \theenumi.}
+
+
+%%--------------------------------------
+%
+%\item Implementar un programa que reciba como input un archivo de texto \textit{archivo.txt} y devuelva los coeficientes de la regresi\'on lineal de las componentes principales de \textit{archivo.txt}.
+%
+%\setlength{\parskip}{\baselineskip}
+%
+
+
+%----------------------------------------------------------
+% 1
+\textbf{Componentes Principales}
+
+
+\begin{enumerate}
+\item Dada la siguiente tabla de datos correspondientes a la longitud y el ancho de las tortugas pintadas
+
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+\hline
+Longitud  & 93 & 94 & 96 & 101 & 102 & 103 & 104 & 106  \\
+Ancho     & 76 & 78 & 80 & 84  & 85  & 82  & 83  & 83   \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+\begin{enumerate}
+\item Normalizar las variables para que tengan media 0 y hacer el  diagrama de dispersi\'on. Estimar la presencia de correlaci\'on entre las variables a partir de este gr\'afico
+\item Calcular la matriz de covarianzas y hallar sus autovalores y autovectores.
+\item Hallar las componentes principales.
+\item Decidir si la informaci\'on est\'a mayormente representada en una de estas dos componentes.
+\item  Indicar la proporci\'on de la variabilidad explicada por cada una de ellas. ?` A que conclusi\'on  puede llegar?
+\end{enumerate}
+
+
+%-------------------------------------
+
+\item Sea
+$
+A = \left(
+\begin{array}{ccc}
+3 & 1 & 1 \\
+1 & 3 & 1 \\
+1 & 1 & 5\\
+\end{array}
+\right)
+$
+la matriz de covarianzas de una cierta muestra de datos cuya media es cero.
+\begin{enumerate}
+	\item Hallar los autovalores y autovectores de la matriz de covarianzas.
+	\item  Dar la expresi\'on de las componentes principales $z_1, z_2, z_3$ e indicar la proporci\'on de la variabilidad explicada por cada una de ellas.
+	\item Hallar los \textit{scores} de las primeras dos componentes principales correspondientes a la observaci\'on $x_1 = 2, x_2 = 2, x_3 = 1$ (es decir, los valores de $z_1$ y $z_2$ para dicha observaci\'on.
+\end{enumerate}	
+
+
+\item Implementar un programa que reciba como input un archivo de datos  y un n\'umero \textit{$p\_acum$} y devuelva la m\'inima cantidad de componentes principales que deben considerarse para que el porcentaje de varianza acumulada sea mayor o igual que \textit{$p\_acum$}.
+
+%1--------------------------------------------
+\item Considerando el archivo de datos \lstinline{p8-chalets.csv} se pide:
+
+\begin{enumerate}
+	\item Graficar los diagramas de dispersi\'on de las variables de a pares. Estimar la presencia de correlaci\'on entre las variables a partir de estos gr\'aficos.
+	\item Calcular la matriz de covarianzas.
+	\item A partir de lo observado, resulta razonable pensar en un an\'alisis de componentes principales para reducir la dimensi\'on del problema?
+	\item Hallar la primera componente principal.
+	\item Indicar qu\'e porcentaje de variabilidad total logra explicar esta componente. %Explicar si se trata de una componente de tamanio o de forma. Es posible ordenar las promotoras en fucni\'on de esta componente?  Si la respuesta es afirmativa, cu\'al es la mayor y cu\'al es la menor? En caso contrario, explicar por qu\'e no es posible ordenarlos.
+\end{enumerate}
+
+
+
+%1--------------------------------------------
+
+
+\item Considerar el dataset \lstinline{p8-iris.txt}, que representa informaci\'on del largo y ancho del p\'etalo y del s\'epalo de diversas muestras de flores de la especie Iris, la cual se puede distinguir en varias subespecies. Aplicar el programa del ejercicio anterior para determinar la menor cantidad de componentes principales necesarias para alcanzar un $90\%$ de variabilidad. Graficar los datos transformados que se obtienen luego de reducir variables.
+
+%-------------------------------------
+
+\item Con el objetivo de obtener \'indices \'utiles para la gesti\'on hospitalaria basados en t\'ecnicas estad\'isticas multivariantes descriptivas se recogi\'o informaci\'on del Hospital de Algeciras correspondiente a los ingresos hospitalarios del per\'iodo 2007-2008. Se estudiaron las siguientes variables habitualmente monitorizadas por el Servicio Andaluz de Sald del Sistema Nacional de Salud Espa\~nol:
+
+\begin{itemize}
+	\item[NI:] n\'umero de ingresos
+	\item[MO:] tasa de mortalidad
+	\item[RE:] tasa de egresos
+	\item[NE:] n\'umero de consultas externas
+	\item[ICM:] \'indice card\'iaco m\'aximo
+	\item[ES:] n\'umero de estancias	
+\end{itemize}
+
+Las variables se midieron en un total de 22486 ingresos. En el archivo \lstinline{p8-hospitales.csv} se aprecia la distribuci\'on de los valores obtenidos en las variables listadas por los servicios del hospital de Algeciras. Como hay variables con distintos \'ordenes de magnitud, en el archivo \texttt{p8-hospitales-escalado.csv} se escalaron las variables a un mismo rango. Utilizando el archivo escalado:
+
+\begin{enumerate}
+	\item Calcular las dos primeras componentes principales.
+	\item ?`Qu\'e porcentaje de variabilidad logra captar cada una de ellas?
+	\item ?`Considera adecuado considerar dos componentes principales?
+	\item Hallar la correlaci\'on entre las nuevas variables y las originales (por medio de $R^2$).
+    \item ?`Se obtienen las mismas conclusiones si se utiliza el archivo sin escalar?
+	%\item Ordenar los servicios en funci\'on de su puntuaci\'on en cada una de las dos primeras componentes principales, indicando cu\'ales son los sevicios m\'as demandados y los m\'as complejos
+\end{enumerate}
+
+\item Se realiza un estudio sobre la calidad del agua en 4 r\'ios distintos del pa\'is. En el estudio se miden las concentraciones de 4 sustancias presentes en el agua, realiz\'andose una medici\'on por d\'ia durante los 365 d\'ias de un a\"no. Los datos recolectados (generados artificialmente en este ejercicio) se encuentran en en el archivo \lstinline{p8-calidad-agua.csv}. Cada columna representa una de las 4 variables medidas: $x_1$, $x_2$, $x_3$ y $x_4$.
+
+\begin{enumerate}
+\item Realizar un gr\'afico de dispersi\'on de las variables $x_1$ y $x_2$. ?`Cu\'antos clusters puede observar?
+\item Realizar un gr\'afico de dispersi\'on de las variables $x_3$ y $x_4$. ?`Cu\'antos clusters puede observar?
+\item Realizar la descomposici\'on en componentes principales de los datos y realizar un gr\'afico de dispersi\'on de las dos primeras componentes principales $z_1$ y $z_2$. ?`Cu\'antos clusters puede observar?
+\item Utilizando el m\'etodo de clustering que considere apropiado, clasificar a los datos en 4 clusters utilizando solo las variables $z_1$ y $z_2$ y realizar nuevamente el gr\'afico de dispersi\'on de $z_1$ y $z_2$ coloreando cada punto seg\'un el cluster al que pertenece.
+\end{enumerate}
+\textbf{Importante:} al llamar al algoritmo de clustering utilice una matriz $W$ que contenga como columnas solo las variables $z_1$ y $z_2$.
+En todos los puntos, puede utilizar sus propias funciones y c\'odigo o las funciones de los paquetes de Python.
+
+
+\end{enumerate}
+
+\end{document}
