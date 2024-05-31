@@ -126,14 +126,14 @@ Segundo Cuatrimestre - 2020}\\
 
 \begin{enumerate}
 
-\item Se quiere estimar el nivel de colesterol en sangre por regresión lineal utilizando los siguientes datos de los pacientes: índice de masa corporal, minutos de ejercicio físico diario, cantidad de grasas ingeridas por día. Si se agrega una nueva variable ``último dígito del DNI del paciente'', y se compara con el modelo anterior mediante un esquema de entrenamiento y testeo, como espera que se modifique el error cuadrático medio (ECM):
-    
-\begin{enumerate}
-\item Aumenta el ECM tanto en entrenamiento como en testeo.
-\item Aumenta el ECM en entrenamiento y disminuye en testeo.
-\item Disminuye el ECM en entrenamiento y aumenta en testeo.
-\item Disminuye el ECM en entrenamiento y testeo.
-\end{enumerate}
+%\item Se quiere estimar el nivel de colesterol en sangre por regresión lineal utilizando los siguientes datos de los pacientes: índice de masa corporal, minutos de ejercicio físico diario, cantidad de grasas ingeridas por día. Si se agrega una nueva variable ``último dígito del DNI del paciente'', y se compara con el modelo anterior mediante un esquema de entrenamiento y testeo, como espera que se modifique el error cuadrático medio (ECM):
+%
+%\begin{enumerate}
+%\item Aumenta el ECM tanto en entrenamiento como en testeo.
+%\item Aumenta el ECM en entrenamiento y disminuye en testeo.
+%\item Disminuye el ECM en entrenamiento y aumenta en testeo.
+%\item Disminuye el ECM en entrenamiento y testeo.
+%\end{enumerate}
 
 %\item Para el siguiente DataFrame, ¿cuál es el resultado de aplicar el siguiente comando?
 %
@@ -186,97 +186,131 @@ Segundo Cuatrimestre - 2020}\\
 
 \begin{enumerate}
 \item Ambos métodos de clustering $k$-medias y DBSCAN son sensibles a la escala de los datos.
-\item Como medida de centralidad de datos, la mediana es menos sensible a outliers que la media.
+%\item Como medida de centralidad de datos, la mediana es menos sensible a outliers que la media.
 \item Clustering es un problema de aprendizaje supervisado.
-\item KNN es un método de clasificación no parámetrico.
-\item Regresión lineal es un método de aprendizaje supervisado y regresión Ridge es un método de aprendizaje no supervisado.
+%\item KNN es un método de clasificación no parámetrico.
+%\item Regresión lineal es un método de aprendizaje supervisado y regresión Ridge es un método de aprendizaje no supervisado.
 \end{enumerate}
 
-\item 
-En la siguiente tabla se muestran las edades de los pacientes que recibió un médico un día. Se realiza un boxplot para resumir los datos (utilizando bigotes de longitud hasta 1.5 veces la distancia intercuartil). ¿Cuál de los cuatro box-plot es el correcto?
+\item Utilizando la base de datos de ping\"uinos, completar:
 
-\item 
-\begin{table}[h!]
-    \centering
-    \begin{tabular}{|*{10}{c|}}
-        \hline
-        \textbf{Index} & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9\\
-        \hline
-        \textbf{Edad} & 12 & 15 & 27 & 35 & 37 & 40 & 45 & 50 & 84 \\
-        \hline
-    \end{tabular}
-    \caption{Table of ages in one row}
-    \label{tab:ages}
-\end{table}
+\begin{itemize}
+\item Peso promedio de los ping\"uinos de la especie Adelie.
+\item Peso promedio de los ping\"uinos de la especie Adelie que viven en la Isla Dream.
+\item Para cada isla, el desvío estándar del peso de los pingüinos que viven en esa isla.
+\end{itemize}
+
+\item Utilizando las edades de los pacientes que recibió un médico un día, se realiza un boxplot para resumir los datos (utilizando bigotes de longitud hasta 1.5 veces la distancia intercuartil).
+
+Si los datos tienen las siguientes propiedades:
+\begin{itemize}
+\item Media: 43
+\item Mediana: 37
+\item Máximo: 100
+\item Mínimo: 15
+\end{itemize}
+
+¿Cuál de los cuatro box-plot es el correcto?
+
+%\item
+%\begin{table}[h!]
+%    \centering
+%    \begin{tabular}{|*{10}{c|}}
+%        \hline
+%        \textbf{Index} & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9\\
+%        \hline
+%        \textbf{Edad} & 12 & 15 & 27 & 35 & 37 & 40 & 45 & 50 & 84 \\
+%        \hline
+%    \end{tabular}
+%    \caption{Table of ages in one row}
+%    \label{tab:ages}
+%\end{table}
 
 
 \begin{figure}[H]
     \centering
     \begin{subfigure}[b]{0.45\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{simu-boxplot1.png}
-        \caption{Image 1}
+        \includegraphics[width=\textwidth]{simu-boxplot1b.png}
+        \caption{}
         \label{fig:image1}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.45\textwidth}
         \centering
         \includegraphics[width=\textwidth]{simu-boxplot2.png}
-        \caption{Image 2}
+        \caption{}
         \label{fig:image2}
     \end{subfigure}
     \vskip\baselineskip
     \begin{subfigure}[b]{0.45\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{simu-boxplot3.png}
-        \caption{Image 3}
+        \includegraphics[width=\textwidth]{simu-boxplot3c.png}
+        \caption{}
         \label{fig:image3}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.45\textwidth}
         \centering
         \includegraphics[width=\textwidth]{simu-boxplot4.png}
-        \caption{Image 4}
+        \caption{}
         \label{fig:image4}
     \end{subfigure}
-    \caption{Four images arranged in two columns.}
+    %\caption{Four images arranged in two columns.}
     \label{fig:four_images}
 \end{figure}
-    
+
 \item Se quiere realizar un clustering con estos datos. ¿Cuál de las siguientes opciones considera que es la más apropiada?
+
+\begin{center}
+        \includegraphics[scale=0.8]{simu-moons.png}
+\end{center}
+
 
 \begin{enumerate}
 \item $k$-medias con $k = 2$
 \item $k$-medias con $k = 3$
 \item DBSCAN con $\varepsilon = 0.2$ y $minPts = 20$
-\item DBSCAN con $\varepsilon = 0.5$ y $minPts = 20$
+\item DBSCAN con $\varepsilon = 0.8$ y $minPts = 20$
 \end{enumerate}
 
-\item Completar el codigo falta para cada uno de los siguientes gráficos.
+\item Ingresar un código para generar el siguiente gráfico a partir de datos de Gapminder.
 
-\begin{enumerate}
-\item 
+\begin{center}
+        \includegraphics[width=\textwidth]{gdpConoSur.png}
+\end{center}
+
+Pueden utilizar el siguiente código para cargar los datos de Gapminder.
+\begin{lstlisting}
+from gapminder import gapminder
+\end{lstlisting}
+
+\end{enumerate}
+
+\end{document}
+
+\item
 \begin{lstlisting}
 (
     so.Plot(data = penguins, x = "bill_length_mm", y = "bill_depth_mm", ???)
     .add(so.Line(), so.PolyFit(1))
 )
 \end{lstlisting}
-\item 
+\item
 \begin{lstlisting}
 (
     so.Plot(data = penguins, ???)
     .add(so.Bars(), so.Hist())
 )
 \end{lstlisting}
-\item 
+\item
 \begin{lstlisting}
 (
     so.Plot(???)
     .add(so.Bars(), so.Hist())
 )
 \end{lstlisting}
-\item 
+\item
 \begin{lstlisting}
 (
     so.Plot(data = gapminder, ???)
@@ -287,13 +321,9 @@ En la siguiente tabla se muestran las edades de los pacientes que recibió un m�
 \end{enumerate}
 
 \item Para el siguiente conjunto de datos, aplicar en Python alguna técnica de clustering para obtener clusters como los de la figura de la derecha
-    
+
 \item Para el conjunto de datos en el archivo \lstinline{datos.csv}, calcular:
 \begin{enumerate}
 \item El promedio de la variable ``altura''.
-\item El peso medio para 
+\item El peso medio para
 \end{enumerate}
-
-\end{enumerate}
-
-\end{document}
