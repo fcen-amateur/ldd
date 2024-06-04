@@ -1,0 +1,171 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage{amssymb, enumitem}
+\setlist[enumerate,1]{label={\bfseries\arabic*.},ref={\bfseries{Ejercicio \arabic*}}}
+\setlist[enumerate,2]{label={\bfseries(\alph*)},ref={\bfseries(\alph*)}}
+
+
+\parindent 0cm
+\usepackage{amssymb,amsmath,amsthm,latexsym,epsfig,euscript,multicol}
+\usepackage{graphbox}
+
+\usepackage[utf8x]{inputenc}
+\usepackage{listings,xcolor,bm}
+
+
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+\lstset{
+  backgroundcolor=\color{white},   % choose the background color; you must add
+  basicstyle=\small\ttfamily,      % the size of the fonts that are used for the code
+  breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+  breaklines=true,                 % sets automatic line breaking
+  captionpos=b,                    % sets the caption-position to bottom
+  commentstyle=\color{mygreen},    % comment style
+  deletekeywords={...},            % if you want to delete keywords from the given language
+  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+  firstnumber=1,                % start line enumeration with line 1000
+  frame=none,	                   % adds a frame around the code
+  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+  keywordstyle=\color{blue},       % keyword style
+  language=Python,                 % the language of the code
+  morekeywords={*,...},            % if you want to add more keywords to the set
+  numbers=none,                    % where to put the line-numbers; possible values are (none, left, right)
+  numbersep=5pt,                   % how far the line-numbers are from the code
+  numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
+  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+  showstringspaces=false,          % underline spaces within strings only
+  showtabs=false,                  % show tabs within strings adding particular underscores
+  stepnumber=5,                    % the step between two line-numbers. If it's 1, each line will be numbered
+  stringstyle=\color{mymauve},     % string literal style
+  tabsize=4,	                   % sets default tabsize to 2 spaces
+  title=\lstname                   % show the filename of files included with \lstinputlisting; also try caption instead of title
+}
+% Caracteres especiales
+\def\A{\mathbb{A}}
+\def\C{\mathbb{C}}
+\def \N{\mathbb{N}}
+\def \P{\mathbb{P}}
+\def \Q{\mathbb{Q}}
+\def \R{\mathbb{R}}
+\def \Z{\mathbb{Z}}
+\def \sen{\textrm{sen}}
+
+\def\Np{$\N$}
+\def\Zp{$\Z$}
+\def\Qp{$\Q$}
+\def\Rp{$\R$}
+\def\Cp{$\C$}
+
+\def\bb{\bm{b}}
+\def\bu{\bm{u}}
+\def\bv{\bm{v}}
+\def\bx{\bm{x}}
+\def\bA{\bm{A}}
+\def\bB{\bm{B}}
+\def\bD{\bm{D}}
+\def\bE{\bm{E}}
+\def\bM{\bm{M}}
+\def\bT{\bm{T}}
+
+
+\def\K{\textrm{K}}
+\def\V{\textrm{V}}
+\def\S{\textrm{S}}
+
+\def\degres{$^\circ$}
+
+\newcount\todno
+\def\no{\global\advance\todno by 1 \the\todno}
+
+\topmargin-2cm \vsize 29.5cm \hsize 21cm
+\setlength{\textwidth}{16.75cm}\setlength{\textheight}{23.5cm}
+\setlength{\oddsidemargin}{0.0cm}
+\setlength{\evensidemargin}{0.0cm}
+
+
+\theoremstyle{definition}
+\newtheorem{ejer}{Ejercicio}
+\newcommand{\bej}{\begin{ejer}}
+\newcommand{\fej}{\end{ejer}}
+
+\begin{document}
+
+\centerline{{\small Universidad de Buenos Aires - Facultad de Ciencias Exactas y Naturales - Ciencias de Datos}}
+
+\vskip 0.2cm
+
+\hrule
+
+\vskip 0.2cm
+
+ \centerline{{\bf\Large{\sc Laboratorio de Datos}}}
+
+ \vskip 0.2cm
+
+ \centerline{\ttfamily Primer Cuatrimestre 2024}
+
+\vskip 0.2cm
+
+ \hrule
+
+ \bigskip
+ \centerline{\bf Práctica N$^\circ$ 9: Descenso por gradiente}
+ \bigskip
+
+
+Para realizar esta guía de ejercicios, descargar de la página de la materia el archivo \verb|tf_regressor.py| para poder correr el siguiente comando
+\begin{lstlisting}
+from tf_regressor import Regressor, train_test_split_scale_center
+\end{lstlisting}
+
+\begin{enumerate}
+    \item En este ejercicio utilizaremos el dataset \verb|casos_coronavirus|.
+    \begin{enumerate}
+        \item Cargar el dataset y añadirle la columna \verb|dias_transcurridos| con el indice de cada observación
+        \item Plotear \verb|dias_transcurridos| vs. \verb|confirmados_Nuevos|
+        \item Queremos armar un modelo de regresión que permita explicar la evolución de casos de coronavirus ($Y$) en función de los días transcurridos ($X$). Para esto se proponen los siguientes modelos:
+        \begin{enumerate}
+            \item $Y = b + w_0\;X + w_1\; X^2$
+            \item $Y = b + w_0\; X^{w_1}$
+            \item $Y = b + w\; e^{X}$ 
+            \item $Y = b + w_0\; e^{w_1\; X}$
+        \end{enumerate}
+        Dividir el conjunto de datos en entrenamiento y testeo y decidir qué modelo resulta más adecuado. Utilizar \verb|scikit-learn| para los modelos lineales y \verb|Regressor| para los no lineales. En este último caso, se pueden usar de guía los modelos lineales para establecer valores iniciales de los pesos. Probar con distintas cantidades de épocas y valores iniciales para los pesos y el bias.
+        
+        \textbf{Obs:} para el modelo iv) escribir \verb|f| utilizando \verb|np.e**(w[1]*x)| para $e^{w_1\; x}$
+    \end{enumerate}
+
+
+    \item En este ejercicio trabajaremos con el dataset \verb|titanic| de \verb|seaborn|
+\begin{lstlisting}
+titanic = sns.load_dataset('titanic')
+\end{lstlisting}
+\begin{enumerate}
+\item Limpiando el dataset:
+\begin{enumerate}
+    \item contar cuantos \verb|NaN| tiene cada columna, y en base a eso decidir qué columna del dataset descartar antes de ejecutar \verb|.dropna()|
+    \item graficar un boxplot de \verb|fare| (precio del boleto), ¿qué se observa?
+    \item explorar el método de pandas \verb|quantile| para calcular el cuantil $0.99$ de la columna \verb|fare| y utilizarlo para eliminar las observaciones con outliers en esa columna.
+\end{enumerate}
+\item Realizar regresión logística para predecir la variable binaria de supervivencia (\verb|survived|) a partir del precio del boleto (\verb|fare|). ¿Qué porcentaje de casos clasifica correctamente?
+\item Repetir el item anterior, considerando la interacción de la suma de \verb|fare| y \verb|age| con \verb|adult_male|. ¿Cuánto mejoró la precisión de la clasificación? ¿Qué se puede concluir a partir de la mejora en la precisión y del análisis de los pesos que el modelo otorga a cada variable?
+\item Proponer un método que permita obtener una clasificación más precisa mediante regresión logística. Las demás columnas del DataFrame son:
+\begin{itemize}
+    \item \verb|pcclass| : clase en la que viajaba
+    \item \verb|sibsp| : si viajaba con hermanos/as o cónyugues
+    \item \verb|parch| : cantidad de hijes o padres con los que viajaba
+    \item \verb|embarked| : donde se embarcó
+    \item \verb|class| : nombre de la clase en la que viajaba (dato de \verb|pcclass| en string)
+    \item \verb|embark_town| : nombre del lugar donde embarcó
+    \item \verb|alive| : si sobrevivió (mismo valor que \verb|survived| pero booleano, por lo tanto no usar para predecir)
+    \item \verb|alone| : si viajaba solo/a (es \verb|True| si $sibsp=0$ y $parch=0$)
+\end{itemize}
+
+
+\end{enumerate}
+\end{enumerate}
+\end{document}
+
