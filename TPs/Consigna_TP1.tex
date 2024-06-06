@@ -1,0 +1,231 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage{amssymb, enumitem}
+\setlist[enumerate,1]{label={\bfseries\arabic*.},ref={\bfseries{Ejercicio \arabic*}}}
+\setlist[enumerate,2]{label={\bfseries(\alph*)},ref={\bfseries(\alph*)}}
+
+
+\parindent 0cm
+\usepackage{amssymb,amsmath,amsthm,latexsym,epsfig,euscript,multicol}
+\usepackage{graphbox}
+\usepackage{booktabs}
+
+\usepackage[utf8x]{inputenc}
+\usepackage{listings,xcolor,bm}
+\usepackage{url}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    urlcolor=blue,
+    }
+
+
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+\lstset{
+  backgroundcolor=\color{white},   % choose the background color; you must add
+  basicstyle=\ttfamily,      % the size of the fonts that are used for the code
+  breakatwhitespace=true,         % sets if automatic breaks should only happen at whitespace
+  breaklines=true,                 % sets automatic line breaking
+  captionpos=b,                    % sets the caption-position to bottom
+  commentstyle=\color{mygreen},    % comment style
+  deletekeywords={...},            % if you want to delete keywords from the given language
+  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+  firstnumber=1,                % start line enumeration with line 1000
+  frame=none,	                   % adds a frame around the code
+  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+  keywordstyle=\color{blue},       % keyword style
+  language=Python,                 % the language of the code
+  morekeywords={*,...},            % if you want to add more keywords to the set
+  numbers=none,                    % where to put the line-numbers; possible values are (none, left, right)
+  numbersep=5pt,                   % how far the line-numbers are from the code
+  numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
+  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+  showstringspaces=false,          % underline spaces within strings only
+  showtabs=false,                  % show tabs within strings adding particular underscores
+  stepnumber=5,                    % the step between two line-numbers. If it's 1, each line will be numbered
+  stringstyle=\color{mymauve},     % string literal style
+  tabsize=4,	                   % sets default tabsize to 2 spaces
+  title=\lstname,                  % show the filename of files included with \lstinputlisting; also try caption instead of title
+  belowskip=0em
+}
+% Caracteres especiales
+\def\A{\mathbb{A}}
+\def\C{\mathbb{C}}
+\def \N{\mathbb{N}}
+\def \P{\mathbb{P}}
+\def \Q{\mathbb{Q}}
+\def \R{\mathbb{R}}
+\def \Z{\mathbb{Z}}
+\def \sen{\textrm{sen}}
+
+\def\Np{$\N$}
+\def\Zp{$\Z$}
+\def\Qp{$\Q$}
+\def\Rp{$\R$}
+\def\Cp{$\C$}
+
+\def\bb{\bm{b}}
+\def\bu{\bm{u}}
+\def\bv{\bm{v}}
+\def\bx{\bm{x}}
+\def\bA{\bm{A}}
+\def\bB{\bm{B}}
+\def\bD{\bm{D}}
+\def\bE{\bm{E}}
+\def\bM{\bm{M}}
+\def\bT{\bm{T}}
+
+
+\def\K{\textrm{K}}
+\def\V{\textrm{V}}
+\def\S{\textrm{S}}
+
+\def\degres{$^\circ$}
+
+\newcount\todno
+\def\no{\global\advance\todno by 1 \the\todno}
+
+\topmargin-2cm \vsize 29.5cm \hsize 21cm
+\setlength{\textwidth}{16.75cm}\setlength{\textheight}{23.5cm}
+\setlength{\oddsidemargin}{0.0cm}
+\setlength{\evensidemargin}{0.0cm}
+
+
+\theoremstyle{definition}
+\newtheorem{ejer}{Ejercicio}
+\newcommand{\bej}{\begin{ejer}}
+\newcommand{\fej}{\end{ejer}}
+
+\begin{document}
+
+\centerline{{\small Universidad de Buenos Aires - Facultad de Ciencias Exactas y Naturales - Ciencias de Datos}}
+
+\vskip 0.2cm
+
+\hrule
+
+\vskip 0.2cm
+
+ \centerline{{\bf\Large{\sc Laboratorio de Datos}}}
+
+ \vskip 0.2cm
+
+ \centerline{\ttfamily Primer Cuatrimestre 2024}
+
+\vskip 0.2cm
+
+ \hrule
+
+ \bigskip
+ \centerline{\bf Trabajo Práctico N$^\circ$ 1}
+ \bigskip
+
+El Trabajo Práctico deberá ser resuelto en grupos de dos o tres personas. No se aceptarán entregas individuales. La entrega se realizará a través del campus (pestaña Trabajos Prácticos). La fecha límite es el 28/05 a las 23:59. Deben entregar un Notebook con los nombres de les integrantes del equipo, la resolución de los ejercicios y los informes pertinentes.
+
+Se valorará que el Notebook y el código tengan un formato prolijo: ejercicios separados por títulos (Ejercicio 1, Ejercicio 2, etc.), nombres descriptivos para las variables, comentarios, etc.
+
+\vspace{0.5cm}
+
+Trabajaremos con el dataset \verb|sube-2023.csv|\footnote{Fuente: \url{https://datos.transporte.gob.ar/dataset/sube-cantidad-de-transacciones-usos-por-fecha}} que contiene datos sobre la utilización de la SUBE durante el año 2023 a nivel nacional. En este \href{https://datos.transporte.gob.ar/dataset/sube-cantidad-de-transacciones-usos-por-fecha/archivo/b5ad6c87-28ae-4893-92bd-79b115d8b6e3}{link} pueden consultar el tipo y la descripción de cada variable.
+
+\subsection*{Procesamiento de datos [2 pts.]}
+
+\begin{enumerate}
+    \item
+        \begin{enumerate}
+            \item     Visualizar el tipo de datos de cada columna. Transformar la columna \verb|DIA_TRANSPORTE| para que sea reconocida como una fecha.
+
+            \textbf{Sugerencia:} investigar la función \verb|to_datetime| de \verb|pandas|. Para completar el argumento \verb|format|, revisar la \href{https://docs.python.org/es/3/library/datetime.html#strftime-and-strptime-format-codes}{documentación} de \verb|datetime|
+
+            \item Agregar tres columnas al DataFrame:
+            \begin{enumerate}
+                \item \verb|FECHA_DIA| : debe indicar el nombre del día de la semana correspondiente a \newline\verb|DIA_TRANSPORTE|
+                \item \verb|FECHA_ORDINAL| : debe indicar el ordinal correspondiente a \verb|DIA_TRANSPORTE| (por ejemplo, a 2023-01-01 le corresponde 1, a 2023-01-02 le corresponde 2 y así sucesivamente). Debe ser un entero (\verb|int|).
+                \item \verb|FECHA_MES| : debe indicar el mes correspondiente a \verb|DIA_TRANSPORTE|
+            \end{enumerate}
+            \textbf{Sugerencia:} investigar el método \verb|apply| de \verb|DataFrame|.
+
+        \end{enumerate}
+    % \textbf{Sugerencia:} puede basarse en el siguiente código:
+% \begin{lstlisting}
+% ???.apply(lambda a: a.strftime(format=???))
+% \end{lstlisting}
+
+
+\item Crear el DataFrame \verb|datos_amba|, el cual sólo debe tener datos de AMBA y debe excluir datos preliminares. Además, al ejecutar \verb|datos_amba.head()| debe observarse el siguiente orden y formato de columnas:
+
+\includegraphics[width=\textwidth]{head.png}
+
+
+\item Utilizando \verb|datos_amba|, identificar:
+\begin{enumerate}
+    \item la proporción de la cantidad total anual de pasajeros que le corresponde a cada medio de transporte
+    \item la tupla (mes, línea de subte) donde viajó la mayor cantidad de pasajeros
+    % \item la fecha del día hábil de menor cantidad de pasajeros promedio entre los colectivos de jurisdicción municipal.
+    \item el día hábil\footnote{Consideramos como día hábil a cualquier día, salvo Sábado y Domingo, sin importar si es feriado.} con menor desvío estándar en cantidad de pasajeros
+\end{enumerate}
+
+% \item Elaborar un gráfico que permita comparar la media y los cuartiles de la cantidad anual de pasajeros en los días hábiles para cada una de las nueve líneas de colectivo que llegan a Ciudad Universitaria.
+
+\end{enumerate}
+
+\subsection*{Análisis Exploratorio [5 pts.]}
+
+\begin{enumerate}\addtocounter{enumi}{3}
+\item \textit{Análisis exploratorio.} La idea de este ítem es que realicen un análisis exploratorio de los datos, aplicando las herramientas de visualización (\verb|seaborn.objects|, \verb|seaborn| y/o \verb|matplotlib|) y de resumen de datos (media, mediana, desvío estándar, operaciones sobre el DataFrame, etc.).
+
+El objetivo es entender, comparar y/o estudiar aspectos o patrones en la cantidad de pasajeros del transporte público. Algunas preguntas disparadoras pueden ser:
+\begin{itemize}
+    \item ¿Cómo varía el uso del transporte público a lo largo del año? ¿Se observa el mismo efecto en AMBA y en el interior del país? ¿Y en todos los medios de transporte por igual?
+    \item ¿Cómo difiere el uso del transporte público durante los días hábiles en comparación a los fines de semana?
+    \item ¿Hay algún día hábil que resulte un outlier? ¿Pueden explicarlo?
+\end{itemize}
+No es necesario que respondan a cada una de esas preguntas, pueden explorar por donde se les ocurra. Tampoco están limitades a usar sólo el dataset de 2023 (en el link hay datasets desde 2020 a 2024). Pueden hacer comparaciones interanuales, enfocarse en un solo tipo de transporte, etc.
+
+En el Notebook, las visualizaciones y resúmenes de datos que realicen deben estar acompañados por las conclusiones que obtengan a partir de ellos.
+
+\end{enumerate}
+
+\subsection*{Modelado [3 pts.]}
+\begin{enumerate}\addtocounter{enumi}{4}
+\item \textit{Modelo de regresión.}
+En este \'item, intentaremos ajustar la cantidad de pasajeros que viajan por día en una línea de colectivos utilizando la información de pasajeros por día de otras líneas. Para esto, utilizaremos el dataset \verb|sube-2023-regresion.csv|
+
+\begin{enumerate}
+\item Generar un DataFrame en el que las columnas sean las líneas de colectivo (\lstinline{TIPO_TRANSPORTE == "COLECTIVO"}) de AMBA de jurisdicción nacional (\lstinline{PROVINCIA == "JN"}) y las observaciones sean los días del año. Es decir, cada fila del DataFrame corresponde a un día del año, y en esa fila deben figurar la cantidad de pasajeros que viajaron en cada línea de colectivo en el día correspondiente.
+    
+    Para generar el DataFrame pueden completar el siguiente código:
+    \newpage
+\begin{lstlisting}
+datos_ColectivoJN = datos_AMBA[???]
+cols = datos_ColectivoJN.LINEA.unique()  # Los nombres de las lineas de colectivo
+
+pasajeros_por_linea = pd.DataFrame()
+for col in cols:
+    datos_linea = datos_ColectivoJN[datos_ColectivoJN.LINEA == col][["DIA_TRANSPORTE", "CANTIDAD"]]
+    datos_linea = datos_linea.set_index("DIA_TRANSPORTE").rename(columns = {"CANTIDAD" : col})
+    pasajeros_por_linea = pd.concat([pasajeros_por_linea, datos_linea], axis = 1)
+\end{lstlisting}
+
+\item Eliminar las columnas correspondientes a l\'ineas de colectivo que tengan datos faltantes.
+
+\item Se quiere ajustar la cantidad de pasajeros en la l\'inea \lstinline{BSAS_LINEA_009} en funci\'on de los pasajeros en otras l\'ineas.
+Proponer tres modelos de regresi\'on distintos. En cada modelo, pueden utilizarse la informaci\'on solo de otras 5 l\'ineas de colectivos (pueden ser distintas l\'ineas de colectivo en los distintos modelos). Los criterios de selecci\'on de esas 5 columnas los determinan ustedes, y deben estar explicitados en el informe.
+
+\item Si alguno de los modelos es Regresi\'on Ridge, determinar mediante un esquema de validaci\'on el hiperpar\'ametro $\alpha$.
+
+\item Proponer un esquema de validaci\'on de los modelos y utilizarlo para seleccionar el mejor de los tres modelos propuestos.
+
+\item Para el modelo elegido, indicar la f\'ormula final de modelo.
+
+\item Los modelos propuestos por los distintos grupos ser\'an testeados en un conjunto de testeo conteniendo d\'ias distintos a los utilizados para la construcci\'on del modelo. Los equipos que tengan los mejores desempe\~nos obtendr\'an un punto bonus en la nota del TP.
+\end{enumerate}
+
+
+\end{enumerate}
+
+\end{document}
+
