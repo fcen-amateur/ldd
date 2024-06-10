@@ -112,7 +112,7 @@
  \hrule
 
  \bigskip
- \centerline{\bf Práctica N$^\circ$ 9: Descenso por gradiente}
+ \centerline{\bf Práctica N$^\circ$ 9: Descenso por gradiente y Redes Neuronales}
  \bigskip
 
 
@@ -163,9 +163,18 @@ titanic = sns.load_dataset('titanic')
     \item \verb|alive| : si sobrevivió (mismo valor que \verb|survived| pero booleano, por lo tanto no usar para predecir)
     \item \verb|alone| : si viajaba solo/a (es \verb|True| si $sibsp=0$ y $parch=0$)
 \end{itemize}
-
-
 \end{enumerate}
+
+\item Utilizando el dataset \verb|diabetes.csv|, se quiere desarrollar un modelo para predecir si una persona tiene o no diabetes en base a las características descriptas en el resto de las columnas.
+\begin{enumerate}
+    \item Entrenar un perceptrón simple que permita categorizar a una persona como diabética o no diabética utilizando la sigmoidea como función de activación. ¿Cuántos falsos negativos hay? ¿Cómo se intepretan los pesos de la red entrenada?
+    \item Diseñar una red multicapa para la clasificación, utilizando la sigmoidea como función de activación. ¿Cómo se desempeña este modelo con respecto al anterior?
+\end{enumerate}
+
+\item Probar que un perceptrón simple con la identidad como función de activación es equivalente a un modelo de Regresión Lineal.
+
+
+
 \end{enumerate}
 \end{document}
 
