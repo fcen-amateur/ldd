@@ -4,6 +4,8 @@
 \setlist[enumerate,2]{label={\bfseries(\alph*)},ref={\bfseries(\alph*)}}
 
 
+\usepackage{longtable}
+
 \parindent 0cm
 \usepackage{amssymb,amsmath,amsthm,latexsym,epsfig,euscript,multicol}
 \usepackage{graphbox}
@@ -221,6 +223,154 @@ más parecidos a Mbappé según el criterio que elijan. De esos 10 jugadores, se
 \end{enumerate}
 \end{enumerate}
 
+\section*{Apéndice: descripción de algunas columnas}
+
+Los datos están tomados del sitio web FBRef, en la sección ``Big 5 European Leagues History''. En ese sitio pueden ver el detalle de qué significa cada columna. Por ejemplo, pueden ingresar a este enlace
+\url{https://fbref.com/en/comps/Big5/stats/players/Big-5-European-Leagues-Stats} y entrar al enlace "Glossary". Algunos nombres están levemente modificados.
+
+En la siguiente tabla incluimos la descripción de las columnas principales.
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=cyan,
+    pdftitle={Tabla de Descripciones},
+    pdfpagemode=FullScreen,
+}
+
+
+%\begin{table}[ht]
+%    \centering
+    \begin{longtable}{|l|p{12cm}|}
+        \hline
+        \textbf{Columna} & \textbf{Descripción} \\
+        \hline
+        \hyperlink{tooltip:Rk}{Rk} & \textit{Rango} \\
+        & Conteo de filas de arriba hacia abajo. Se recalcula al ordenar una columna. \\
+        \hline
+        \hyperlink{tooltip:Nation}{Nation} & \textit{Nacionalidad del jugador} \\
+        & Primero, verificamos nuestros registros en el juego internacional a nivel sénior. Luego, a nivel juvenil. Luego, la ciudadanía presentada en Wikipedia. Finalmente, usamos su lugar de nacimiento cuando está disponible. \\
+        \hline
+        \hyperlink{tooltip:Pos}{Pos} & \textit{Posición} \\
+        & Posición más comúnmente jugada por el jugador:
+          \newline GK - Porteros
+          \newline DF - Defensores
+          \newline MF - Mediocampistas
+          \newline FW - Delanteros
+          \newline FB - Laterales
+          \newline LB - Laterales Izquierdos
+          \newline RB - Laterales Derechos
+          \newline CB - Defensas Centrales
+          \newline DM - Mediocampistas Defensivos
+          \newline CM - Mediocampistas Centrales
+          \newline LM - Mediocampistas Izquierdos
+          \newline RM - Mediocampistas Derechos
+          \newline WM - Mediocampistas Exteriores
+          \newline LW - Extremos Izquierdos
+          \newline RW - Extremos Derechos
+          \newline AM - Mediocampistas Ofensivos \\
+        \hline
+        \hyperlink{tooltip:Comp}{Comp} & \textit{Competencia} \\
+        & La competencia. El número junto a la competencia indica qué nivel ocupa esta liga en la pirámide de ligas del país. \\
+        \hline
+        \hyperlink{tooltip:Age}{Age} & \textit{Edad al inicio de la temporada} \\
+        & Dada el 1 de agosto para ligas de invierno y el 1 de febrero para ligas de verano. \\
+        \hline
+        \hyperlink{tooltip:Born}{Born} & \textit{Año de nacimiento} \\
+        & Año de nacimiento del jugador. \\
+        \hline
+        \hyperlink{tooltip:MP}{MP} & \textit{Partidos Jugados} \\
+        & Partidos jugados por el jugador o equipo. \\
+        \hline
+        \hyperlink{tooltip:Starts}{Starts} & \textit{Titularidades} \\
+        & Juego o juegos comenzados por el jugador. \\
+        \hline
+        \hyperlink{tooltip:Min}{Min} & \textit{Minutos} \\
+        & Minutos jugados. \\
+        \hline
+        \hyperlink{tooltip:90s}{90s} & \textit{Partidos completos jugados} \\
+        & Partidos completos jugados (minutos jugados divididos por 90). \\
+        \hline
+        \hyperlink{tooltip:Gls}{Gls} & \textit{Goles} \\
+        & Goles marcados o permitidos. \\
+        \hline
+        \hyperlink{tooltip:Ast}{Ast} & \textit{Asistencias} \\
+        & Asistencias. \\
+        \hline
+        \hyperlink{tooltip:G+A}{G+A} & \textit{Goles + Asistencias} \\
+        & Goles y Asistencias. \\
+        \hline
+        \hyperlink{tooltip:G-PK}{G-PK} & \textit{Goles sin Penaltis} \\
+        & Goles sin incluir penaltis. \\
+        \hline
+        \hyperlink{tooltip:PK}{PK} & \textit{Penaltis Marcados} \\
+        & Penaltis marcados. \\
+        \hline
+        \hyperlink{tooltip:PKatt}{PKatt} & \textit{Penaltis Intentados} \\
+        & Penaltis intentados. \\
+        \hline
+        \hyperlink{tooltip:CrdY}{CrdY} & \textit{Tarjetas Amarillas} \\
+        & Tarjetas Amarillas. \\
+        \hline
+        \hyperlink{tooltip:CrdR}{CrdR} & \textit{Tarjetas Rojas} \\
+        & Tarjetas Rojas. \\
+        \hline
+        \hyperlink{tooltip:xG}{xG} & \textit{xG: Goles Esperados} \\
+        & Goles Esperados. Incluyen penaltis pero no tandas de penaltis (a menos que se indique lo contrario). Proporcionado por Opta. Un subrayado indica que falta información de un partido, pero se actualizará cuando esté disponible. \\
+        \hline
+        \hyperlink{tooltip:npxG}{npxG} & \textit{npxG: Goles Esperados sin Penaltis} \\
+        & Goles Esperados sin Penaltis. Proporcionado por Opta. Un subrayado indica que falta información de un partido, pero se actualizará cuando esté disponible. \\
+        \hline
+        \hyperlink{tooltip:xAG}{xAG} & \textit{xAG: Asistencias de Goles Esperados} \\
+        & Asistencias de Goles Esperados. xG que sigue a un pase que asiste a un tiro. Proporcionado por Opta. Un subrayado indica que falta información de un partido, pero se actualizará cuando esté disponible. \\
+        \hline
+        \hyperlink{tooltip:npxG+xAG}{npxG + xAG} & \textit{npxG + xAG} \\
+        & Goles Esperados sin Penaltis más Asistencias de Goles Esperados. Incluyen penaltis pero no tandas de penaltis (a menos que se indique lo contrario). Proporcionado por Opta. Un subrayado indica que falta información de un partido, pero se actualizará cuando esté disponible. Mínimo de 30 minutos jugados por partido de equipo para calificar como líder. \\
+        \hline
+        \hyperlink{tooltip:PrgC}{PrgC} & \textit{Avances Progresivos} \\
+        & Conducciones que mueven el balón hacia la línea de gol del oponente al menos 10 yardas desde su punto más lejano en los últimos seis pases, o cualquier conducción dentro del área de penalti. Excluye conducciones que terminan en el 50\% defensivo del campo. \\
+        \hline
+        \hyperlink{tooltip:PrgP}{PrgP} & \textit{Pases Progresivos} \\
+        & Pases completados que mueven el balón hacia la línea de gol del oponente al menos 10 yardas desde su punto más lejano en los últimos seis pases, o cualquier pase completado dentro del área de penalti. Excluye pases desde el 40\% defensivo del campo. \\
+        \hline
+        \hyperlink{tooltip:PrgR}{PrgR} & \textit{Pases Progresivos Recibidos} \\
+        & Pases completados que mueven el balón hacia la línea de gol del oponente al menos 10 yardas desde su punto más lejano en los últimos seis pases, o cualquier pase completado dentro del área de penalti. Excluye pases desde el 40\% defensivo del campo. \\
+        \hline
+        \hyperlink{tooltip:Gls}{Gls/90} & \textit{Goles por 90 minutos} \\
+        & Goles marcados por 90 minutos. Mínimo de 30 minutos jugados por partido de equipo para calificar como líder. \\
+        \hline
+        \hyperlink{tooltip:Ast}{Ast/90} & \textit{Asistencias por 90 minutos} \\
+        & Asistencias por 90 minutos. Mínimo de 30 minutos jugados por partido de equipo para calificar como líder. \\
+        \hline
+        \hyperlink{tooltip:G+A}{G+A/90} & \textit{Goles + Asistencias por 90 minutos} \\
+        & Goles y Asistencias por 90 minutos. Mínimo de 30 minutos jugados por partido de equipo para calificar como líder. \\
+        \hline
+        \hyperlink{tooltip:G-PK}{G-PK/90} & \textit{Goles sin Penaltis por 90 minutos} \\
+        & Goles menos penaltis marcados por 90 minutos. Mínimo de 30 minutos jugados por partido de equipo para calificar como líder. \\
+        \hline
+        \hyperlink{tooltip:G+A-PK}{G+A-PK/90} & \textit{Goles + Asistencias sin Penaltis por 90 minutos} \\
+        & Goles más asistencias menos penaltis marcados por 90 minutos. Mínimo de 30 minutos jugados por partido de equipo para calificar como líder. \\
+        \hline
+        \hyperlink{tooltip:xG}{xG/90} & \textit{Goles Esperados por 90 minutos} \\
+        & Goles Esperados por 90 minutos. Incluyen penaltis pero no tandas de penaltis (a menos que se indique lo contrario). Proporcionado por Opta. Un subrayado indica que falta información de un partido, pero se actualizará cuando esté disponible. Mínimo de 30 minutos jugados por partido de equipo para calificar como líder. \\
+        \hline
+        \hyperlink{tooltip:xAG}{xAG/90} & \textit{Asistencias de Goles Esperados por 90 minutos} \\
+        & Asistencias de Goles Esperados por 90 minutos. Proporcionado por Opta. Un subrayado indica que falta información de un partido, pero se actualizará cuando esté disponible. Mínimo de 30 minutos jugados por partido de equipo para calificar como líder. \\
+        \hline
+        \hyperlink{tooltip:xG+xAG}{xG+xAG/90} & \textit{Goles Esperados + Asistencias de Goles Esperados por 90 minutos} \\
+        & Goles Esperados más Asistencias de Goles Esperados por 90 minutos. Incluyen penaltis pero no tandas de penaltis (a menos que se indique lo contrario). Proporcionado por Opta. Un subrayado indica que falta información de un partido, pero se actualizará cuando esté disponible. Mínimo de 30 minutos jugados por partido de equipo para calificar como líder. \\
+        \hline
+        \hyperlink{tooltip:npxG}{npxG/90} & \textit{Goles Esperados sin Penaltis por 90 minutos} \\
+        & Goles Esperados sin Penaltis por 90 minutos. Proporcionado por Opta. Un subrayado indica que falta información de un partido, pero se actualizará cuando esté disponible. Mínimo de 30 minutos jugados por partido de equipo para calificar como líder. \\
+        \hline
+        \hyperlink{tooltip:npxG+xAG}{npxG+xAG/90} & \textit{Goles Esperados sin Penaltis + Asistencias de Goles Esperados por 90 minutos} \\
+        & Goles Esperados sin Penaltis más Asistencias de Goles Esperados por 90 minutos. Proporcionado por Opta. Un subrayado indica que falta información de un partido, pero se actualizará cuando esté disponible. Mínimo de 30 minutos jugados por partido de equipo para calificar como líder. \\
+        \hline
+    \end{longtable}
+%    \caption{Descripciones de Columnas con Traducciones al Español}
+%    \label{tab:descriptions}
+%\end{table}
 
 \end{document}
 
