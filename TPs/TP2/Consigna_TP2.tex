@@ -204,16 +204,15 @@ data=pd.read_csv('transfermarkt_fbref_201920.csv', delimiter=';')
 
 \begin{enumerate}
 \item En 2021 Messi fue transferido del Barcelona al PSG. Baśandose en los datos disponibles, recomendarle a
-Barcelona
-un jugador de características similares  a Messi pero de menor valor.
+Barcelona un jugador de características similares  a Messi pero de menor valor.
 \item Queremos elaborar un modelo para detectar jugadores ``baratos'', es decir cuya valuación en el mercado sea
 inferior a que la que nosotros estimemos. Para esto, quisiéramos ajustar el valor de mercado a partir de los datos de
-los jugadores. El modelo que desarrollen puede basarse en redes neuronales o en otro modelo que consideren adecuado.
+los jugadores (para estimar la valuación pueden incorporar la edad entre las variables explicativas). El modelo que desarrollen puede basarse en redes neuronales o en otro modelo que consideren adecuado.
+\item Según el modelo desarrollado, entre los jugadores con un valor de mercado mayor a \$$100000$,
+¿quién es el más sobrevalorado? Es decir, el jugador con mayor diferencia entre el valor de mercado y el valor predicho por el modelo. ¿Y el más infravalorado?
 \item El PSG quiere vender a Mbappé y reemplazarlo por otro jugador más barato. Hacer un listado de los 10 jugadores
 más parecidos a Mbappé según el criterio que elijan. De esos 10 jugadores, según el modelo que desarrollaron en el
-ítem antrior, ¿hay algún jugador que esté valuado por abajo de las predicciones?
-\item Según el modelo desarrollado en el ítem b), entre los jugadores con un valor de mercado mayor a \$$100000$,
-¿quién es el más sobrevalorado? ¿y el más infravalorado?
+ítem anterior, ¿a qué jugador recomendarían teniendo en cuenta la valuación del mercado y la predicción del modelo? Para ese jugador, averiguar la valuación actual del jugador. ¿Hicieron una buena recomendación?
 \end{enumerate}
 \end{enumerate}
 
