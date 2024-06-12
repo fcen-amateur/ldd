@@ -159,7 +159,8 @@ Para clustering y clasificación no vamos a utilizar las variables categóricas 
 \item Escalar los datos y realizar un análisis de componentes principales, quedándose solo con las dos primeras componentes.
 Realizar un gráfico como el del punto anterior. ¿Cuántos clusters puede distinguir en el gráfico? ¿A qué características de los jugadores pueden corresponder los clusters? ¿Cómo pueden verificar su conjetura? (realizar una visualización o algún cálculo)
 
-\item Para la cantidad de clusters observados en el \'item anterior, realizar un agrupamiento por $k$-medias, y colorear los puntos según las etiquetas obtenidas. Coinciden las etiquetas con lo esperado?
+\item Para la cantidad de clusters observados en el \'item anterior, realizar un agrupamiento por $k$-medias, y
+colorear los puntos según las etiquetas obtenidas. ¿Coinciden las etiquetas con lo esperado?
 
 \item Repetir el agrupamiento utilizando DBSCAN. ¿Cómo eligirían en este caso un valor de $\varepsilon$ apropiado? Sugerencia: consultar la sección "Selección del hiperparámetro eps" del Notebook de la clase de DBSCAN (o utilizar cualquier otra técnica que consideren apropiada)
 
@@ -182,8 +183,11 @@ lo que consideren más conveniente).
 \item Construir el DataFrame \verb|data_clasif| que resulta de agregarle la columna de \verb|Pos_filt| al DataFrame
 \verb|data_num|. Dividir \verb|data_num| en un $80$\% para entrenamiento y un $20$\% para testeo.
 \item Aplicar un esquema de validación en el conjunto de entrenamiento para seleccionar el valor óptimo de $K$. (Esto puede demorar mucho si prueban muchos valores de $K$, pueden hacerlo hasta un valor máximo de $K = 20$.)
+
+\textbf{Sugerencia:} puede resultar de ayuda \verb|KNeighborsClassifier| de \verb|sklearn| e investigar
+esa librería para aplicar esquemas de validación.
 \item Para el valor de $K$ obtenido, ¿cuál es el porcentaje de aciertos en el conjunto de testeo?
-\item Repetir el procedimiento utilizando la primeras dos componentes principales en vez de todas las varaibles.
+\item Repetir el procedimiento utilizando la primeras dos componentes principales en vez de todas las variables.
 Indicar si se obtienen mejores resultados.
 \end{enumerate}
 \item Repetir el mismo método de clasificación con el dataset de jugadoras de la liga inglesa femenina
@@ -205,7 +209,8 @@ data=pd.read_csv('transfermarkt_fbref_201920.csv', delimiter=';')
 \begin{enumerate}
 \item En 2021 Messi fue transferido del Barcelona al PSG. Baśandose en los datos disponibles, recomendarle a
 Barcelona un jugador de características similares  a Messi pero de menor valor.
-\item Queremos elaborar un modelo para detectar jugadores ``baratos'', es decir cuya valuación en el mercado sea
+\item Queremos elaborar un modelo para detectar jugadores ``baratos'', es decir cuya valuación en el mercado (columna
+\verb|value|) sea
 inferior a que la que nosotros estimemos. Para esto, quisiéramos ajustar el valor de mercado a partir de los datos de
 los jugadores (para estimar la valuación pueden incorporar la edad entre las variables explicativas). El modelo que desarrollen puede basarse en redes neuronales o en otro modelo que consideren adecuado.
 \item Según el modelo desarrollado, entre los jugadores con un valor de mercado mayor a \$$100000$,
