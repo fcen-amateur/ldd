@@ -127,7 +127,7 @@
 
 \begin{wrapfigure}{r}{5.5cm}
 \includegraphics[width=5.5cm]{lddFutbol.jpg}
-\end{wrapfigure} 
+\end{wrapfigure}
 
 El Trabajo Práctico deberá ser resuelto en grupos de dos o tres personas. No se aceptarán entregas individuales. La
 entrega se realizará a través del campus (pestaña Trabajos Prácticos). La fecha límite es el 02/07 a las 23:59. Deben entregar un Notebook con los nombres de les integrantes del equipo, la resolución de los ejercicios y los informes pertinentes.
@@ -187,8 +187,7 @@ convenientemente. ¿Con cuál de las dos opciones obtienen mejores resultados?
 \item Definir la variable \verb|Pos_filt| que es la columna \verb|Pos|, pero donde los jugadores deben tener una sola
 posición (pueden quedarse sólo con la primera posición de cada jugador o eliminar los jugadores con dos posiciones,
 lo que consideren más conveniente).
-\item Construir el DataFrame \verb|data_clasif| que resulta de agregarle la columna de \verb|Pos_filt| al DataFrame
-\verb|data_num|. Dividir \verb|data_num| en un $80$\% para entrenamiento y un $20$\% para testeo.
+\item Dividir el DataFrame \verb|data_num| y la Series \verb|Pos_filt| utilizando un $80$\% para entrenamiento y un $20$\% para testeo.
 \item Aplicar un esquema de validación en el conjunto de entrenamiento para seleccionar el valor óptimo de $K$. (Esto puede demorar mucho si prueban muchos valores de $K$, pueden hacerlo hasta un valor máximo de $K = 20$.)
 
 \textbf{Sugerencia:} puede resultar de ayuda \verb|KNeighborsClassifier| de \verb|sklearn| e investigar
