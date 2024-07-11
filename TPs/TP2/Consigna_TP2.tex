@@ -1,0 +1,381 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage{amssymb, enumitem, wrapfig}
+\setlist[enumerate,1]{label={\bfseries\arabic*.},ref={\bfseries{Ejercicio \arabic*}}}
+\setlist[enumerate,2]{label={\bfseries(\alph*)},ref={\bfseries(\alph*)}}
+
+
+\usepackage{longtable}
+
+\parindent 0cm
+\usepackage{amssymb,amsmath,amsthm,latexsym,epsfig,euscript,multicol}
+\usepackage{graphbox}
+\usepackage{booktabs}
+
+\usepackage[utf8]{inputenc}
+\usepackage{listings,xcolor,bm}
+\usepackage{url}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    urlcolor=blue,
+    }
+
+
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+\lstset{
+  backgroundcolor=\color{white},   % choose the background color; you must add
+  basicstyle=\ttfamily,      % the size of the fonts that are used for the code
+  breakatwhitespace=true,         % sets if automatic breaks should only happen at whitespace
+  breaklines=true,                 % sets automatic line breaking
+  captionpos=b,                    % sets the caption-position to bottom
+  commentstyle=\color{mygreen},    % comment style
+  deletekeywords={...},            % if you want to delete keywords from the given language
+  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+  firstnumber=1,                % start line enumeration with line 1000
+  frame=none,	                   % adds a frame around the code
+  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+  keywordstyle=\color{blue},       % keyword style
+  language=Python,                 % the language of the code
+  morekeywords={*,...},            % if you want to add more keywords to the set
+  numbers=none,                    % where to put the line-numbers; possible values are (none, left, right)
+  numbersep=5pt,                   % how far the line-numbers are from the code
+  numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
+  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+  showstringspaces=false,          % underline spaces within strings only
+  showtabs=false,                  % show tabs within strings adding particular underscores
+  stepnumber=5,                    % the step between two line-numbers. If it's 1, each line will be numbered
+  stringstyle=\color{mymauve},     % string literal style
+  tabsize=4,	                   % sets default tabsize to 2 spaces
+  title=\lstname,                  % show the filename of files included with \lstinputlisting; also try caption instead of title
+  belowskip=0em
+}
+% Caracteres especiales
+\def\A{\mathbb{A}}
+\def\C{\mathbb{C}}
+\def \N{\mathbb{N}}
+\def \P{\mathbb{P}}
+\def \Q{\mathbb{Q}}
+\def \R{\mathbb{R}}
+\def \Z{\mathbb{Z}}
+\def \sen{\textrm{sen}}
+
+\def\Np{$\N$}
+\def\Zp{$\Z$}
+\def\Qp{$\Q$}
+\def\Rp{$\R$}
+\def\Cp{$\C$}
+
+\def\bb{\bm{b}}
+\def\bu{\bm{u}}
+\def\bv{\bm{v}}
+\def\bx{\bm{x}}
+\def\bA{\bm{A}}
+\def\bB{\bm{B}}
+\def\bD{\bm{D}}
+\def\bE{\bm{E}}
+\def\bM{\bm{M}}
+\def\bT{\bm{T}}
+
+
+\def\K{\textrm{K}}
+\def\V{\textrm{V}}
+\def\S{\textrm{S}}
+
+\def\degres{$^\circ$}
+
+\newcount\todno
+\def\no{\global\advance\todno by 1 \the\todno}
+
+\topmargin-2cm \vsize 29.5cm \hsize 21cm
+\setlength{\textwidth}{16.75cm}\setlength{\textheight}{23.5cm}
+\setlength{\oddsidemargin}{0.0cm}
+\setlength{\evensidemargin}{0.0cm}
+
+
+\theoremstyle{definition}
+\newtheorem{ejer}{Ejercicio}
+\newcommand{\bej}{\begin{ejer}}
+\newcommand{\fej}{\end{ejer}}
+
+\begin{document}
+
+\centerline{{\small Universidad de Buenos Aires - Facultad de Ciencias Exactas y Naturales - Ciencias de Datos}}
+
+\vskip 0.2cm
+
+\hrule
+
+\vskip 0.2cm
+
+ \centerline{{\bf\Large{\sc Laboratorio de Datos}}}
+
+ \vskip 0.2cm
+
+ \centerline{\ttfamily Primer Cuatrimestre 2024}
+
+\vskip 0.2cm
+
+ \hrule
+
+ \bigskip
+ \centerline{\bf Trabajo Práctico N$^\circ$ 2}
+ \bigskip
+
+\begin{wrapfigure}{r}{5.5cm}
+\includegraphics[width=5.5cm]{lddFutbol.jpg}
+\end{wrapfigure}
+
+El Trabajo Práctico deberá ser resuelto en grupos de dos o tres personas. No se aceptarán entregas individuales. La
+entrega se realizará a través del campus (pestaña Trabajos Prácticos). La fecha límite es el 02/07 a las 23:59. Deben entregar un Notebook con los nombres de les integrantes del equipo, la resolución de los ejercicios y los informes pertinentes.
+
+Se valorará que el Notebook y el código tengan un formato prolijo: ejercicios separados por títulos (Ejercicio 1, Ejercicio 2, etc.), nombres descriptivos para las variables, comentarios, etc.
+
+\vspace{0.5cm}
+
+En este trabajo práctico nos sumamos a la moda de utilizar an\'alisis de datos para la toma de decisiones en los deportes, y creamos nuestra propia empresa LDD Futbol Analytics.
+
+
+Trabajaremos con el dataset \verb|FBRef2020-21.csv|\footnote{Fuente: \url{https://fbref.com/en/}} que contiene datos sobre los principales torneos de clubes y selecciones de fútbol del mundo.
+
+
+\subsection*{Preprocesamiento [1 pt.]}
+
+\begin{enumerate}
+\item Cargar en un DataFrame los datos del archivo \lstinline{FBRef2020-21.csv}.
+\item Eliminar a los jugadores que jugaron menos de 500 minutos en la temporada (columna \lstinline{Min}).
+\item Eliminar los datos faltantes. Por ejemplo, eliminar columnas con más de 100 datos faltantes y luego las filas con datos faltantes, o convertir los datos faltantes a algún valor apropiado.
+%\item .%Las filas que comienzan con "\%" representan porcentajes y en algunas casillas el valor es \lstinline{#DIV/0!}
+%. Reemplazar estos valores por valores apropiados o eliminar estas columnas.
+\item Al finalizar la limpieza de datos, resetear los índices.
+\item Definir el DataFrame \lstinline{data_num} que solo contenga las variables númericas, a partir de la columna
+\lstinline{Ast/90}, inclusive.
+Para clustering y clasificación no vamos a utilizar las variables categóricas ni edad ni minutos jugados.
+\end{enumerate}
+
+\subsection*{Clustering [4 pts.]}
+
+\begin{enumerate}[resume]
+\item Nuestro primer objetivo es realizar algún agrupamiento de jugadores con características similares.
+\begin{enumerate}
+\item Seleccionar dos variables cualesquiera de los datos y realizar un gráfico de dispersión de una variable en función de la otra para el total de las observaciones. ¿Pueden encontrar fácilmente grupos distintos?
+
+\item Escalar los datos y realizar un análisis de componentes principales, quedándose solo con las dos primeras componentes.
+Realizar un gráfico como el del punto anterior. ¿Cuántos clusters puede distinguir en el gráfico? ¿A qué características de los jugadores pueden corresponder los clusters? ¿Cómo pueden verificar su conjetura? (realizar una visualización o algún cálculo)
+
+\item Para la cantidad de clusters observados en el \'item anterior, realizar un agrupamiento por $k$-medias, y
+colorear los puntos según las etiquetas obtenidas. ¿Coinciden las etiquetas con lo esperado?
+
+\item Repetir el agrupamiento utilizando DBSCAN. ¿Cómo eligirían en este caso un valor de $\varepsilon$ apropiado? Sugerencia: consultar la sección "Selección del hiperparámetro eps" del Notebook de la clase de DBSCAN (o utilizar cualquier otra técnica que consideren apropiada)
+
+\item Utilizar DBSCAN para realizar agrupamiento utilizando como datos todas las variables
+originales en vez de solo las dos componentes principales, modificando los valores de \verb|epsilon| y \verb|minPts|
+convenientemente. ¿Con cuál de las dos opciones obtienen mejores resultados?
+
+\end{enumerate}
+
+\end{enumerate}
+
+\subsection*{Clasificación [3 pts.]}
+
+\begin{enumerate}[resume]
+\item Ahora queremos poder predecir la posición en la que juega cada jugador según sus datos estadísticos utilizando $KNN$. En la columna \lstinline{Pos} encontramos la posición de los jugadores. Para la mayoría de los jugadores se indica una \'unica posición pero algunos jugadores tienen dos posiciones. Para simplificar el análisis vamos a considerar una única posición por jugador.
+\begin{enumerate}
+\item Definir la variable \verb|Pos_filt| que es la columna \verb|Pos|, pero donde los jugadores deben tener una sola
+posición (pueden quedarse sólo con la primera posición de cada jugador o eliminar los jugadores con dos posiciones,
+lo que consideren más conveniente).
+\item Dividir el DataFrame \verb|data_num| y la Series \verb|Pos_filt| utilizando un $80$\% para entrenamiento y un $20$\% para testeo.
+\item Aplicar un esquema de validación en el conjunto de entrenamiento para seleccionar el valor óptimo de $K$. (Esto puede demorar mucho si prueban muchos valores de $K$, pueden hacerlo hasta un valor máximo de $K = 20$.)
+
+\textbf{Sugerencia:} puede resultar de ayuda \verb|KNeighborsClassifier| de \verb|sklearn| e investigar
+esa librería para aplicar esquemas de validación.
+\item Para el valor de $K$ obtenido, ¿cuál es el porcentaje de aciertos en el conjunto de testeo?
+\item Repetir el procedimiento utilizando la primeras dos componentes principales en vez de todas las variables.
+Indicar si se obtienen mejores resultados.
+\end{enumerate}
+\item Repetir el mismo método de clasificación con el dataset de jugadoras de la liga inglesa femenina
+\verb|superleague2023.csv|. Para esto, quedarse con la columna \verb|Pos| y las columnas a partir de \verb|MP|,
+inclusive.
+¿Qué porcentaje de aciertos obtienen en este caso? ¿Puede modificarse el parámetro para obtener un porcentaje mayor?
+\end{enumerate}
+
+\subsection*{Recomendaciones de jugadores [2 pts.]}
+
+\begin{enumerate}[resume]
+\item Trabajamos ahora con el dataset \lstinline{transfermarkt_fbref_201920.csv} que incluye la valuación de los jugadores.
+Una de las aplicaciones más comunes de análisis de datos en el fútbol es para obtener recomendaciones de jugadores a comprar.
+
+Si al leer el \verb|.csv| salta un error, intentar con:
+\begin{lstlisting}
+data=pd.read_csv('transfermarkt_fbref_201920.csv', delimiter=';')
+\end{lstlisting}
+
+\begin{enumerate}
+\item En 2021 Messi fue transferido del Barcelona al PSG. Baśandose en los datos disponibles, recomendarle a
+Barcelona un jugador de características similares  a Messi pero de menor valor.
+\item Queremos elaborar un modelo para detectar jugadores ``baratos'', es decir cuya valuación en el mercado (columna
+\verb|value|) sea
+inferior a que la que nosotros estimemos. Para esto, quisiéramos ajustar el valor de mercado a partir de los datos de
+los jugadores (para estimar la valuación pueden incorporar la edad entre las variables explicativas). El modelo que desarrollen puede basarse en redes neuronales o en otro modelo que consideren adecuado.
+\item Según el modelo desarrollado, entre los jugadores con un valor de mercado mayor a \$$100000$,
+¿quién es el más sobrevalorado? Es decir, el jugador con mayor diferencia entre el valor de mercado y el valor predicho por el modelo. ¿Y el más infravalorado?
+\item El PSG quiere vender a Mbappé y reemplazarlo por otro jugador más barato. Hacer un listado de los 10 jugadores
+más parecidos a Mbappé según el criterio que elijan. De esos 10 jugadores, según el modelo que desarrollaron en el
+ítem anterior, ¿a qué jugador recomendarían teniendo en cuenta la valuación del mercado y la predicción del modelo? Para ese jugador, averiguar la valuación actual del jugador. ¿Hicieron una buena recomendación?
+\end{enumerate}
+\end{enumerate}
+
+\section*{Apéndice: descripción de algunas columnas}
+
+Los datos están tomados del sitio web FBRef, en la sección ``Big 5 European Leagues History''. En ese sitio pueden ver el detalle de qué significa cada columna. Por ejemplo, pueden ingresar a este enlace
+\url{https://fbref.com/en/comps/Big5/stats/players/Big-5-European-Leagues-Stats} y entrar al enlace "Glossary". Algunos nombres están levemente modificados.
+
+En la siguiente tabla incluimos la descripción de las columnas principales.
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=cyan,
+    pdftitle={Tabla de Descripciones},
+    pdfpagemode=FullScreen,
+}
+
+
+%\begin{table}[ht]
+%    \centering
+    \begin{longtable}{|l|p{12cm}|}
+        \hline
+        \textbf{Columna} & \textbf{Descripción} \\
+        \hline
+        \hyperlink{tooltip:Rk}{Rk} & \textit{Rango} \\
+        & Conteo de filas de arriba hacia abajo. Se recalcula al ordenar una columna. \\
+        \hline
+        \hyperlink{tooltip:Nation}{Nation} & \textit{Nacionalidad del jugador} \\
+        & Primero, verificamos nuestros registros en el juego internacional a nivel sénior. Luego, a nivel juvenil. Luego, la ciudadanía presentada en Wikipedia. Finalmente, usamos su lugar de nacimiento cuando está disponible. \\
+        \hline
+        \hyperlink{tooltip:Pos}{Pos} & \textit{Posición} \\
+        & Posición más comúnmente jugada por el jugador:
+          \newline GK - Porteros
+          \newline DF - Defensores
+          \newline MF - Mediocampistas
+          \newline FW - Delanteros
+          \newline FB - Laterales
+          \newline LB - Laterales Izquierdos
+          \newline RB - Laterales Derechos
+          \newline CB - Defensas Centrales
+          \newline DM - Mediocampistas Defensivos
+          \newline CM - Mediocampistas Centrales
+          \newline LM - Mediocampistas Izquierdos
+          \newline RM - Mediocampistas Derechos
+          \newline WM - Mediocampistas Exteriores
+          \newline LW - Extremos Izquierdos
+          \newline RW - Extremos Derechos
+          \newline AM - Mediocampistas Ofensivos \\
+        \hline
+        \hyperlink{tooltip:Comp}{Comp} & \textit{Competencia} \\
+        & La competencia. El número junto a la competencia indica qué nivel ocupa esta liga en la pirámide de ligas del país. \\
+        \hline
+        \hyperlink{tooltip:Age}{Age} & \textit{Edad al inicio de la temporada} \\
+        & Dada el 1 de agosto para ligas de invierno y el 1 de febrero para ligas de verano. \\
+        \hline
+        \hyperlink{tooltip:Born}{Born} & \textit{Año de nacimiento} \\
+        & Año de nacimiento del jugador. \\
+        \hline
+        \hyperlink{tooltip:MP}{MP} & \textit{Partidos Jugados} \\
+        & Partidos jugados por el jugador o equipo. \\
+        \hline
+        \hyperlink{tooltip:Starts}{Starts} & \textit{Titularidades} \\
+        & Juego o juegos comenzados por el jugador. \\
+        \hline
+        \hyperlink{tooltip:Min}{Min} & \textit{Minutos} \\
+        & Minutos jugados. \\
+        \hline
+        \hyperlink{tooltip:90s}{90s} & \textit{Partidos completos jugados} \\
+        & Partidos completos jugados (minutos jugados divididos por 90). \\
+        \hline
+        \hyperlink{tooltip:Gls}{Gls} & \textit{Goles} \\
+        & Goles marcados o permitidos. \\
+        \hline
+        \hyperlink{tooltip:Ast}{Ast} & \textit{Asistencias} \\
+        & Asistencias. \\
+        \hline
+        \hyperlink{tooltip:G+A}{G+A} & \textit{Goles + Asistencias} \\
+        & Goles y Asistencias. \\
+        \hline
+        \hyperlink{tooltip:G-PK}{G-PK} & \textit{Goles sin Penaltis} \\
+        & Goles sin incluir penaltis. \\
+        \hline
+        \hyperlink{tooltip:PK}{PK} & \textit{Penaltis Marcados} \\
+        & Penaltis marcados. \\
+        \hline
+        \hyperlink{tooltip:PKatt}{PKatt} & \textit{Penaltis Intentados} \\
+        & Penaltis intentados. \\
+        \hline
+        \hyperlink{tooltip:CrdY}{CrdY} & \textit{Tarjetas Amarillas} \\
+        & Tarjetas Amarillas. \\
+        \hline
+        \hyperlink{tooltip:CrdR}{CrdR} & \textit{Tarjetas Rojas} \\
+        & Tarjetas Rojas. \\
+        \hline
+        \hyperlink{tooltip:xG}{xG} & \textit{xG: Goles Esperados} \\
+        & Goles Esperados. Incluyen penaltis pero no tandas de penaltis (a menos que se indique lo contrario). Proporcionado por Opta. Un subrayado indica que falta información de un partido, pero se actualizará cuando esté disponible. \\
+        \hline
+        \hyperlink{tooltip:npxG}{npxG} & \textit{npxG: Goles Esperados sin Penaltis} \\
+        & Goles Esperados sin Penaltis. Proporcionado por Opta. Un subrayado indica que falta información de un partido, pero se actualizará cuando esté disponible. \\
+        \hline
+        \hyperlink{tooltip:xAG}{xAG} & \textit{xAG: Asistencias de Goles Esperados} \\
+        & Asistencias de Goles Esperados. xG que sigue a un pase que asiste a un tiro. Proporcionado por Opta. Un subrayado indica que falta información de un partido, pero se actualizará cuando esté disponible. \\
+        \hline
+        \hyperlink{tooltip:npxG+xAG}{npxG + xAG} & \textit{npxG + xAG} \\
+        & Goles Esperados sin Penaltis más Asistencias de Goles Esperados. Incluyen penaltis pero no tandas de penaltis (a menos que se indique lo contrario). Proporcionado por Opta. Un subrayado indica que falta información de un partido, pero se actualizará cuando esté disponible. Mínimo de 30 minutos jugados por partido de equipo para calificar como líder. \\
+        \hline
+        \hyperlink{tooltip:PrgC}{PrgC} & \textit{Avances Progresivos} \\
+        & Conducciones que mueven el balón hacia la línea de gol del oponente al menos 10 yardas desde su punto más lejano en los últimos seis pases, o cualquier conducción dentro del área de penalti. Excluye conducciones que terminan en el 50\% defensivo del campo. \\
+        \hline
+        \hyperlink{tooltip:PrgP}{PrgP} & \textit{Pases Progresivos} \\
+        & Pases completados que mueven el balón hacia la línea de gol del oponente al menos 10 yardas desde su punto más lejano en los últimos seis pases, o cualquier pase completado dentro del área de penalti. Excluye pases desde el 40\% defensivo del campo. \\
+        \hline
+        \hyperlink{tooltip:PrgR}{PrgR} & \textit{Pases Progresivos Recibidos} \\
+        & Pases completados que mueven el balón hacia la línea de gol del oponente al menos 10 yardas desde su punto más lejano en los últimos seis pases, o cualquier pase completado dentro del área de penalti. Excluye pases desde el 40\% defensivo del campo. \\
+        \hline
+        \hyperlink{tooltip:Gls}{Gls/90} & \textit{Goles por 90 minutos} \\
+        & Goles marcados por 90 minutos. Mínimo de 30 minutos jugados por partido de equipo para calificar como líder. \\
+        \hline
+        \hyperlink{tooltip:Ast}{Ast/90} & \textit{Asistencias por 90 minutos} \\
+        & Asistencias por 90 minutos. Mínimo de 30 minutos jugados por partido de equipo para calificar como líder. \\
+        \hline
+        \hyperlink{tooltip:G+A}{G+A/90} & \textit{Goles + Asistencias por 90 minutos} \\
+        & Goles y Asistencias por 90 minutos. Mínimo de 30 minutos jugados por partido de equipo para calificar como líder. \\
+        \hline
+        \hyperlink{tooltip:G-PK}{G-PK/90} & \textit{Goles sin Penaltis por 90 minutos} \\
+        & Goles menos penaltis marcados por 90 minutos. Mínimo de 30 minutos jugados por partido de equipo para calificar como líder. \\
+        \hline
+        \hyperlink{tooltip:G+A-PK}{G+A-PK/90} & \textit{Goles + Asistencias sin Penaltis por 90 minutos} \\
+        & Goles más asistencias menos penaltis marcados por 90 minutos. Mínimo de 30 minutos jugados por partido de equipo para calificar como líder. \\
+        \hline
+        \hyperlink{tooltip:xG}{xG/90} & \textit{Goles Esperados por 90 minutos} \\
+        & Goles Esperados por 90 minutos. Incluyen penaltis pero no tandas de penaltis (a menos que se indique lo contrario). Proporcionado por Opta. Un subrayado indica que falta información de un partido, pero se actualizará cuando esté disponible. Mínimo de 30 minutos jugados por partido de equipo para calificar como líder. \\
+        \hline
+        \hyperlink{tooltip:xAG}{xAG/90} & \textit{Asistencias de Goles Esperados por 90 minutos} \\
+        & Asistencias de Goles Esperados por 90 minutos. Proporcionado por Opta. Un subrayado indica que falta información de un partido, pero se actualizará cuando esté disponible. Mínimo de 30 minutos jugados por partido de equipo para calificar como líder. \\
+        \hline
+        \hyperlink{tooltip:xG+xAG}{xG+xAG/90} & \textit{Goles Esperados + Asistencias de Goles Esperados por 90 minutos} \\
+        & Goles Esperados más Asistencias de Goles Esperados por 90 minutos. Incluyen penaltis pero no tandas de penaltis (a menos que se indique lo contrario). Proporcionado por Opta. Un subrayado indica que falta información de un partido, pero se actualizará cuando esté disponible. Mínimo de 30 minutos jugados por partido de equipo para calificar como líder. \\
+        \hline
+        \hyperlink{tooltip:npxG}{npxG/90} & \textit{Goles Esperados sin Penaltis por 90 minutos} \\
+        & Goles Esperados sin Penaltis por 90 minutos. Proporcionado por Opta. Un subrayado indica que falta información de un partido, pero se actualizará cuando esté disponible. Mínimo de 30 minutos jugados por partido de equipo para calificar como líder. \\
+        \hline
+        \hyperlink{tooltip:npxG+xAG}{npxG+xAG/90} & \textit{Goles Esperados sin Penaltis + Asistencias de Goles Esperados por 90 minutos} \\
+        & Goles Esperados sin Penaltis más Asistencias de Goles Esperados por 90 minutos. Proporcionado por Opta. Un subrayado indica que falta información de un partido, pero se actualizará cuando esté disponible. Mínimo de 30 minutos jugados por partido de equipo para calificar como líder. \\
+        \hline
+    \end{longtable}
+%    \caption{Descripciones de Columnas con Traducciones al Español}
+%    \label{tab:descriptions}
+%\end{table}
+
+\end{document}
+
