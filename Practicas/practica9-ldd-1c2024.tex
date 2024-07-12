@@ -129,11 +129,13 @@ from tf_regressor import Regressor, train_test_split_scale_center
         \item Queremos armar un modelo de regresión que permita explicar la evolución de casos de coronavirus ($Y$) en función de los días transcurridos ($X$). Para esto se proponen los siguientes modelos:
         \begin{enumerate}
             \item $Y = b + w_0\;X + w_1\; X^2$
-            \item $Y = b + w_0\; X^{w_1}$
+            \item $Y = b + w_0\; X^{w_1}$ (tomar como valores iniciales $w_0=1,\, w_1=2,\, b$ aleatorio)
             \item $Y = b + w\; e^{X}$ 
-            \item $Y = b + w_0\; e^{w_1\; X}$
+            \item $Y = b + w_0\; e^{w_1\; X}$ (tomar como valores iniciales $w_0=1,\, w_1=1,\, b$ aleatorio)
         \end{enumerate}
-        Dividir el conjunto de datos en entrenamiento y testeo y decidir qué modelo resulta más adecuado. Utilizar \verb|scikit-learn| para los modelos lineales y \verb|Regressor| para los no lineales. En este último caso, se pueden usar de guía los modelos lineales para establecer valores iniciales de los pesos. Probar con distintas cantidades de épocas y valores iniciales para los pesos y el bias.
+        Dividir el conjunto de datos en entrenamiento y testeo y decidir qué modelo resulta más adecuado. Utilizar \verb|scikit-learn| para los modelos lineales y \verb|Regressor| para los no lineales. En este último caso,
+        probar con distintas cantidades de épocas y otros valores iniciales de los pesos y del
+bias.
         
         \textbf{Obs:} para el modelo iv) escribir \verb|f| utilizando \verb|np.e**(w[1]*x)| para $e^{w_1\; x}$
     \end{enumerate}
