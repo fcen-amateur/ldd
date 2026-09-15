@@ -1,0 +1,680 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% I, the copyright holder of this work, release this work into the
+%% public domain. This applies worldwide. In some countries this may
+%% not be legally possible; if so: I grant anyone the right to use
+%% this work for any purpose, without any conditions, unless such
+%% conditions are required by law.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[aspectratio=169, usenames,dvipsnames]{beamer}
+% \usefonttheme[onlymath]{serif}
+\usetheme[faculty=fi]{fibeamer}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish,es-nodecimaldot]{babel}
+\usepackage{environ}
+\usepackage{tcolorbox}
+\usepackage{xcolor}
+\usepackage{transparent}
+\usepackage{emoji}
+\usepackage{tikz}
+\usepackage{listofitems} % for \readlist to create arrays
+\usepackage{listings}
+\usepackage[ruled]{algorithm2e}
+
+% \usefonttheme[onlymath]{serif}
+\definecolor{opagreen}{RGB}{74, 95, 72}
+\definecolor{opared}{RGB}{100, 46, 44}
+\definecolor{opablue}{RGB}{29,84, 105}
+\definecolor{bg}{HTML}{2B2E34}
+
+
+
+%% These macros specify information about the presentation
+\title{Redes Neuronales}
+\subtitle{Laboratorio de Datos, IC - FCEN - UBA - 1er. Cuatrimestre 2024}
+\author{}
+
+\usepackage{graphicx}
+
+%% These additional packages are used within the document:
+\usepackage{ragged2e}  % `\justifying` text
+\usepackage{booktabs}  % Tables
+\usepackage{tabularx}
+\usepackage{tikz}      % Diagrams
+\usepackage{tkz-graph}
+\usepackage{emoji}
+\usetikzlibrary{positioning} 
+\usepackage[outline]{contour} % glow around text
+\contourlength{1.4pt}
+\usepackage{amsmath, amsfonts, amssymb}
+\usetikzlibrary{calc, shapes, backgrounds, decorations.markings}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\usepackage{url}       % `\url`s
+\usepackage{listings}  % Code listings
+\usepackage{pifont}
+\newcommand{\dsum}{\displaystyle\sum}
+\definecolor{Sepia}{RGB}{206, 176, 107}
+\definecolor{goodgreen}{RGB}{17, 176, 22}
+\definecolor{amber}{rgb}{1.0, 0.75, 0.0}
+\tikzstyle{mynode}=[thick,draw=blue,fill=blue!20,circle,minimum size=22, outer sep=0.6]
+\tikzstyle{outnode}=[thick,draw=orange,fill=orange!20,circle,minimum size=22]
+\tikzstyle{biasnode}=[thick,draw=amber!80!black,fill=amber!50,circle,minimum size=22]
+\tikzstyle{exmynode}=[thick,draw=blue,fill=blue!20,circle,minimum size=37, outer sep=0.6]
+\tikzstyle{exoutnode}=[thick,draw=orange,fill=orange!20,circle,minimum size=76]
+\tikzstyle{exbiasnode}=[thick,draw=amber!80!black,fill=amber!50,circle,minimum size=40]
+\tikzset{
+    invisible/.style={opacity=0},
+    visible on/.style={alt={#1{}{invisible}}},
+    alt/.code args={<#1>#2#3}{%
+      \alt<#1>{\pgfkeysalso{#2}}{\pgfkeysalso{#3}} % \pgfkeysalso doesn't change the path
+    },
+  }
+
+\newcommand{\tick}{\ding{51}}
+\newcommand{\cross}{\ding{55}}
+
+\usefonttheme{professionalfonts} % required for mathspec
+\setbeamercolor{itemize item}{fg=black}
+\setbeamercolor{enumerate item}{fg=black}
+% \usepackage{mathspec}
+% \setsansfont[BoldFont={Fira Sans},
+% Numbers={OldStyle}]{Fira Sans Light}
+% \setmathsfont(Digits)[Numbers={Lining, Proportional}]{Fira
+% Sans Light}
+
+\begin{document}
+
+%   \shorthandoff{-}
+  \frame[c]{\maketitle}
+
+%   \AtBeginSection[]{% Print an outline at the beginning of sections
+%     \begin{frame}<beamer>
+%       \frametitle{Outline for Section \thesection}
+%       \tableofcontents[currentsection]
+%     \end{frame}}
+
+
+  \AtBeginSection[]{% Print an outline at the beginning of sections
+    \begin{frame}<beamer>
+    \vfill
+    \centering
+    \Huge{\insertsectionhead}
+    \vfill
+    \end{frame}}
+
+\section{La neurona}
+
+\begin{frame}
+\begin{center}
+    \includegraphics[scale=0.12]{img/neurona.jpg}
+\end{center}
+
+\begin{itemize}
+    \item<1-> Las neuronas se comunican a través de impulsos (sinapsis).
+    \item<2-> Una neurona recibe los impulsos de las neuronas precedentes en la red. Estos impulsos pueden ser excitatorios (+) o inhibitorios (-).
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\begin{center}
+    \includegraphics[scale=0.12]{img/neurona.jpg}
+\end{center}
+
+\begin{itemize}
+    \item<1-> Durante un corto periodo de tiempo, la neurona \textit{suma} los impulsos recibidos.
+    \item<2-> La neurona dispara un impulso si la suma supera cierto umbral. 
+\end{itemize}
+\end{frame}
+
+\section{Perceptrón Simple}
+
+\begin{frame}
+\centering
+     
+\begin{tikzpicture}[x=2.2cm,y=1.4cm]
+    \def\NI{4} % cantidad de nodos INPUT
+
+    % CAPA INPUT
+    \foreach \i [evaluate={\y=\NI/2-\i;}]
+              in {1,...,\NI}{ % loop over nodes
+    \node[mynode] (\i) at (0,\y) {$x_{\i}$};
+    }
+
+    % CAPA OUTPUT
+    \node[ellipse, thick,minimum height=2cm, minimum width=4cm, draw=orange,fill=orange!20] (big) at (2, -0.5) {};
+    \draw[thick,draw=orange] (2, 0.2) -- (2, -1.2);
+    \node[minimum size=40] (out) at (1.6,-0.5) {\Large $\displaystyle\sum_{i} w_ix_i$ };
+    \draw[<->] (2.1, -0.5) -- (2.8, -0.5);
+    \draw[<->] (2.45, 0) -- (2.45, -1);
+    \draw[very thick] (2.1,-0.5) -- (2.6,-0.5) -- (2.6,-0.2) -- (2.8,-0.2);
+    \node at (2.6, -0.7) {$b$};
+
+    % Flechas con pesos
+    \foreach \i 
+            in {1,...,\NI}{
+    \draw[thick,-stealth] (\i) -- (big)
+        node[pos=0.50, fill=white] {{$w_{\i}$}};
+    }
+
+    \draw[thick,-stealth] (big) -- (3.5, -0.5);
+    \node at (3.2, -0.3) {$y$};
+
+    \draw[very thick, draw=red, visible on=<2>] (-0.25, 1.5) rectangle (0.25, -2.5) {};
+    \node[above, color=red, visible on=<2>] at (0, 1.5) {NEURONAS PREVIAS};
+
+    \draw[very thick, draw=red, visible on=<3>] (0.5, 1.5) rectangle (1, -2.5) {};
+    \node[above, color=red, visible on=<3>] at (0.75, 1.5) {DENDRITAS};
+    
+    \draw[very thick, draw=red, visible on=<4>] (1, 0.5) rectangle (3, -1.5) {};
+    \node[above, color=red, visible on=<4>] at (2, 0.5) {CUERPO/NÚCLEO};
+
+    \draw[very thick, draw=red, visible on=<5>] (3, -0.1) rectangle (3.8, -0.7) {};
+    \node[above, color=red, visible on=<5>] at (3.4, -0.1) {AXÓN};
+\end{tikzpicture}
+\end{frame}
+
+\begin{frame}
+    \begin{columns}
+        \begin{column}{0.5\textwidth}
+            \includegraphics[width=\textwidth]{img/perceptron_simple.jpg}            
+        \end{column}
+        \begin{column}{0.5\textwidth}
+            \begin{enumerate}
+                \item<1-> La neurona recibe los impulsos de las neuronas precedentes y los suma:
+                \[\sum_{i} w_ix_i\]
+                \item<2-> Si la suma supera el umbral $b$, la neurona \textit{dispara}
+                \[y = \begin{cases}
+                    1 \qquad \text{si } \sum_{i} w_ix_i > b \\
+                    0 \qquad \text{si no}
+                \end{cases}\]
+            \end{enumerate}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \textbf{Obs:} 
+    \[\sum_{i} w_ix_i > b \iff \sum_{i} w_ix_i -b > 0 \iff \sum_{i} w_ix_i +b\cdot(-1) > 0\]
+    $\Rightarrow$ agregamos una neurona para el bias, la neurona se activa si el impulso que recibe es mayor que $0$
+
+    \pause
+    \vspace{1cm}
+    Consideramos la siguiente función:
+    \[f(t) = \begin{cases}
+                    1 \qquad \text{si } t > 0 \\
+                    0 \qquad \text{si no}
+                \end{cases}\]
+    Que será nuestra \textbf{función de activación}.
+\end{frame}
+
+\begin{frame}
+    \centering
+    \begin{tikzpicture}[x=2.2cm,y=1.4cm]
+    \def\NI{4} % cantidad de nodos INPUT
+
+    % CAPA INPUT
+    \foreach \i [evaluate={\y=\NI/2-\i;}]
+              in {1,...,\NI}{ % loop over nodes
+    \node[mynode] (\i) at (0,\y) {$x_{\i}$};
+    }
+    \node[biasnode] (b) at (0, 2) {$-1$};
+
+    % CAPA OUTPUT
+    \node[outnode] (out) at (2, 0) {\small$f\left(w^Tx - b\right)$};
+
+    % Flechas con pesos
+    \foreach \i 
+            in {1,...,\NI}{
+    \draw[thick,-stealth] (\i) -- (out)
+        node[pos=0.50, fill=white] {{$w_{\i}$}};
+    }
+    \draw[thick,-stealth] (b) -- (out)
+        node[pos=0.50, fill=white] {{$b$}};
+
+    \draw[very thick, draw=red, visible on=<2>] (-0.25, 1.5) rectangle (0.25, -2.5) {};
+    \node[below, color=red, visible on=<2>] at (0, -2.5) {INPUT};
+
+    \draw[very thick, draw=red, visible on=<3>] (1.4, 1) rectangle (2.6, -1) {};
+    \node[below, color=red, visible on=<3>] at (2, -1) {OUTPUT};
+
+\end{tikzpicture}
+\end{frame}
+
+\begin{frame}
+    \centering
+    Ejemplo
+    
+    \begin{tikzpicture}[x=2.2cm,y=1.4cm]
+    \def\NI{4} % cantidad de nodos INPUT
+
+    % CAPA INPUT
+    \readlist\Inp{1,0,0,1}
+    \foreach \i [evaluate={\y=\NI/2-\i;}]
+              in {1,...,\NI}{ % loop over nodes
+    \node[mynode] (\i) at (0,\y) {$\Inp[\i]$};
+    }
+    \node[biasnode] (b) at (0, 2) {$-1$};
+
+    % CAPA OUTPUT
+    \node[outnode, visible on=<1>] (out) at (2, 0) {?};
+    \node[outnode, visible on=<2>] (out) at (2, 0) {$1$};
+
+    % Flechas con pesos
+    \readlist\Weights{-0.5,0.8,0,1}
+    \foreach \i 
+            in {1,...,\NI}{
+    \draw[thick,-stealth] (\i) -- (out)
+        node[pos=0.50,fill=white] {{$\Weights[\i]$}};
+    }
+    \draw[thick,-stealth] (b) -- (out)
+        node[pos=0.50,fill=white] {{$0.1$}};
+    \end{tikzpicture}
+\end{frame}
+
+\begin{frame}
+    \centering
+    Ejemplo
+    
+    \begin{tikzpicture}[x=2.2cm,y=1.4cm]
+    \def\NI{4} % cantidad de nodos INPUT
+
+    % CAPA INPUT
+    \readlist\Inp{1,1,1,0}
+    \foreach \i [evaluate={\y=\NI/2-\i;}]
+              in {1,...,\NI}{ % loop over nodes
+    \node[mynode] (\i) at (0,\y) {$\Inp[\i]$};
+    }
+    \node[biasnode] (b) at (0, 2) {$-1$};
+
+    % CAPA OUTPUT
+    \node[outnode, visible on=<1>] (out) at (2, 0) {?};
+    \node[outnode, visible on=<2>] (out) at (2, 0) {$0$};
+
+    % Flechas con pesos
+    \readlist\Weights{1,-0.8,-1.2,0}
+    \foreach \i 
+            in {1,...,\NI}{
+    \draw[thick,-stealth] (\i) -- (out)
+        node[pos=0.50,fill=white] {{$\Weights[\i]$}};
+    }
+    \draw[thick,-stealth] (b) -- (out)
+        node[pos=0.50,fill=white] {{$-0.1$}};
+    \end{tikzpicture}
+\end{frame}
+
+\section{Entrenando a la Red Neuronal}
+
+\begin{frame}
+    Las redes neuronales tienen \textbf{muchísimas} aplicaciones:
+    \begin{itemize}
+        \item<1-> Clasificación
+        \item<2-> Regresión
+        \item<3-> Clustering
+        \item<4-> Reducción de dimensionalidad
+        \item<5-> Compresión (\textit{auto-encoders})
+        \item<6-> Reconocimiento de patrones
+        \item<7-> Y muchas más!
+    \end{itemize}
+
+    \only<7>{Vamos a centrarnos en \textbf{clasificación} y \textbf{regresión}.}
+\end{frame}
+
+\begin{frame}
+    Para poder ampliar la variedad de problemas los que puede aplicarse nuestro modelo de Perceptrón Simple, vamos a suponer que el impulso que transmiten las neuronas no es necesariamente binario.
+
+    \vspace{1cm}
+    \pause
+    $\rightarrow$ consideramos \textbf{otras funciones de activación} para la neurona de output.
+\end{frame}
+
+\begin{frame}
+\centering
+\includegraphics<1>[width=0.9\textwidth]{img/Identidad.jpg}
+\includegraphics<2>[width=0.9\textwidth]{img/Sigmoidea o Logística.jpg}
+\includegraphics<3>[width=0.9\textwidth]{img/Tangente Hiperbólica.jpg}
+\includegraphics<4>[width=0.9\textwidth]{img/ReLU.jpg}
+\includegraphics<5>[width=0.9\textwidth]{img/Softplus.jpg}
+\end{frame}
+
+\begin{frame}
+    \textbf{IMPORTANTE:} la imagen de la función de activación de la neurona de output tiene que ser coherente con los datos de salida ($y$).
+\end{frame}
+
+\begin{frame}
+    \begin{center}
+    {\Large Entrenando a la red}
+        
+    \end{center}
+    
+    Como en todos los modelos de aprendizaje supervisado, queremos minimizar la discrepancia (medida por la función de pérdida) que existe entre lo que devuelve el modelo y el dato real.
+
+    \vspace{1cm}
+    \pause
+    Si vamos a minimizar una función, ¿qué algoritmo podemos usar?
+
+    \pause
+    \vspace{1cm}
+    \centering
+    {\Large \emoji{sparkles} Descenso por Gradiente Estocástico \emoji{sparkles}}
+\end{frame}
+
+\begin{frame}
+    El entrenamiento consiste en ir ajustando los pesos y el bias para minimizar la función de pérdida.
+
+    \vspace{1cm}
+    \begin{enumerate}
+        \item Inicializá los pesos y el bias aleatoriamente
+        \item En cada época:
+        \begin{enumerate}
+            \item Para cada dato $x^{(i)}$:
+                \begin{enumerate}
+                    \item \textit{Feedforward}: alimentamos a la red con $x^{(i)}$ como input, obtenemos $\hat{y}^{(i)}$ como output
+                    \item \textit{Corrección}: medimos el error entre $y^{(i)}$ y $\hat{y}^{(i)}$, ajustamos los pesos
+para disminuirlo
+                \end{enumerate}
+            \item mezclá el dataset
+            
+        \end{enumerate}
+    \end{enumerate}
+\end{frame}
+
+\section{Clasificando pingüinos}
+
+\begin{frame}
+    Vamos a entrenar un perceptrón para predecir el sexo de un pingüino a partir de cuatro características:
+    \begin{itemize}
+        \item peso ($X_1$)
+        \item longitud de aleta ($X_2$)
+        \item longitud de pico ($X_3$)
+        \item profundidad del pico ($X_4$)
+    \end{itemize}
+
+    \vspace{0.5cm}
+    \pause
+    \begin{columns}
+        \begin{column}{0.5\textwidth}
+        \blacktriangleright Arquitectura de la red neuronal:
+        \begin{itemize}
+            \item Neuronas en la capa de Input: \onslide<3->{4}
+            \item Neuronas en la capa de Output: \onslide<4->{1}
+            \item Función de activación: \onslide<5->{Sigmoidea}
+            \item Función de pérdida ($L$): \onslide<6->{\small Binary Cross Entropy}
+        \end{itemize}            
+        \end{column}
+        \begin{column}{0.5\textwidth}
+        \onslide<7->{\blacktriangleright Codificación $y$:
+        \[\text{\textit{Female:} } 1 \qquad \text{\textit{Male:} } 0\]}
+        \onslide<8->{\blacktriangleright Inicialización aleatoria de $w$ y $b$}
+        \onslide<9->{\blacktriangleright $\eta_k = 0.1$ constante}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \begin{center}
+        Para quien desee seguir las cuentas
+    \end{center}
+    \[w = (w_1, \dots, w_m)\]
+    \[f_i(b,w) = \dfrac{1}{1 + e^{-(b + w^tx^{(i)})}} \qquad \text{vale que: } f^\prime (x)=f(x)(1-f(x))\]
+
+    Función de error \textit{Binary Cross-Entropy Loss} o \textit{log loss} para Regresión Logística:
+    \[L(b,w) = {\frac {1}{n}}\sum _{i=1}^{n}\ \underbrace{-{\bigg (}y^{(i)}\log (f_i(b,w))+(1-y^{(i)})\log(1-f_i(b,w)) \bigg)}_{F_i(b,w_1,\dots, w_m)}\]
+    Tenemos que:
+    \[    
+    \begin{array}{l}
+         \dfrac{\partial F_i}{\partial w_j}(b, w_1,\dots,w_m) = w_j(f_i(b,w_1,\dots,w_m)-y_i)  \\
+          \dfrac{\partial F_i}{\partial b}(b, w_1,\dots,w_m) = -(f_i(b,w_1,\dots,w_m)-y_i)
+    \end{array}
+    \]
+    
+
+\end{frame}
+
+\begin{frame}
+    \centering
+    \begin{tikzpicture}[x=2.2cm,y=1.4cm]
+    \def\NI{4} % cantidad de nodos INPUT
+
+    %valores
+    \readlist\Dot{0.012, -0.23, -0.216}
+    \readlist\Sigm{0.503, 0.443, 0.446}
+    \readlist\b{-0.05, -0.01, -0.06}
+
+    % CAPA INPUT
+    \readlist\Inp{0.04,0.15,-0.33,0.05};
+%    \readlist\Inptwo{0.29,0,0.11,-0.04};
+    \readlist\Inptwo{0.32,-0.07,0.31,-0.13};
+    \readlist\Inpthree{-0.21,-0.34,-0.02,-0.29};
+%    \readlist\Inpfour{0.32,-0.07,0.31,-0.13};
+    \foreach \i [evaluate={\y=\NI/2-\i;}]
+              in {1,...,\NI}{ % loop over nodes
+    \node[exmynode, visible on=<1-2>] (\i) at (0,\y) {$x_{\i}$};
+    \node[exmynode, visible on=<3-5>] (\i) at (0,\y) {$\Inp[\i]$};
+    \node[exmynode, visible on=<6-8>] (\i) at (0,\y) {$\Inptwo[\i]$};
+    \node[exmynode, visible on=<9-11>] (\i) at (0,\y) {$\Inpthree[\i]$};
+    \node[exmynode, visible on=<12>] (\i) at (0,\y) {$\Inptwo[\i]$};
+%    \node[exmynode, visible on=<12-14>] (\i) at (0,\y) {$\Inpfour[\i]$};
+    % \node[mynode, only visible=<1>] (\i) at (0,\y) {$\Inp[\i]$};
+    }
+    \node[exbiasnode] (b) at (0, 2) {$-1$};
+
+    % CAPA OUTPUT
+    \node[exoutnode, visible on=<1-2>] (out) at (2, 0) {$\dfrac{1}{1+e^{-(w^tx - b)}}$};
+    % \foreach \i [evaluate={\s=\i*3; \e=\i*3+2}] in {1,2}{
+    %     \node[exoutnode, visible on=<\s-\e>] (out) at (2, 0) {\Sigm[\i]};
+    % }
+    \node[exoutnode, visible on=<3-5>] (out) at (2, 0) {$\Sigm[1]$};
+    \node[exoutnode, visible on=<6-8>] (out) at (2, 0) {$\Sigm[2]$};
+    \node[exoutnode, visible on=<9-11>] (out) at (2, 0) {$\Sigm[3]$};
+    \node[exoutnode, visible on=<12>] (out) at (2, 0) {$0.445$};
+    % \node[outnode, visible on=<2>] (out) at (2, 0) {$1$};
+
+    % Flechas con pesos
+    \readlist\Winit{-0.5,0.1,0.1,1}
+    \readlist\Wadj{-0.52, 0.1, 0.1, 1.05}
+    \readlist\Wadjdos{-0.5, 0.1, 0.1, 1}
+    \readlist\Wadjtres{-0.53, 0.11, 0.11, 1.06}
+    %\readlist\Wadjcuatro{-0.5, 0.1, 0.1, 1.01}
+    \foreach \i 
+            in {1,...,\NI}{
+    \draw[thick,-stealth, visible on=<1>] (\i) -- (out) node[pos=0.50,fill=white] {{$w_{\i}$}};
+    \draw[thick,-stealth, visible on=<2-4>] (\i) -- (out) node[pos=0.50,fill=white] {{$\Winit[\i]$}};
+    \draw[thick,-stealth, visible on=<5>] (\i) -- (out) node[pos=0.50,fill=white] {{\color{red}$\Wadj[\i]$}};
+    \draw[thick,-stealth, visible on=<6-7>] (\i) -- (out) node[pos=0.50,fill=white] {{$\Wadj[\i]$}};
+    \draw[thick,-stealth, visible on=<8>] (\i) -- (out) node[pos=0.50,fill=white] {{$\color{red}\Wadjdos[\i]$}};
+    \draw[thick,-stealth, visible on=<9-10>] (\i) -- (out) node[pos=0.50,fill=white] {{$\Wadjdos[\i]$}};
+    \draw[thick,-stealth, visible on=<11>] (\i) -- (out) node[pos=0.50,fill=white] {{$\color{red}\Wadjtres[\i]$}};
+    \draw[thick,-stealth, visible on=<12>] (\i) -- (out) node[pos=0.50,fill=white] {{$\Wadjtres[\i]$}};
+    }
+
+    % Pesos bias
+    \draw[thick,-stealth, visible on=<1>] (b) -- (out) node[pos=0.50,fill=white] {{$b$}};
+    \draw[thick,-stealth, visible on=<2-4>] (b) -- (out) node[pos=0.50,fill=white] {{$0$}};
+    \draw[thick,-stealth, visible on=<5>] (b) -- (out) node[pos=0.50,fill=white] {{\color{red}$\b[1]$}};
+    \draw[thick,-stealth, visible on=<6-7>] (b) -- (out) node[pos=0.50,fill=white] {{$\b[1]$}};
+    \draw[thick,-stealth, visible on=<8>] (b) -- (out) node[pos=0.50,fill=white] {{\color{red}$\b[2]$}};
+    \draw[thick,-stealth, visible on=<9-10>] (b) -- (out) node[pos=0.50,fill=white] {{$\b[2]$}};
+    \draw[thick,-stealth, visible on=<11>] (b) -- (out) node[pos=0.50,fill=white] {{\color{red}$\b[3]$}};
+    \draw[thick,-stealth, visible on=<12>] (b) -- (out) node[pos=0.50,fill=white] {$\b[3]$};
+%    \draw[thick,-stealth, visible on=<9-10>] (b) -- (out) node[pos=0.50,fill=white] {{$\b[2]$}};
+
+    % Dataset
+    \node (dataset) at (4, 2) {
+    \centering
+    \scriptsize  
+    \begin{tabular}{lrrrrr}
+        \toprule
+         & $x_1$ & $x_2$ & $x_3$ & $x_4$ & $y$ \\
+        \midrule
+        0 & 0.32 & -0.07 & 0.31 & -0.13 & 0 \\
+        1 & 0.04 & 0.15 & -0.33 & 0.05 & 1 \\
+        2 & -0.21 & -0.34 & -0.02 & -0.29 & 1 \\
+        \bottomrule
+    \end{tabular}    
+    };
+    \node at (4, 3) {\scriptsize Datos de entrenamiento};
+
+    % Señalizador dataset
+    \node[draw, very thick, minimum width=5.8cm, minimum height=0.4cm,visible on=<3-5>, color=red] at (4,1.8) {};
+    \node[draw, very thick, minimum width=5.8cm, minimum height=0.4cm,visible on=<6-8>, color=red] at (4,2.1) {};
+    \node[draw, very thick, minimum width=5.8cm, minimum height=0.4cm,visible on=<9-10>, color=red] at (4,1.5) {};
+    \node[draw, very thick, minimum width=5.8cm, minimum height=0.4cm,visible on=<12>, color=red] at (4,2.1) {};
+
+    % Etapa
+    \node[visible on=<1>] at (4, 0) {Arquitectura del perceptrón};
+    \node[visible on=<2>] at (4, 0.8) {Inicialización de los pesos y del bias};
+    \node[visible on=<3>] at (4, 0.5) {Feedforward $x^{(1)}$};
+    \node[visible on=<3-11>] at (4, 0.8) {Época: 1};
+    \node[visible on=<4>] at (4, 0.5) {Corrección $x^{(1)}$};
+    \node[visible on=<6>] at (4, 0.5) {Feedforward $x^{(0)}$};
+    \node[visible on=<7-8>] at (4, 0.5) {Corrección $x^{(0)}$};
+    \node[visible on=<9>] at (4, 0.5) {Feedforward $x^{(2)}$};
+    \node[visible on=<10-11>] at (4, 0.5) {Corrección $x^{(2)}$};
+    \node[visible on=<12>] at (4, 0.8) {Comienza la Época: 2...};
+
+    
+    % Misc
+    \node[visible on=<2>] at (4,0.2) {
+    \[
+    \begin{array}{l}
+        w = (-0.5, 0.1, 0.1, 1)   \\
+        b = 0
+    \end{array}
+    \]
+    };
+
+    % Feedforward
+
+    \node[visible on=<3>] at (4,-0.5) {
+    \[
+    \begin{array}{l}
+        w^tx^{(1)} - 0 = \Dot[1]   \\
+        \hat{y}^{(1)} = f(\Dot[1]) = \Sigm[1]  
+    \end{array}
+    \]
+    };
+    \node[visible on=<6>] at (4,-0.5) {
+    \[
+    \begin{array}{l}
+        w^tx^{(0)} - (-0.05) = \Dot[2]   \\
+        \hat{y}^{(0)} = f(\Dot[2]) = \Sigm[2]
+    \end{array}
+    \]
+    };
+    \node[visible on=<9>] at (4,-0.5) {
+    \[
+    \begin{array}{l}
+        w^tx^{(2)} - (-0.05) = \Dot[3]   \\
+        \hat{y}^{(2)} = f(\Dot[3]) = \Sigm[3]
+    \end{array}
+    \]
+    };
+
+    % actualizacion
+    \node[visible on=<4-5>,text width=6.3cm] at (4.3,-0.4) {
+        Se actualizan el bias y los pesos como indica SGD: \vspace{-0.4cm}
+        \[(b,w_1,\dots,w_4) - 0.1\cdot \nabla F_1(b,w_1,\dots,w_4)\]   \\
+    };
+    \node[visible on=<4-5>] at (4.3,-1.7) {
+    \[
+    \begin{array}{l}
+        (0, -0.5, 0.1, 0.1, 1) - 0.1\cdot \nabla F_1(0, -0.5, 0.1, 0.1, 1) =   \\
+        = \color{red}(-0.05, \Wadj[1], \Wadj[2], \Wadj[3], \Wadj[4])  \text{\color{red}$\leftarrow$ Nuevos valores de $b$ y $w$}  \\
+    \end{array}
+    \]
+    };
+    
+    \node[visible on=<7-8>,text width=6.3cm] at (4.3,-0.4) {
+        Se actualizan el bias y los pesos como indica SGD: \vspace{-0.4cm}
+        \[(b,w_1,\dots,w_4) - 0.1\cdot \nabla F_0(b,w_1,\dots,w_4)\]   \\
+    };
+    \node[visible on=<7-8>] at (3.7,-1.7) {
+    \[
+    \begin{array}{l}
+        \tiny (-0.05, \Wadj[1], \Wadj[2], \Wadj[3], \Wadj[4]) - 0.1\cdot \nabla F_0(-0.05, \Wadj[1], \Wadj[2
+    ], \Wadj[3], \Wadj[4]) =  \\
+        = \color{red}(\b[2], \Wadjdos[1], \Wadjdos[2], \Wadjdos[3], \Wadjdos[4]) \text{\color{red}$\leftarrow$ Nuevos
+    valores de $b$ y $w $}  \\
+    \end{array}
+    \]
+    };
+    
+    \node[visible on=<10-11>,text width=6.3cm] at (4.3,-0.4) {
+        Se actualizan el bias y los pesos como indica SGD: \vspace{-0.4cm}
+        \[(b,w_1,\dots,w_4) - 0.1\cdot \nabla F_2(b,w_1,\dots,w_4)\]   \\
+    };
+    \node[visible on=<10-11>] at (3.7,-1.7) {
+    \[
+    \begin{array}{l}
+        \tiny (-0.01, \Wadjdos[1], \Wadjdos[2], \Wadjdos[3], \Wadjdos[4]) - 0.1\cdot \nabla F_2(-0.01, \Wadjdos[1
+    ], \Wadjdos[2], \Wadjdos[3], \Wadjdos[4]) =  \\
+        = \color{red}(\b[3], \Wadjtres[1], \Wadjtres[2], \Wadjtres[3], \Wadjtres[4]) \text{\color{red}$\leftarrow$
+    Nuevos
+    valores de $b$ y $w $}  \\
+    \end{array}
+    \]
+    };
+
+
+        
+    \end{tikzpicture}
+
+\end{frame}
+
+\section{Redes feedforward multicapa}
+
+\begin{frame}
+    \centering
+\begin{tikzpicture}[x=2.2cm,y=1.4cm]
+  \readlist\Nnod{4,5,3,2} % number of nodes per layer
+  % \Nnodlen = length of \Nnod (i.e. total number of layers)
+  % \Nnod[1] = element (number of nodes) at index 1
+  \foreachitem \N \in \Nnod{ % loop over layers
+    % \N     = current element in this iteration (i.e. number of nodes for this layer)
+    % \Ncnt  = index of current layer in this iteration
+    \foreach \i [evaluate={\x=\Ncnt; \y=\N/2-\i+0.5; \prev=int(\Ncnt-1);}] in {1,...,\N}{ % loop over nodes
+      \node[mynode] (N\Ncnt-\i) at (\x,\y) {};
+      \ifnum\Ncnt>1 % connect to previous layer
+        \foreach \j in {1,...,\Nnod[\prev]}{ % loop over nodes in previous layer
+          \draw[thick, -stealth] (N\prev-\j) -- (N\Ncnt-\i); % connect arrows directly
+        }
+      \fi % else: nothing to connect first layer
+    }
+  }
+    \draw[ultra thick, draw=red, visible on=<2>] (0.75, 2) rectangle (1.25, -2) {};
+    \node[above, color=red, visible on=<2>] at (1, 2) {INPUT};
+
+    \draw[ultra thick, draw=red, visible on=<3>] (1.75, 2.5) rectangle (3.25, -2.5) {};
+    \node[above, color=red, visible on=<3>] at (2.5, 2.5) {CAPAS OCULTAS};
+
+    \draw[ultra thick, draw=red, visible on=<4>] (3.75, 2) rectangle (4.25, -2) {};
+    \node[above, color=red, visible on=<4>] at (4, 2) {OUTPUT};
+
+
+\end{tikzpicture}
+
+Para entender backpropagation: \url{https://remykarem.github.io/backpropagation-demo/}
+\end{frame}
+
+\begin{frame}
+Existen muchos teoremas de aproximación universal, que demuestran que existen redes neuronales que convergen a
+ciertas clases de funciones.
+
+\vspace{1cm}
+Por ejemplo, el Teorema de Funahashi:
+
+Sean $K\subset\mathbb{R}^n$ compacto, $f\colon K\rightarrow \mathbb{R}$ continua y $\varepsilon >0$, entonces existe
+$g$ una red neuronal de dos capas tal que $\Vert f - g\Vert_{\infty}<\varepsilon$
+
+\end{frame}
+
+\begin{frame}
+    \centering
+    \includegraphics[width=0.8\linewidth]{img/meme_06.jpg}
+\end{frame}
+
+
+\end{document}
+
+
+

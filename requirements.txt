@@ -4,6 +4,9 @@ pandas
 scipy
 formulaic
 scikit-learn
+tensorflow
+keras
+ipympl
 # Gráficos y datasets
 matplotlib
 seaborn
